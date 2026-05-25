@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xiwen's Space | Tin Case Portfolio</title>
+    <title>Welcome to Xiwen's World</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
     <style>
         * {
             box-sizing: border-box;
@@ -12,90 +17,126 @@
         }
 
         body {
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #f7f6f3; /* 温暖细腻的纸张质感底色 */
             min-height: 100vh;
-            overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            overflow-x: hidden;
         }
 
-        /* 铁盒容器：使用你完整的图作为底 */
+        /* 桌面端大容器 */
+        .main-layout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1400px;
+            padding: 0 60px;
+            gap: 40px;
+        }
+
+        /* --- 左侧文字排版板块 --- */
+        .text-sidebar {
+            flex: 1;
+            max-width: 450px;
+            color: #111111;
+        }
+
+        .text-sidebar h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .text-sidebar p {
+            font-size: 1rem;
+            color: #555555;
+            line-height: 1.6;
+            letter-spacing: 0.5px;
+            text-transform: uppercase; /* 对应灵感图的现代排版风 */
+            font-weight: 500;
+        }
+
+        /* --- 右侧铁盒交互板块 --- */
         .tin-case-container {
             position: relative;
-            width: 1000px;  
-            height: 562px;  
-            background-image: url('tin-case-bg.jpg'); /* 完整底图 */
+            width: 800px;  /* 适配排版，略微等比缩放 */
+            height: 450px;  
+            background-image: url('tin-case-bg.jpg'); /* 你的完整底图 */
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            border-radius: 20px;
+            /* 移除过硬的现代阴影，换成细腻的软阴影 */
+            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.12)); 
         }
 
-        /* 浮动交互层 */
+        /* 所有可交互物品的初始状态（完全透明重合在底图上） */
         .interactive-item {
             position: absolute;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 10;
-            /* 初始状态：完全透明，融入底图 */
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             opacity: 0; 
+            z-index: 10;
         }
 
-        /* 核心魔法：鼠标移入时瞬间实体化、放大、并增加强烈发光遮挡底层 */
+        /* 鼠标悬停时的通用高亮魔法 */
         .interactive-item:hover {
-            opacity: 1; /* 变成实体 */
-            transform: scale(1.08) translateY(-8px); /* 放大并向上飘 */
-            /* 强烈的多重阴影，既产生立体感，又能把底图边缘完美盖住 */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4)) drop-shadow(0 0 10px rgba(255,255,255,0.8));
-            z-index: 50; 
+            opacity: 1;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.35)) drop-shadow(0 0 8px rgba(255,255,255,0.6));
+            z-index: 50;
         }
 
-        /* --- 覆盖定位（微调像素让它跟你的底图完美重合） --- */
+        /* --- 精准修正每个物件的位置与旋转角 --- */
 
-        /* 1. 照片 */
+        /* 1. 照片 (About Me) - 抬高位置 */
         #item-about {
-            width: 145px;
-            top: 195px;
-            left: 350px;
+            width: 116px;
+            top: 118px; /* 之前是 195px，大幅往上抬高 */
+            left: 280px;
             transform: rotate(-3deg);
         }
         #item-about:hover {
-            transform: scale(1.08) translateY(-8px) rotate(-3deg);
+            transform: scale(1.08) translateY(-6px) rotate(-3deg);
         }
 
-        /* 2. 手帐本 */
+        /* 2. 手帐本 (Experiences) - 倾斜放 */
         #item-experiences {
-            width: 153px;
-            top: 250px;
-            left: 315px;
+            width: 122px;
+            top: 200px;
+            left: 252px;
+            transform: rotate(-6deg); /* 让它带有一个好看的左倾斜角度 */
+        }
+        #item-experiences:hover {
+            transform: scale(1.08) translateY(-6px) rotate(-6deg); /* 悬停时保持倾斜 */
         }
 
-        /* 3. 拓麻歌子 */
+        /* 3. 拓麻歌子 (Projects) */
         #item-projects {
-            width: 145px;
-            top: 315px;
-            left: 545px;
+            width: 116px;
+            top: 252px;
+            left: 436px;
             transform: rotate(5deg);
         }
         #item-projects:hover {
-            transform: scale(1.08) translateY(-8px) rotate(5deg);
+            transform: scale(1.08) translateY(-6px) rotate(5deg);
         }
 
-        /* --- 提示标签 --- */
+        /* --- 动态弹出的提示标签 --- */
         .tooltip {
             position: absolute;
-            background: rgba(255, 255, 255, 0.95);
-            color: #2c3e50;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.85rem;
+            background: #111111;
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            pointer-events: none; 
+            pointer-events: none;
             opacity: 0;
             transform: scale(0.8) translate(-50%, -100%);
             transition: all 0.2s ease;
@@ -103,26 +144,116 @@
             white-space: nowrap;
         }
 
-        /* 当对应的动态元件被 hover 时显示文字 */
         .interactive-item:hover + .tooltip {
             opacity: 1;
-            transform: scale(1) translate(-50%, -140%);
+            transform: scale(1) translate(-50%, -130%);
+        }
+
+        /* --- 📱 手机移动端完美适配响应式样式 --- */
+        .mobile-portfolio {
+            display: none; /* 在大屏幕上隐藏 */
+            width: 100%;
+            padding: 40px 24px;
+        }
+
+        @media (max-width: 992px) {
+            .main-layout {
+                display: none; /* 在小屏幕或手机上隐藏复杂的铁盒布局 */
+            }
+            body {
+                overflow-y: auto;
+                align-items: flex-start;
+            }
+            .mobile-portfolio {
+                display: block; /* 手机端激活精致的卡片流模式 */
+            }
+            .mobile-header h1 {
+                font-family: 'Playfair Display', serif;
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+            }
+            .mobile-header p {
+                font-size: 0.85rem;
+                color: #666;
+                margin-bottom: 40px;
+                text-transform: uppercase;
+            }
+            .mobile-card {
+                background: white;
+                border-radius: 12px;
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+            .mobile-card img {
+                width: 70px;
+                height: auto;
+                object-fit: contain;
+            }
+            .mobile-card-text h2 {
+                font-size: 1.1rem;
+                margin-bottom: 4px;
+                color: #111;
+            }
+            .mobile-card-text p {
+                font-size: 0.85rem;
+                color: #888;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="tin-case-container">
-        
-        <img src="about-me.png" id="item-about" class="interactive-item" alt="About Me" onclick="navigateTo('about')">
-        <div class="tooltip" style="top: 195px; left: 422px;">✨ ABOUT ME</div>
+    <div class="main-layout">
+        <div class="text-sidebar">
+            <h1>Welcome to Xiwen's world.</h1>
+            <p>→ Hover and click the objects inside the tin case to explore.</p>
+        </div>
 
-        <img src="experiences.png" id="item-experiences" class="interactive-item" alt="Experiences" onclick="navigateTo('experiences')">
-        <div class="tooltip" style="top: 250px; left: 390px;">📁 EXPERIENCES</div>
+        <div class="tin-case-container">
+            <img src="about-me.png" id="item-about" class="interactive-item" alt="About Me" onclick="navigateTo('about')">
+            <div class="tooltip" style="top: 118px; left: 338px;">✨ ABOUT ME</div>
 
-        <img src="projects.png" id="item-projects" class="interactive-item" alt="Projects" onclick="navigateTo('projects')">
-        <div class="tooltip" style="top: 315px; left: 617px;">🎮 PROJECTS</div>
+            <img src="experiences.png" id="item-experiences" class="interactive-item" alt="Experiences" onclick="navigateTo('experiences')">
+            <div class="tooltip" style="top: 200px; left: 313px;">📁 EXPERIENCES</div>
 
+            <img src="projects.png" id="item-projects" class="interactive-item" alt="Projects" onclick="navigateTo('projects')">
+            <div class="tooltip" style="top: 252px; left: 494px;">🎮 PROJECTS</div>
+        </div>
+    </div>
+
+    <div class="mobile-portfolio">
+        <div class="mobile-header">
+            <h1>Welcome to Xiwen's world.</h1>
+            <p>Tap below to explore my space</p>
+        </div>
+
+        <div class="mobile-card" onclick="navigateTo('about')">
+            <img src="about-me.png" alt="About Me">
+            <div class="mobile-card-text">
+                <h2>About Me</h2>
+                <p>Learn more about who I am and my tech journey.</p>
+            </div>
+        </div>
+
+        <div class="mobile-card" onclick="navigateTo('experiences')">
+            <img src="experiences.png" alt="Experiences">
+            <div class="mobile-card-text">
+                <h2>Experiences</h2>
+                <p>My internships and VR research works.</p>
+            </div>
+        </div>
+
+        <div class="mobile-card" onclick="navigateTo('projects')">
+            <img src="projects.png" alt="Projects">
+            <div class="mobile-card-text">
+                <h2>Projects</h2>
+                <p>Interactive web apps and Unity game builds.</p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -132,7 +263,7 @@
             } else if(page === 'experiences') {
                 alert('即将进入 Experiences 经历页面！');
             } else if(page === 'projects') {
-                alert('即将进入 Projects 项目游玩页面！');
+                alert('即将进入 Projects 项目页面！');
             }
         }
     </script>
