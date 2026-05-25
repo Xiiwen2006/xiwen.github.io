@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:ital,wght@0,700;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -38,7 +38,7 @@
             padding: 0 60px;
         }
 
-        /* --- 左侧文字排版（华丽衬线体升级 + 整体往中心靠拢） --- */
+        /* --- 左侧文字排版（复原为干净经典的 Playfair Display） --- */
         .text-sidebar {
             flex: 0 0 auto;
             width: 420px;
@@ -46,8 +46,7 @@
             flex-direction: column;
             justify-content: center;
             z-index: 100;
-            /* 文字本身向右微调，主动向铁盒靠拢 */
-            transform: translateX(40px); 
+            transform: translateX(40px); /* 保持向中间靠拢 */
         }
 
         .title-welcome {
@@ -59,20 +58,19 @@
         }
 
         .title-name {
-            /* 核心修改：使用定制的高级华丽衬线字体，展现极具艺术感的粗体字形 */
-            font-family: 'Cinzel Decorative', serif; 
-            font-size: 4.8rem; /* 因字体自带华丽装饰物，略微收紧尺寸确保精致度 */
-            font-weight: 700; 
-            line-height: 1.1;
+            font-family: 'Playfair Display', serif; /* 彻底恢复原本的字体 */
+            font-size: 5.6rem; 
+            font-weight: 800; 
+            line-height: 1.05;
             color: #000000;
-            margin: 12px 0;
+            margin: 6px 0;
             letter-spacing: -1px;
         }
 
         .title-world {
             font-family: 'Playfair Display', serif;
             font-size: 3.2rem;
-            font-style: italic; /* 展现优美的真斜体拉丝连笔效果 */
+            font-style: italic; /* 保持优雅的真斜体拉丝效果 */
             font-weight: 400;
             line-height: 1.1;
             margin-bottom: 28px;
@@ -87,7 +85,7 @@
             font-weight: 600;
         }
 
-        /* --- 右侧铁盒容器（等比例大尺寸 + 向中间大幅靠拢） --- */
+        /* --- 右侧铁盒容器（整体等比例放大 + 靠中平移） --- */
         .tin-case-container {
             position: relative;
             flex: 0 0 auto;
@@ -102,9 +100,7 @@
             background-repeat: no-repeat;
             filter: drop-shadow(0 35px 70px rgba(0,0,0,0.15)); 
             z-index: 1;
-
-            /* 🎯 核心修改：平移距离加大至 -240px，让整个铁盒带着弹窗大幅度往中间靠拢，彻底消除空隙 */
-            transform: translateX(-240px); 
+            transform: translateX(-240px); /* 保持靠中，消除空隙 */
         }
 
         /* --- 隐形的鼠标悬停感知热区（Hotspots） --- */
@@ -112,21 +108,20 @@
             position: absolute;
             cursor: pointer;
             z-index: 20;
-            /* background: rgba(255,0,0,0.3); */ /* 调试时可取消注释查看红框 */
         }
 
         /* --- Pop-up 弹出组件的初始状态 --- */
         .interactive-popup {
             position: absolute;
-            pointer-events: none; /* 让鼠标事件穿透 */
-            opacity: 0;           /* 默认完全隐形 */
-            transform: scale(0.98); /* 初始大小微缩，处于静止原位 */
+            pointer-events: none; 
+            opacity: 0;           
+            transform: scale(0.98); 
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* 优雅的Q弹过渡 */
             z-index: 10;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
         }
 
-        /* --- 🪄 悬停触发：Pop-up 同步浮现并完美覆盖底图原位置 --- */
+        /* --- 🪄 悬停触发效果 --- */
         #hotspot-about:hover ~ #popup-about {
             opacity: 1;
             transform: scale(1.04) rotate(-2deg); 
@@ -139,14 +134,13 @@
             filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
         }
 
-        /* 拓麻歌子悬停：让它完美在原地等比例稍微放大并覆盖底图 */
         #hotspot-projects:hover ~ #popup-projects {
             opacity: 1;
-            transform: scale(1.06) rotate(3deg);
+            transform: scale(1.06) rotate(3deg); /* 悬停原地等比例放大 */
             filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
         }
 
-        /* --- 🎯 精准测量的热区与 Pop-up 尺寸坐标（完美严丝合缝） --- */
+        /* --- 🎯 精准测量的热区与 Pop-up 尺寸坐标 --- */
 
         /* 1. 照片区域 (About Me) */
         #hotspot-about {
@@ -174,7 +168,7 @@
             left: 26.8%;       
         }
 
-        /* 3. 拓麻歌子区域 (Projects) —— 🛠️ 针对偏左上问题进行无缝下压覆盖校准 */
+        /* 3. 拓麻歌子区域 (Projects) —— 🛠️ 核心调整：往右下角挪动，达成完美无缝物理覆盖 */
         #hotspot-projects {
             width: 16%;
             height: 30%;
@@ -183,8 +177,8 @@
         }
         #popup-projects {
             width: 15.2%; 
-            top: 63.5%;       /* 从 64.5% 稍微往上拉动对齐 */
-            left: 53.2%;      /* 从 54.2% 向右微调，修正偏左问题，确保完美无缝盖住底图 */
+            top: 65.5%;       /* 从 63.5% 进一步向下微调压实 */
+            left: 54.2%;      /* 从 53.2% 大幅度往右移回，精准盖死原图位置 */
         }
 
         /* --- 悬停时动态出现的黑框文字标签 --- */
@@ -205,7 +199,7 @@
             white-space: nowrap;
         }
 
-        /* 鼠标移入热区，标签在对应物体上方优雅弹出 */
+        /* 标签优雅浮现位置 */
         #hotspot-about:hover ~ #tip-about { opacity: 1; transform: translate(-50%, -10px) scale(1); }
         #hotspot-experiences:hover ~ #tip-experiences { opacity: 1; transform: translate(-50%, -10px) scale(1); }
         #hotspot-projects:hover ~ #tip-projects { opacity: 1; transform: translate(-50%, -10px) scale(1); }
