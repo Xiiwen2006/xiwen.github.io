@@ -17,69 +17,61 @@
         }
 
         body {
-            background-color: #f7f6f3; /* 温暖细腻的手账纸张底色 */
-            height: 100vh; /* 严格锁定一屏 */
+            background-color: #f7f6f3; /* 温暖细腻的手账纸底色 */
+            height: 100vh;
             width: 100vw;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            overflow: hidden; /* 彻底禁止出现滚动条 */
+            overflow: hidden; /* 严禁滚动条 */
         }
 
-        /* 桌面端：最一开始左右分栏的经典大容器布局 */
+        /* 桌面端：经典左右排版大容器 */
         .main-layout {
             display: flex;
             align-items: center;
-            justify-content: space-between; /* 左右两端完全撑开排版 */
+            justify-content: space-between;
             width: 100%;
-            max-width: 1200px; /* 舒适的网页视觉宽度 */
+            max-width: 1350px; /* 略微调大最大宽度以容纳更大的铁盒 */
             height: 100vh;
-            padding: 0 50px;
+            padding: 0 60px;
+            gap: 40px;
         }
 
-        /* --- 左侧文字排版板块（回归最一开始的排版，换上华丽花体） --- */
+        /* --- 左侧文字排版 --- */
         .text-sidebar {
             flex: 0 0 auto;
-            width: 400px; /* 固定的优雅字块宽度 */
-            color: #111111;
+            width: 400px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             z-index: 100;
         }
 
-        /* 第一行 Welcome to */
         .title-welcome {
             font-family: 'Playfair Display', serif;
             font-size: 3.2rem;
-            font-weight: 400;
-            line-height: 1.1;
             color: #222222;
         }
 
-        /* 第二行 Xiwen's —— 还原手账拉花视觉的超级华丽花体 */
         .title-name {
-            font-family: 'Cinzel Decorative', serif; /* 极其华丽的高级拉花艺术字体 */
-            font-size: 5.2rem; /* 字号大，极具张力 */
+            font-family: 'Cinzel Decorative', serif; /* 复古哥特拉花字体 */
+            font-size: 5.2rem;
             font-weight: 700;
             line-height: 1.05;
-            letter-spacing: -1px;
             color: #000000;
             margin: 6px 0;
         }
 
-        /* 第三行 world. */
         .title-world {
             font-family: 'Playfair Display', serif;
             font-size: 3.2rem;
-            font-style: italic; /* 艺术斜体作结尾 */
-            font-weight: 400;
-            line-height: 1.1;
+            font-style: italic;
+            color: #111111;
             margin-bottom: 24px;
         }
 
-        /* 底部探索提示小字 */
         .text-sidebar p {
             font-size: 0.85rem;
             color: #666666;
@@ -89,77 +81,102 @@
             font-weight: 600;
         }
 
-        /* --- 右侧铁盒交互板块（回归最初的最稳固比例，等待你上传无黑边新图） --- */
+        /* --- 右侧铁盒容器（整体等比例放大，严格锁定不溢出） --- */
         .tin-case-container {
             position: relative;
             flex: 0 0 auto;
-            height: 75vh; /* 严格控制高度在屏幕的75%，保证绝不溢出 */
-            width: calc(75vh * (1000 / 562.5)); /* 锁定最初完美的宽高比 */
-            max-height: 600px;
-            max-width: 1066px;
+            height: 85vh; /* 从75vh放大到85vh，让铁盒整体更大更震撼 */
+            width: calc(85vh * (1000 / 562.5)); /* 维持完美的无黑边比例 */
+            max-height: 700px; /* 限制最大高度，防止在大屏上过大 */
+            max-width: 1244px;
             
             background-image: url('tin-case-bg.jpg'); 
-            background-size: contain; /* 回归标准：让图片完整缩放在容器内，不放大 */
+            background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12)); 
+            filter: drop-shadow(0 35px 70px rgba(0,0,0,0.15)); 
             z-index: 1;
         }
 
-        /* 所有可交互物品的初始状态（保持完全可见） */
-        .interactive-item {
+        /* --- 🎯 核心改变：隐形的鼠标悬停感知热区（Hotspots） --- */
+        .hotspot-zone {
             position: absolute;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            opacity: 1; 
+            z-index: 20;
+            /* background: rgba(255,0,0,0.2); */ /* 调试时可以取消注释查看热区位置 */
+        }
+
+        /* --- 🎯 Pop-up 弹出组件的初始状态（默认完全隐藏、尺寸刚好覆盖原图） --- */
+        .interactive-popup {
+            position: absolute;
+            pointer-events: none; /* 让鼠标事件穿透，不干扰热区 */
+            opacity: 0;           /* 默认完全隐形 */
+            transform: scale(0.95); /* 弹出前微微缩小，制造动感 */
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* 优雅的Q弹物理过渡 */
             z-index: 10;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
         }
 
-        /* 鼠标悬停时的通用高亮发光效果 */
-        .interactive-item:hover {
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45)) drop-shadow(0 0 15px rgba(255,255,255,0.8));
-            z-index: 50;
+        /* --- 🪄 触发魔法：当鼠标放到对应的热区上时，Pop-up 完美等比例放大浮现 --- */
+        #hotspot-about:hover ~ #popup-about {
+            opacity: 1;
+            transform: scale(1.05) rotate(-3deg); /* 悬停时比原图稍微大一些些，带有一点点生动的旋转 */
+            filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
         }
 
-        /* --- 🎯 经典视窗下的精准物件百分比定位坐标 --- */
-
-        /* 1. 照片 (About Me) */
-        #item-about {
-            width: 23%;       
-            top: 21%;      
-            left: 26.5%;       
-            transform: rotate(-3deg);
-            transform-origin: center center;
-        }
-        #item-about:hover {
-            transform: scale(1.08) rotate(-3deg);
+        #hotspot-experiences:hover ~ #popup-experiences {
+            opacity: 1;
+            transform: scale(1.05) rotate(-5deg);
+            filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
         }
 
-        /* 2. 手帐本 (Experiences) */
-        #item-experiences {
-            width: 24%;    
-            top: 41.5%;        
-            left: 21.2%;       
-            transform: rotate(-6deg); 
-            transform-origin: center center;
-        }
-        #item-experiences:hover {
-            transform: scale(1.08) rotate(-6deg); 
+        #hotspot-projects:hover ~ #popup-projects {
+            opacity: 1;
+            transform: scale(1.08) rotate(4deg);
         }
 
-        /* 3. 拓麻歌子 (Projects) */
-        #item-projects {
-            width: 23%;      
-            top: 68.8%;        
-            left: 57.5%;       
-            transform: rotate(5deg);
-            transform-origin: center center; 
+        /* --- 🎯 精准测量的热区与 Pop-up 尺寸坐标（完美覆盖原图对应物品） --- */
+
+        /* 1. 照片区域 (About Me) */
+        #hotspot-about {
+            width: 16%;
+            height: 28%;
+            top: 20%;
+            left: 33%;
         }
-        #item-projects:hover {
-            transform: scale(1.25) rotate(5deg); 
+        #popup-about {
+            width: 15.6%; /* 大小刚刚好覆盖原底图上的照片 */
+            top: 19.5%;
+            left: 33.2%;
         }
 
-        /* --- 动态弹出的提示标签 --- */
+        /* 2. 手账本区域 (Experiences) */
+        #hotspot-experiences {
+            width: 17%;
+            height: 48%;
+            top: 44%;
+            left: 21%;
+        }
+        #popup-experiences {
+            width: 15.8%; /* 刚刚好覆盖原底图上的本子 */
+            top: 44%;
+            left: 21.5%;
+        }
+
+        /* 3. 拓麻歌子区域 (Projects) */
+        #hotspot-projects {
+            width: 16%;
+            height: 30%;
+            top: 64%;
+            left: 54%;
+        }
+        #popup-projects {
+            width: 15.2%; /* 刚刚好覆盖原底图上的拓麻歌子 */
+            top: 64.5%;
+            left: 54.2%;
+        }
+
+        /* --- 悬停时动态出现的精致文字黑框标签 --- */
         .tooltip {
             position: absolute;
             background: #111111;
@@ -171,18 +188,19 @@
             letter-spacing: 1px;
             pointer-events: none;
             opacity: 0;
-            transform: scale(0.8) translate(-50%, -100%);
+            transform: translate(-50%, 0) scale(0.8);
             transition: all 0.2s ease;
             z-index: 100;
             white-space: nowrap;
         }
 
-        .interactive-item:hover + .tooltip {
-            opacity: 1;
-            transform: scale(1) translate(-50%, -130%);
-        }
+        /* 鼠标移入热区，标签在对应物体上方优雅弹出 */
+        #hotspot-about:hover ~ #tip-about { opacity: 1; transform: translate(-50%, -10px) scale(1); }
+        #hotspot-experiences:hover ~ #tip-experiences { opacity: 1; transform: translate(-50%, -10px) scale(1); }
+        #hotspot-projects:hover ~ #tip-projects { opacity: 1; transform: translate(-50%, -10px) scale(1); }
 
-        /* --- 📱 手机移动端布局自适应样式（保持稳固） --- */
+
+        /* --- 📱 手机移动端自适应布局（保持稳定不干扰） --- */
         .mobile-portfolio {
             display: none; 
             width: 100%;
@@ -199,69 +217,23 @@
             margin-bottom: 40px; 
         }
 
-        /* 屏幕较矮时的缩放防护 */
-        @media (max-height: 750px) {
-            .title-name { font-size: 4.2rem; }
-            .title-welcome, .title-world { font-size: 2.6rem; }
-        }
-
-        /* 移动端自适应触发 */
         @media (max-width: 992px) {
-            .main-layout {
-                display: none; 
-            }
-            body {
-                overflow-y: auto;
-                align-items: flex-start;
-                height: auto;
-                width: auto;
-            }
-            .mobile-portfolio {
-                display: block; 
-            }
-            .mobile-header h1 {
-                font-family: 'Playfair Display', serif;
-                font-size: 2.5rem;
-                margin-bottom: 12px;
-                line-height: 1.2;
-            }
-            .mobile-header p {
-                font-size: 0.85rem;
-                color: #666;
-                margin-bottom: 24px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-            .mobile-card {
-                background: white;
-                border-radius: 12px;
-                padding: 20px;
-                margin-bottom: 20px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-                display: flex;
-                align-items: center;
-                gap: 20px;
-            }
-            .mobile-card img {
-                width: 70px;
-                height: auto;
-                object-fit: contain;
-            }
-            .mobile-card-text h2 {
-                font-size: 1.1rem;
-                margin-bottom: 4px;
-                color: #111;
-            }
-            .mobile-card-text p {
-                font-size: 0.85rem;
-                color: #888;
-            }
+            .main-layout { display: none; }
+            body { overflow-y: auto; align-items: flex-start; height: auto; width: auto; }
+            .mobile-portfolio { display: block; }
+            .mobile-header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 12px; }
+            .mobile-header p { font-size: 0.85rem; color: #666; margin-bottom: 24px; text-transform: uppercase; }
+            .mobile-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; }
+            .mobile-card img { width: 70px; height: auto; object-fit: contain; }
+            .mobile-card-text h2 { font-size: 1.1rem; margin-bottom: 4px; color: #111; }
+            .mobile-card-text p { font-size: 0.85rem; color: #888; }
         }
     </style>
 </head>
 <body>
 
     <div class="main-layout">
+        
         <div class="text-sidebar">
             <span class="title-welcome">Welcome to</span>
             <span class="title-name">Xiwen's</span>
@@ -270,14 +242,19 @@
         </div>
 
         <div class="tin-case-container">
-            <img src="about-me.png" id="item-about" class="interactive-item" alt="About Me" onclick="window.location.href='about.html'">
-            <div class="tooltip" style="top: 21%; left: 38%;">ABOUT ME</div>
+            
+            <div id="hotspot-about" class="hotspot-zone" onclick="window.location.href='about.html'"></div>
+            <img src="about-me.png" id="popup-about" class="interactive-popup" alt="About Me">
+            <div id="tip-about" class="tooltip" style="top: 15%; left: 41%;">ABOUT ME</div>
 
-            <img src="experiences.png" id="item-experiences" class="interactive-item" alt="Experiences" onclick="window.location.href='experiences.html'">
-            <div class="tooltip" style="top: 41.5%; left: 33.2%;">EXPERIENCES</div>
+            <div id="hotspot-experiences" class="hotspot-zone" onclick="window.location.href='experiences.html'"></div>
+            <img src="experiences.png" id="popup-experiences" class="interactive-popup" alt="Experiences">
+            <div id="tip-experiences" class="tooltip" style="top: 39%; left: 29%;">EXPERIENCES</div>
 
-            <img src="projects.png" id="item-projects" class="interactive-item" alt="Projects" onclick="window.location.href='projects.html'">
-            <div class="tooltip" style="top: 68.8%; left: 69%;">PROJECTS</div>
+            <div id="hotspot-projects" class="hotspot-zone" onclick="window.location.href='projects.html'"></div>
+            <img src="projects.png" id="popup-projects" class="interactive-popup" alt="Projects">
+            <div id="tip-projects" class="tooltip" style="top: 60%; left: 62%;">PROJECTS</div>
+
         </div>
     </div>
 
