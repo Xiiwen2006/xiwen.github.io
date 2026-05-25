@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -27,19 +27,18 @@
             overflow: hidden; /* 严禁滚动条 */
         }
 
-        /* 桌面端：经典左右排版大容器 */
+        /* 桌面端布局大容器 */
         .main-layout {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            max-width: 1350px; /* 略微调大最大宽度以容纳更大的铁盒 */
+            max-width: 1300px; 
             height: 100vh;
-            padding: 0 60px;
-            gap: 40px;
+            padding: 0 40px;
         }
 
-        /* --- 左侧文字排版 --- */
+        /* --- 左侧文字排版（全部统一为 Playfair Display 字体） --- */
         .text-sidebar {
             flex: 0 0 auto;
             width: 400px;
@@ -52,23 +51,27 @@
         .title-welcome {
             font-family: 'Playfair Display', serif;
             font-size: 3.2rem;
+            font-weight: 400;
             color: #222222;
+            line-height: 1.1;
         }
 
         .title-name {
-            font-family: 'Cinzel Decorative', serif; /* 复古哥特拉花字体 */
-            font-size: 5.2rem;
-            font-weight: 700;
+            font-family: 'Playfair Display', serif; /* 统一字体 */
+            font-size: 5.6rem; /* 稍微放大，突显核心 */
+            font-weight: 800; /* 使用浓厚的粗体增强视觉分量 */
             line-height: 1.05;
             color: #000000;
             margin: 6px 0;
+            letter-spacing: -1px;
         }
 
         .title-world {
             font-family: 'Playfair Display', serif;
             font-size: 3.2rem;
-            font-style: italic;
-            color: #111111;
+            font-style: italic; /* 艺术斜体结尾 */
+            font-weight: 400;
+            line-height: 1.1;
             margin-bottom: 24px;
         }
 
@@ -81,14 +84,14 @@
             font-weight: 600;
         }
 
-        /* --- 右侧铁盒容器（整体等比例放大，严格锁定不溢出） --- */
+        /* --- 右侧铁盒容器（整体等比例放大 + 整体向左位移修正） --- */
         .tin-case-container {
             position: relative;
             flex: 0 0 auto;
-            height: 85vh; /* 从75vh放大到85vh，让铁盒整体更大更震撼 */
-            width: calc(85vh * (1000 / 562.5)); /* 维持完美的无黑边比例 */
-            max-height: 700px; /* 限制最大高度，防止在大屏上过大 */
-            max-width: 1244px;
+            height: 90vh; /* 再次等比例放大！从85vh提升至90vh */
+            width: calc(90vh * (1000 / 562.5)); /* 维持完美的无黑边比例 */
+            max-height: 760px; /* 防超大屏溢出防护 */
+            max-width: 1350px;
             
             background-image: url('tin-case-bg.jpg'); 
             background-size: contain;
@@ -96,31 +99,34 @@
             background-repeat: no-repeat;
             filter: drop-shadow(0 35px 70px rgba(0,0,0,0.15)); 
             z-index: 1;
+
+            /* 核心修改：通过负的 translateX，将整个铁盒连带所有内嵌的 pop-up 整体向左平移 */
+            transform: translateX(-60px); 
         }
 
-        /* --- 🎯 核心改变：隐形的鼠标悬停感知热区（Hotspots） --- */
+        /* --- 隐形的鼠标悬停感知热区（Hotspots） --- */
         .hotspot-zone {
             position: absolute;
             cursor: pointer;
             z-index: 20;
-            /* background: rgba(255,0,0,0.2); */ /* 调试时可以取消注释查看热区位置 */
+            /* background: rgba(255,0,0,0.3); */ /* 调试时可以取消注释查看红框位置 */
         }
 
-        /* --- 🎯 Pop-up 弹出组件的初始状态（默认完全隐藏、尺寸刚好覆盖原图） --- */
+        /* --- Pop-up 弹出组件的初始状态（默认完全隐藏、尺寸刚好覆盖原图） --- */
         .interactive-popup {
             position: absolute;
-            pointer-events: none; /* 让鼠标事件穿透，不干扰热区 */
+            pointer-events: none; /* 让鼠标事件穿透，不干扰热区触发 */
             opacity: 0;           /* 默认完全隐形 */
-            transform: scale(0.95); /* 弹出前微微缩小，制造动感 */
+            transform: scale(0.96); 
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* 优雅的Q弹物理过渡 */
             z-index: 10;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
         }
 
-        /* --- 🪄 触发魔法：当鼠标放到对应的热区上时，Pop-up 完美等比例放大浮现 --- */
+        /* --- 🪄 悬停触发：当鼠标放到对应的热区上时，Pop-up 完美同步放大浮现 --- */
         #hotspot-about:hover ~ #popup-about {
             opacity: 1;
-            transform: scale(1.05) rotate(-3deg); /* 悬停时比原图稍微大一些些，带有一点点生动的旋转 */
+            transform: scale(1.05) rotate(-3deg); /* 悬停时比原图稍微大一些些 */
             filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
         }
 
@@ -133,9 +139,10 @@
         #hotspot-projects:hover ~ #popup-projects {
             opacity: 1;
             transform: scale(1.08) rotate(4deg);
+            filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
         }
 
-        /* --- 🎯 精准测量的热区与 Pop-up 尺寸坐标（完美覆盖原图对应物品） --- */
+        /* --- 🎯 精准测量的热区与 Pop-up 尺寸坐标（完美严丝合缝） --- */
 
         /* 1. 照片区域 (About Me) */
         #hotspot-about {
@@ -145,22 +152,22 @@
             left: 33%;
         }
         #popup-about {
-            width: 15.6%; /* 大小刚刚好覆盖原底图上的照片 */
+            width: 15.6%; 
             top: 19.5%;
             left: 33.2%;
         }
 
-        /* 2. 手账本区域 (Experiences) */
+        /* 2. 手账本区域 (Experiences) —— 依照指示：整体往右移动，精准匹配本子位置 */
         #hotspot-experiences {
-            width: 17%;
+            width: 18%;        /* 略微调宽热区 */
             height: 48%;
             top: 44%;
-            left: 21%;
+            left: 24.5%;       /* 从 21% 向右平移修正到 24.5% */
         }
         #popup-experiences {
-            width: 15.8%; /* 刚刚好覆盖原底图上的本子 */
+            width: 15.8%; 
             top: 44%;
-            left: 21.5%;
+            left: 24.8%;       /* 弹出图片同步向右平移严丝合缝对齐 */
         }
 
         /* 3. 拓麻歌子区域 (Projects) */
@@ -171,7 +178,7 @@
             left: 54%;
         }
         #popup-projects {
-            width: 15.2%; /* 刚刚好覆盖原底图上的拓麻歌子 */
+            width: 15.2%; 
             top: 64.5%;
             left: 54.2%;
         }
@@ -200,7 +207,7 @@
         #hotspot-projects:hover ~ #tip-projects { opacity: 1; transform: translate(-50%, -10px) scale(1); }
 
 
-        /* --- 📱 手机移动端自适应布局（保持稳定不干扰） --- */
+        /* --- 📱 手机移动端自适应布局（保持稳定） --- */
         .mobile-portfolio {
             display: none; 
             width: 100%;
@@ -249,7 +256,7 @@
 
             <div id="hotspot-experiences" class="hotspot-zone" onclick="window.location.href='experiences.html'"></div>
             <img src="experiences.png" id="popup-experiences" class="interactive-popup" alt="Experiences">
-            <div id="tip-experiences" class="tooltip" style="top: 39%; left: 29%;">EXPERIENCES</div>
+            <div id="tip-experiences" class="tooltip" style="top: 39%; left: 32.5%;">EXPERIENCES</div>
 
             <div id="hotspot-projects" class="hotspot-zone" onclick="window.location.href='projects.html'"></div>
             <img src="projects.png" id="popup-projects" class="interactive-popup" alt="Projects">
