@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dura+Sans:wght@700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -17,87 +17,90 @@
         }
 
         body {
-            background-color: #f7f6f3; /* 温暖细腻的纸张质感底色 */
-            height: 100vh; /* 严格锁定一屏高度 */
-            width: 100vw;  /* 严格锁定一屏宽度 */
+            background-color: #f7f6f3; /* 温暖细腻的手账纸张底色 */
+            height: 100vh; /* 严格锁定一屏 */
+            width: 100vw;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            overflow: hidden; /* 彻底禁止出现任何滚动条 */
+            overflow: hidden; /* 彻底禁止出现滚动条 */
         }
 
-        /* 桌面端大容器 */
+        /* 桌面端：最一开始左右分栏的经典大容器布局 */
         .main-layout {
             display: flex;
             align-items: center;
-            justify-content: center; /* 居中紧凑排列文字与铁盒 */
-            width: 100vw;
+            justify-content: space-between; /* 左右两端完全撑开排版 */
+            width: 100%;
+            max-width: 1200px; /* 舒适的网页视觉宽度 */
             height: 100vh;
-            padding: 0 40px;
-            gap: -80px; /* 允许华丽文字与铁盒产生适度的艺术性重叠，还原设计稿质感 */
+            padding: 0 50px;
         }
 
-        /* --- 左侧文字排版板块（分三行，字体独立样式，极致华丽化） --- */
+        /* --- 左侧文字排版板块（回归最一开始的排版，换上华丽花体） --- */
         .text-sidebar {
             flex: 0 0 auto;
-            width: 480px; /* 紧凑字块宽度 */
+            width: 400px; /* 固定的优雅字块宽度 */
             color: #111111;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center; /* 内部居中对齐 */
-            z-index: 100; /* 确保文字始终压在铁盒上方 */
-            transform: translateX(-30px); /* 整体微调向左，与铁盒平衡 */
+            z-index: 100;
         }
 
         /* 第一行 Welcome to */
         .title-welcome {
             font-family: 'Playfair Display', serif;
             font-size: 3.2rem;
-            font-style: italic; /* 用优雅斜体引出 */
             font-weight: 400;
             line-height: 1.1;
-            color: #333333;
-            margin-right: 150px; /* 错落排版 */
+            color: #222222;
         }
 
-        /* 第二行 Xiwen's - 使用极度华丽的 Dura Sans 粗体 */
+        /* 第二行 Xiwen's —— 还原手账拉花视觉的超级华丽花体 */
         .title-name {
-            font-family: 'Dura Sans', serif; /* 极具手账艺术感的顶级华丽字体 */
-            font-size: 7.2rem; /* 字号巨大，气场拉满 */
+            font-family: 'Cinzel Decorative', serif; /* 极其华丽的高级拉花艺术字体 */
+            font-size: 5.2rem; /* 字号大，极具张力 */
             font-weight: 700;
-            line-height: 0.95;
-            letter-spacing: -3px; /* 紧凑的字母间距，强化整体视觉冲击 */
+            line-height: 1.05;
+            letter-spacing: -1px;
             color: #000000;
-            transform: rotate(-4deg); /* 带有一个好看的艺术性倾斜角度 */
-            margin: -5px 0 -15px 0; /* 错落重叠排版 */
-            text-align: center;
+            margin: 6px 0;
         }
 
         /* 第三行 world. */
         .title-world {
             font-family: 'Playfair Display', serif;
             font-size: 3.2rem;
+            font-style: italic; /* 艺术斜体作结尾 */
             font-weight: 400;
             line-height: 1.1;
-            margin-left: 150px; /* 错落排版 */
+            margin-bottom: 24px;
         }
 
-        /* 移除左侧原本的小字说明，保持页面干净聚焦 */
+        /* 底部探索提示小字 */
+        .text-sidebar p {
+            font-size: 0.85rem;
+            color: #666666;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
 
-        /* --- 右侧铁盒交互板块（通过核心放大，彻底消灭两侧宽黑边阻碍） --- */
+        /* --- 右侧铁盒交互板块（回归最初的最稳固比例，等待你上传无黑边新图） --- */
         .tin-case-container {
             position: relative;
             flex: 0 0 auto;
-            height: 85vh; /* 高度占屏幕的 85% */
-            width: calc(85vh * (1000 / 562.5)); /* 保持完美高宽比 */
-            max-height: 720px; 
-            max-width: 1280px;
+            height: 75vh; /* 严格控制高度在屏幕的75%，保证绝不溢出 */
+            width: calc(75vh * (1000 / 562.5)); /* 锁定最初完美的宽高比 */
+            max-height: 600px;
+            max-width: 1066px;
             
             background-image: url('tin-case-bg.jpg'); 
-            background-size: 162% auto; /* 核心魔法：放大1.6倍底图，直接把两侧黑边推开并隐藏 */
-            background-position: 49.5% center; /* 完美聚焦在正中央的金属铁盒上 */
+            background-size: contain; /* 回归标准：让图片完整缩放在容器内，不放大 */
+            background-position: center center;
             background-repeat: no-repeat;
             filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12)); 
             z-index: 1;
@@ -108,17 +111,17 @@
             position: absolute;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            opacity: 1; /* 保持可见，不隐藏 */
+            opacity: 1; 
             z-index: 10;
         }
 
-        /* 鼠标悬停时的通用高亮魔法 */
+        /* 鼠标悬停时的通用高亮发光效果 */
         .interactive-item:hover {
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45)) drop-shadow(0 0 15px rgba(255,255,255,0.8));
             z-index: 50;
         }
 
-        /* --- 配合无黑边新视窗与文字错落重叠调整坐标定位 --- */
+        /* --- 🎯 经典视窗下的精准物件百分比定位坐标 --- */
 
         /* 1. 照片 (About Me) */
         #item-about {
@@ -179,7 +182,7 @@
             transform: scale(1) translate(-50%, -130%);
         }
 
-        /* --- 📱 手机移动端布局适配（同上一版，保持响应式） --- */
+        /* --- 📱 手机移动端布局自适应样式（保持稳固） --- */
         .mobile-portfolio {
             display: none; 
             width: 100%;
@@ -194,17 +197,15 @@
             background-repeat: no-repeat;
             background-position: center;
             margin-bottom: 40px; 
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
         }
 
-        @media (max-height: 780px) {
-            /* 智能缩放：当屏幕真的很矮时，等比例缩小字体防止溢出一屏 */
-            .title-name { font-size: 6rem; }
-            .title-welcome, .title-world { font-size: 2.8rem; }
-            .main-layout { gap: -100px; }
+        /* 屏幕较矮时的缩放防护 */
+        @media (max-height: 750px) {
+            .title-name { font-size: 4.2rem; }
+            .title-welcome, .title-world { font-size: 2.6rem; }
         }
 
-        /* 移动端自适应 */
+        /* 移动端自适应触发 */
         @media (max-width: 992px) {
             .main-layout {
                 display: none; 
@@ -265,6 +266,7 @@
             <span class="title-welcome">Welcome to</span>
             <span class="title-name">Xiwen's</span>
             <span class="title-world">world.</span>
+            <p>→ Hover and click the objects inside the tin case to explore.</p>
         </div>
 
         <div class="tin-case-container">
