@@ -30,31 +30,33 @@
         .main-layout {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center; /* 居中紧凑排列 */
             width: 100%;
-            max-width: 1600px;
-            padding: 0 60px;
-            gap: 50px;
+            max-width: 1800px;
+            padding: 0 40px;
+            gap: 20px; /* 大幅缩小间距，让文字紧贴铁盒边缘 */
         }
 
         /* --- 左侧文字排版板块 --- */
         .text-sidebar {
-            flex: 1;
-            max-width: 450px;
+            flex: 0 0 auto;
+            width: 550px; /* 加宽容器，确保文字能够一行排开 */
             color: #111111;
+            z-index: 60;
         }
 
         .text-sidebar h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.8rem;
+            font-size: 3.8rem; /* 保持文字原始大小不变 */
             font-weight: 500;
             line-height: 1.1;
             margin-bottom: 24px;
             letter-spacing: -1px;
+            white-space: nowrap; /* 强行确保 Welcome 这一行绝对不换行 */
         }
 
         .text-sidebar p {
-            font-size: 1rem;
+            font-size: 1rem; /* 保持字号不变 */
             color: #555555;
             line-height: 1.6;
             letter-spacing: 0.5px;
@@ -62,16 +64,18 @@
             font-weight: 500;
         }
 
-        /* --- 右侧铁盒交互板块（整体等比例放大 1.25 倍） --- */
+        /* --- 右侧铁盒交互板块（完美切除白边，等比例放大1.5倍） --- */
         .tin-case-container {
             position: relative;
-            width: 1000px;  /* 800 * 1.25 */
-            height: 562.5px; /* 450 * 1.25 */
-            background-image: url('tin-case-bg.jpg'); /* 你的完整底图 */
-            background-size: contain;
+            flex: 0 0 auto;
+            width: 1300px;   /* 大幅等比放大 */
+            height: 731.25px;
+            background-image: url('tin-case-bg.jpg'); 
+            background-size: cover; /* 改为 cover 强行剔除图片两边多余的边缘留白 */
+            background-position: center center;
             background-repeat: no-repeat;
-            background-position: center;
-            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.12)); 
+            filter: drop-shadow(0 40px 70px rgba(0,0,0,0.15)); 
+            border-radius: 40px; /* 让切边后的过渡更柔和自然 */
         }
 
         /* 所有可交互物品的初始状态（完全透明重合在底图上） */
@@ -86,17 +90,17 @@
         /* 鼠标悬停时的通用高亮魔法 */
         .interactive-item:hover {
             opacity: 1;
-            filter: drop-shadow(0 25px 40px rgba(0,0,0,0.45)) drop-shadow(0 0 15px rgba(255,255,255,0.8));
+            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.45)) drop-shadow(0 0 20px rgba(255,255,255,0.9));
             z-index: 50;
         }
 
-        /* --- 每个物件的位置、尺寸与旋转角均等比例放大 1.25 倍计算 --- */
+        /* --- 基于1.5倍视效坐标系，重新精准计算物品尺寸与定位 --- */
 
         /* 1. 照片 (About Me) */
         #item-about {
-            width: 145px;      
-            top: 147.5px;      
-            left: 350px;       
+            width: 188px;      
+            top: 192px;      
+            left: 455px;       
             transform: rotate(-3deg);
             transform-origin: center center;
         }
@@ -106,9 +110,9 @@
 
         /* 2. 手帐本 (Experiences) */
         #item-experiences {
-            width: 152.5px;    
-            top: 250px;        
-            left: 315px;       
+            width: 198px;    
+            top: 325px;        
+            left: 410px;       
             transform: rotate(-6deg); 
             transform-origin: center center;
         }
@@ -116,11 +120,11 @@
             transform: scale(1.12) rotate(-6deg); 
         }
 
-        /* 3. 拓麻歌子 (Projects) —— 完美重合，大幅等比放大 1.35 倍 */
+        /* 3. 拓麻歌子 (Projects) —— 完美对齐，放大1.35倍 */
         #item-projects {
-            width: 145px;      
-            top: 387.5px;      
-            left: 545px;       
+            width: 188px;      
+            top: 504px;        
+            left: 708px;       
             transform: rotate(5deg);
             transform-origin: center center; 
         }
@@ -133,7 +137,7 @@
             position: absolute;
             background: #111111;
             color: #ffffff;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: 600;
@@ -161,13 +165,20 @@
         /* 手机端专属的静止展示铁盒 */
         .mobile-tin-case-preview {
             width: 100%;
-            aspect-ratio: 1000 / 562.5; /* 保持16:9黄金比例 */
+            aspect-ratio: 1300 / 731.25; 
             background-image: url('tin-case-bg.jpg');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            margin-bottom: 40px; /* 与下方选项拉开间距 */
+            margin-bottom: 40px; 
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+        }
+
+        @media (max-width: 1400px) {
+            /* 针对稍小一点的屏幕自动微调比例，防止超出边界 */
+            .main-layout {
+                transform: scale(0.85);
+            }
         }
 
         @media (max-width: 992px) {
@@ -186,6 +197,7 @@
                 font-size: 2.5rem;
                 margin-bottom: 12px;
                 line-height: 1.2;
+                white-space: normal;
             }
             .mobile-header p {
                 font-size: 0.85rem;
@@ -232,13 +244,13 @@
 
         <div class="tin-case-container">
             <img src="about-me.png" id="item-about" class="interactive-item" alt="About Me" onclick="window.location.href='about.html'">
-            <div class="tooltip" style="top: 147.5px; left: 422.5px;">ABOUT ME</div>
+            <div class="tooltip" style="top: 192px; left: 549px;">ABOUT ME</div>
 
             <img src="experiences.png" id="item-experiences" class="interactive-item" alt="Experiences" onclick="window.location.href='experiences.html'">
-            <div class="tooltip" style="top: 250px; left: 391.25px;">EXPERIENCES</div>
+            <div class="tooltip" style="top: 325px; left: 509px;">EXPERIENCES</div>
 
             <img src="projects.png" id="item-projects" class="interactive-item" alt="Projects" onclick="window.location.href='projects.html'">
-            <div class="tooltip" style="top: 387.5px; left: 617.5px;">PROJECTS</div>
+            <div class="tooltip" style="top: 504px; left: 802px;">PROJECTS</div>
         </div>
     </div>
 
