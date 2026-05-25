@@ -85,12 +85,12 @@
             font-weight: 600;
         }
 
-        /* --- 右侧铁盒容器（整体等比例放大 + 靠中平移） --- */
+        /* --- 右侧铁盒容器（90vh 饱满大尺寸 + 靠中平移） --- */
         .tin-case-container {
             position: relative;
             flex: 0 0 auto;
-            height: 90vh; /* 维持极具张力的 90vh 饱满大尺寸 */
-            width: calc(90vh * (1000 / 562.5)); /* 维持完美的无黑边比例 */
+            height: 90vh; 
+            width: calc(90vh * (1000 / 562.5)); 
             max-height: 760px; 
             max-width: 1350px;
             
@@ -100,10 +100,10 @@
             background-repeat: no-repeat;
             filter: drop-shadow(0 35px 70px rgba(0,0,0,0.15)); 
             z-index: 1;
-            transform: translateX(-240px); /* 保持靠中，消除空隙 */
+            transform: translateX(-240px); /* 保持靠中 */
         }
 
-        /* --- 隐形的鼠标悬停感知热区（Hotspots） --- */
+        /* --- 隐形的鼠标悬停感知热区 --- */
         .hotspot-zone {
             position: absolute;
             cursor: pointer;
@@ -116,28 +116,28 @@
             pointer-events: none; 
             opacity: 0;           
             transform: scale(0.98); 
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); /* 优雅的Q弹过渡 */
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); /* 优雅的Q弹过渡 */
             z-index: 10;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
         }
 
-        /* --- 🪄 悬停触发效果 --- */
+        /* --- 🪄 触发效果：加大缩放比例 (scale) 让弹出更显著 --- */
         #hotspot-about:hover ~ #popup-about {
             opacity: 1;
-            transform: scale(1.04) rotate(-2deg); 
-            filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
+            transform: scale(1.18) rotate(-3deg); /* 放大比例从 1.04 提升至 1.18 */
+            filter: drop-shadow(0 25px 45px rgba(0,0,0,0.4));
         }
 
         #hotspot-experiences:hover ~ #popup-experiences {
             opacity: 1;
-            transform: scale(1.04) rotate(-3deg);
-            filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
+            transform: scale(1.18) rotate(-5deg); /* 放大比例提升至 1.18 */
+            filter: drop-shadow(0 25px 45px rgba(0,0,0,0.4));
         }
 
         #hotspot-projects:hover ~ #popup-projects {
             opacity: 1;
-            transform: scale(1.06) rotate(3deg); 
-            filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
+            transform: scale(1.22) rotate(4deg); /* 拓麻歌子放大比例提升至 1.22 */
+            filter: drop-shadow(0 25px 45px rgba(0,0,0,0.4));
         }
 
         /* --- 🎯 精准测量的热区与 Pop-up 尺寸坐标 --- */
@@ -168,7 +168,7 @@
             left: 26.8%;       
         }
 
-        /* 3. 拓麻歌子区域 (Projects) —— 🛠️ 再次加大力度往右下角挪动 */
+        /* 3. 拓麻歌子区域 (Projects) —— 维持精准对齐的右下位移 */
         #hotspot-projects {
             width: 16%;
             height: 30%;
@@ -177,8 +177,8 @@
         }
         #popup-projects {
             width: 15.2%; 
-            top: 68.5%;       /* 从 65.5% 进一步大幅向下移 */
-            left: 56.5%;      /* 从 54.2% 进一步大幅向右移 */
+            top: 68.5%;       
+            left: 56.5%;      
         }
 
         /* --- 悬停时动态出现的黑框文字标签 --- */
@@ -199,10 +199,9 @@
             white-space: nowrap;
         }
 
-        /* 标签优雅浮现位置 */
-        #hotspot-about:hover ~ #tip-about { opacity: 1; transform: translate(-50%, -10px) scale(1); }
-        #hotspot-experiences:hover ~ #tip-experiences { opacity: 1; transform: translate(-50%, -10px) scale(1); }
-        #hotspot-projects:hover ~ #tip-projects { opacity: 1; transform: translate(-50%, -10px) scale(1); }
+        #hotspot-about:hover ~ #tip-about { opacity: 1; transform: translate(-50%, -25px) scale(1); }
+        #hotspot-experiences:hover ~ #tip-experiences { opacity: 1; transform: translate(-50%, -25px) scale(1); }
+        #hotspot-projects:hover ~ #tip-projects { opacity: 1; transform: translate(-50%, -25px) scale(1); }
 
 
         /* --- 📱 手机移动端自适应布局 --- */
@@ -258,7 +257,7 @@
 
             <div id="hotspot-projects" class="hotspot-zone" onclick="window.location.href='projects.html'"></div>
             <img src="projects.png" id="popup-projects" class="interactive-popup" alt="Projects">
-            <div id="tip-projects" class="tooltip" style="top: 63%; left: 64%;">PROJECTS</div>
+            <div id="tip-projects" class="tooltip" style="top: 60%; left: 64%;">PROJECTS</div>
 
         </div>
     </div>
