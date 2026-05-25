@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -18,64 +18,90 @@
 
         body {
             background-color: #f7f6f3; /* 温暖细腻的纸张质感底色 */
-            min-height: 100vh;
+            height: 100vh; /* 严格锁定一屏高度 */
+            width: 100vw;  /* 严格锁定一屏宽度 */
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            overflow-x: hidden;
+            overflow: hidden; /* 彻底禁止出现滚动条 */
         }
 
-        /* 桌面端大容器 */
+        /* 桌面端大容器 - 采用 flex 完美居中，且永不超出页面 */
         .main-layout {
             display: flex;
             align-items: center;
-            justify-content: center; /* 居中紧凑排列 */
-            width: 100%;
-            max-width: 1800px;
-            padding: 0 40px;
-            gap: 20px; /* 大幅缩小间距，让文字紧贴铁盒边缘 */
+            justify-content: center; 
+            width: 95vw; /* 留出安全边距 */
+            height: 90vh;
+            max-width: 1600px;
+            gap: 40px; /* 控制文字和铁盒的间距，紧凑不散开 */
         }
 
-        /* --- 左侧文字排版板块 --- */
+        /* --- 左侧文字排版板块（分三行，字体独立样式） --- */
         .text-sidebar {
             flex: 0 0 auto;
-            width: 550px; /* 加宽容器，确保文字能够一行排开 */
             color: #111111;
-            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .text-sidebar h1 {
+        /* 第一行 Welcome to */
+        .title-welcome {
             font-family: 'Playfair Display', serif;
-            font-size: 3.8rem; /* 保持文字原始大小不变 */
-            font-weight: 500;
-            line-height: 1.1;
-            margin-bottom: 24px;
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1;
+            color: #222222;
+        }
+
+        /* 第二行 Xiwen's - 独一无二的高级定制大字体 */
+        .title-name {
+            font-family: 'Cinzel', serif; /* 更具雕刻感和视觉冲击力的艺术字体 */
+            font-size: 5rem; /* 字号明显加大，突出名字 */
+            font-weight: 800;
+            line-height: 1.05;
             letter-spacing: -1px;
-            white-space: nowrap; /* 强行确保 Welcome 这一行绝对不换行 */
+            color: #000000;
+            margin: 5px 0;
+        }
+
+        /* 第三行 world. */
+        .title-world {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-style: italic; /* 用优雅的斜体作结尾 */
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 30px;
         }
 
         .text-sidebar p {
-            font-size: 1rem; /* 保持字号不变 */
-            color: #555555;
+            font-size: 0.9rem;
+            color: #666666;
             line-height: 1.6;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             font-weight: 500;
         }
 
-        /* --- 右侧铁盒交互板块（完美切除白边，等比例放大1.5倍） --- */
+        /* --- 右侧铁盒交互板块（基于高度缩放，确保在一页面内完美容纳） --- */
         .tin-case-container {
             position: relative;
             flex: 0 0 auto;
-            width: 1300px;   /* 大幅等比放大 */
-            height: 731.25px;
+            /* 智能比例：高度占屏幕的 75%，宽度根据 16:9 比例自动换算，确保 100% 不超出屏幕 */
+            height: 75vh; 
+            width: calc(75vh * (1000 / 562.5)); 
+            max-height: 680px; /* 设定最大上限防止超大屏幕下糊掉 */
+            max-width: 1208px;
+            
             background-image: url('tin-case-bg.jpg'); 
-            background-size: cover; /* 改为 cover 强行剔除图片两边多余的边缘留白 */
+            background-size: cover; /* 切除原图左右多余的边距，完美贴合交互物件 */
             background-position: center center;
             background-repeat: no-repeat;
-            filter: drop-shadow(0 40px 70px rgba(0,0,0,0.15)); 
-            border-radius: 40px; /* 让切边后的过渡更柔和自然 */
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.15)); 
+            border-radius: 30px;
         }
 
         /* 所有可交互物品的初始状态（完全透明重合在底图上） */
@@ -90,17 +116,17 @@
         /* 鼠标悬停时的通用高亮魔法 */
         .interactive-item:hover {
             opacity: 1;
-            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.45)) drop-shadow(0 0 20px rgba(255,255,255,0.9));
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45)) drop-shadow(0 0 15px rgba(255,255,255,0.8));
             z-index: 50;
         }
 
-        /* --- 基于1.5倍视效坐标系，重新精准计算物品尺寸与定位 --- */
+        /* --- 基于自适应百分比坐标系统，无论屏幕怎么变，落点都精准完美 --- */
 
         /* 1. 照片 (About Me) */
         #item-about {
-            width: 188px;      
-            top: 192px;      
-            left: 455px;       
+            width: 14.5%;      
+            top: 26.25%;      
+            left: 35%;       
             transform: rotate(-3deg);
             transform-origin: center center;
         }
@@ -110,9 +136,9 @@
 
         /* 2. 手帐本 (Experiences) */
         #item-experiences {
-            width: 198px;    
-            top: 325px;        
-            left: 410px;       
+            width: 15.25%;    
+            top: 44.4%;        
+            left: 31.5%;       
             transform: rotate(-6deg); 
             transform-origin: center center;
         }
@@ -120,11 +146,11 @@
             transform: scale(1.12) rotate(-6deg); 
         }
 
-        /* 3. 拓麻歌子 (Projects) —— 完美对齐，放大1.35倍 */
+        /* 3. 拓麻歌子 (Projects) */
         #item-projects {
-            width: 188px;      
-            top: 504px;        
-            left: 708px;       
+            width: 14.5%;      
+            top: 68.9%;        
+            left: 54.5%;       
             transform: rotate(5deg);
             transform-origin: center center; 
         }
@@ -132,7 +158,7 @@
             transform: scale(1.35) rotate(5deg); 
         }
 
-        /* --- 动态弹出的提示标签 --- */
+        /* --- 动态弹出的提示标签（定位同步换算为百分比） --- */
         .tooltip {
             position: absolute;
             background: #111111;
@@ -162,10 +188,9 @@
             padding: 40px 24px;
         }
 
-        /* 手机端专属的静止展示铁盒 */
         .mobile-tin-case-preview {
             width: 100%;
-            aspect-ratio: 1300 / 731.25; 
+            aspect-ratio: 1000 / 562.5; 
             background-image: url('tin-case-bg.jpg');
             background-size: contain;
             background-repeat: no-repeat;
@@ -174,13 +199,13 @@
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
         }
 
-        @media (max-width: 1400px) {
-            /* 针对稍小一点的屏幕自动微调比例，防止超出边界 */
-            .main-layout {
-                transform: scale(0.85);
-            }
+        /* 当屏幕真的很矮时，微调字体大小防止溢出一屏 */
+        @media (max-height: 700px) {
+            .title-name { font-size: 4rem; }
+            .title-welcome, .title-world { font-size: 2.5rem; }
         }
 
+        /* 响应式切换到手机端 */
         @media (max-width: 992px) {
             .main-layout {
                 display: none; 
@@ -188,6 +213,8 @@
             body {
                 overflow-y: auto;
                 align-items: flex-start;
+                height: auto;
+                width: auto;
             }
             .mobile-portfolio {
                 display: block; 
@@ -197,7 +224,6 @@
                 font-size: 2.5rem;
                 margin-bottom: 12px;
                 line-height: 1.2;
-                white-space: normal;
             }
             .mobile-header p {
                 font-size: 0.85rem;
@@ -215,7 +241,6 @@
                 display: flex;
                 align-items: center;
                 gap: 20px;
-                cursor: pointer;
             }
             .mobile-card img {
                 width: 70px;
@@ -238,19 +263,21 @@
 
     <div class="main-layout">
         <div class="text-sidebar">
-            <h1>Welcome to Xiwen's world.</h1>
+            <span class="title-welcome">Welcome to</span>
+            <span class="title-name">Xiwen's</span>
+            <span class="title-world">world.</span>
             <p>→ Hover and click the objects inside the tin case to explore.</p>
         </div>
 
         <div class="tin-case-container">
             <img src="about-me.png" id="item-about" class="interactive-item" alt="About Me" onclick="window.location.href='about.html'">
-            <div class="tooltip" style="top: 192px; left: 549px;">ABOUT ME</div>
+            <div class="tooltip" style="top: 26.25%; left: 42.25%;">ABOUT ME</div>
 
             <img src="experiences.png" id="item-experiences" class="interactive-item" alt="Experiences" onclick="window.location.href='experiences.html'">
-            <div class="tooltip" style="top: 325px; left: 509px;">EXPERIENCES</div>
+            <div class="tooltip" style="top: 44.4%; left: 39.12%;">EXPERIENCES</div>
 
             <img src="projects.png" id="item-projects" class="interactive-item" alt="Projects" onclick="window.location.href='projects.html'">
-            <div class="tooltip" style="top: 504px; left: 802px;">PROJECTS</div>
+            <div class="tooltip" style="top: 68.9%; left: 61.75%;">PROJECTS</div>
         </div>
     </div>
 
