@@ -94,9 +94,9 @@
 
         /* 1. 照片 (About Me) */
         #item-about {
-            width: 145px;      /* 116 * 1.25 */
-            top: 147.5px;      /* 118 * 1.25 */
-            left: 350px;       /* 280 * 1.25 */
+            width: 145px;      
+            top: 147.5px;      
+            left: 350px;       
             transform: rotate(-3deg);
             transform-origin: center center;
         }
@@ -106,9 +106,9 @@
 
         /* 2. 手帐本 (Experiences) */
         #item-experiences {
-            width: 152.5px;    /* 122 * 1.25 */
-            top: 250px;        /* 200 * 1.25 */
-            left: 315px;       /* 252 * 1.25 */
+            width: 152.5px;    
+            top: 250px;        
+            left: 315px;       
             transform: rotate(-6deg); 
             transform-origin: center center;
         }
@@ -118,9 +118,9 @@
 
         /* 3. 拓麻歌子 (Projects) —— 完美重合，大幅等比放大 1.35 倍 */
         #item-projects {
-            width: 145px;      /* 116 * 1.25 */
-            top: 387.5px;      /* 310 * 1.25 */
-            left: 545px;       /* 436 * 1.25 */
+            width: 145px;      
+            top: 387.5px;      
+            left: 545px;       
             transform: rotate(5deg);
             transform-origin: center center; 
         }
@@ -151,11 +151,23 @@
             transform: scale(1) translate(-50%, -140%);
         }
 
-        /* --- 📱 手机移动端布局 --- */
+        /* --- 📱 手机移动端布局与样式适配 --- */
         .mobile-portfolio {
             display: none; 
             width: 100%;
             padding: 40px 24px;
+        }
+
+        /* 手机端专属的静止展示铁盒 */
+        .mobile-tin-case-preview {
+            width: 100%;
+            aspect-ratio: 1000 / 562.5; /* 保持16:9黄金比例 */
+            background-image: url('tin-case-bg.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 40px; /* 与下方选项拉开间距 */
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
         }
 
         @media (max-width: 992px) {
@@ -173,12 +185,14 @@
                 font-family: 'Playfair Display', serif;
                 font-size: 2.5rem;
                 margin-bottom: 12px;
+                line-height: 1.2;
             }
             .mobile-header p {
                 font-size: 0.85rem;
                 color: #666;
-                margin-bottom: 40px;
+                margin-bottom: 24px;
                 text-transform: uppercase;
+                letter-spacing: 0.5px;
             }
             .mobile-card {
                 background: white;
@@ -189,6 +203,7 @@
                 display: flex;
                 align-items: center;
                 gap: 20px;
+                cursor: pointer;
             }
             .mobile-card img {
                 width: 70px;
@@ -230,8 +245,10 @@
     <div class="mobile-portfolio">
         <div class="mobile-header">
             <h1>Welcome to Xiwen's world.</h1>
-            <p>Tap below to explore my space</p>
+            <p>Scroll down to explore my space</p>
         </div>
+
+        <div class="mobile-tin-case-preview"></div>
 
         <div class="mobile-card" onclick="window.location.href='about.html'">
             <img src="about-me.png" alt="About Me">
