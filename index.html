@@ -38,7 +38,7 @@
             padding: 0 60px;
         }
 
-        /* --- 左侧文字排版（复原为干净经典的 Playfair Display） --- */
+        /* --- 左侧文字排版 --- */
         .text-sidebar {
             flex: 0 0 auto;
             width: 420px;
@@ -58,7 +58,7 @@
         }
 
         .title-name {
-            font-family: 'Playfair Display', serif; /* 彻底恢复原本的字体 */
+            font-family: 'Playfair Display', serif; 
             font-size: 5.6rem; 
             font-weight: 800; 
             line-height: 1.05;
@@ -70,7 +70,7 @@
         .title-world {
             font-family: 'Playfair Display', serif;
             font-size: 3.2rem;
-            font-style: italic; /* 保持优雅的真斜体拉丝效果 */
+            font-style: italic; 
             font-weight: 400;
             line-height: 1.1;
             margin-bottom: 28px;
@@ -136,7 +136,7 @@
 
         #hotspot-projects:hover ~ #popup-projects {
             opacity: 1;
-            transform: scale(1.06) rotate(3deg); /* 悬停原地等比例放大 */
+            transform: scale(1.06) rotate(3deg); 
             filter: drop-shadow(0 20px 35px rgba(0,0,0,0.35));
         }
 
@@ -168,7 +168,7 @@
             left: 26.8%;       
         }
 
-        /* 3. 拓麻歌子区域 (Projects) —— 🛠️ 核心调整：往右下角挪动，达成完美无缝物理覆盖 */
+        /* 3. 拓麻歌子区域 (Projects) —— 🛠️ 再次加大力度往右下角挪动 */
         #hotspot-projects {
             width: 16%;
             height: 30%;
@@ -177,8 +177,8 @@
         }
         #popup-projects {
             width: 15.2%; 
-            top: 65.5%;       /* 从 63.5% 进一步向下微调压实 */
-            left: 54.2%;      /* 从 53.2% 大幅度往右移回，精准盖死原图位置 */
+            top: 68.5%;       /* 从 65.5% 进一步大幅向下移 */
+            left: 56.5%;      /* 从 54.2% 进一步大幅向右移 */
         }
 
         /* --- 悬停时动态出现的黑框文字标签 --- */
@@ -258,7 +258,7 @@
 
             <div id="hotspot-projects" class="hotspot-zone" onclick="window.location.href='projects.html'"></div>
             <img src="projects.png" id="popup-projects" class="interactive-popup" alt="Projects">
-            <div id="tip-projects" class="tooltip" style="top: 59%; left: 62%;">PROJECTS</div>
+            <div id="tip-projects" class="tooltip" style="top: 63%; left: 64%;">PROJECTS</div>
 
         </div>
     </div>
