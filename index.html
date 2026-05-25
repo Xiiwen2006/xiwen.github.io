@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dura+Sans:wght@700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@500;600;800&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -24,148 +24,146 @@
             align-items: center;
             justify-content: center;
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            overflow: hidden; /* 彻底禁止出现滚动条 */
+            overflow: hidden; /* 彻底禁止出现任何滚动条 */
         }
 
-        /* 桌面端大容器 - 采用 flex 完美居中，且永不超出页面 */
+        /* 桌面端大容器 */
         .main-layout {
             display: flex;
             align-items: center;
-            justify-content: center; 
-            width: 95vw; /* 留出安全边距 */
-            height: 90vh;
-            max-width: 1600px;
-            gap: 40px; /* 控制文字和铁盒的间距，紧凑不散开 */
+            justify-content: center; /* 居中紧凑排列文字与铁盒 */
+            width: 100vw;
+            height: 100vh;
+            padding: 0 40px;
+            gap: -80px; /* 允许华丽文字与铁盒产生适度的艺术性重叠，还原设计稿质感 */
         }
 
-        /* --- 左侧文字排版板块（分三行，字体独立样式） --- */
+        /* --- 左侧文字排版板块（分三行，字体独立样式，极致华丽化） --- */
         .text-sidebar {
             flex: 0 0 auto;
+            width: 480px; /* 紧凑字块宽度 */
             color: #111111;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center; /* 内部居中对齐 */
+            z-index: 100; /* 确保文字始终压在铁盒上方 */
+            transform: translateX(-30px); /* 整体微调向左，与铁盒平衡 */
         }
 
         /* 第一行 Welcome to */
         .title-welcome {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.2rem;
+            font-style: italic; /* 用优雅斜体引出 */
             font-weight: 400;
-            line-height: 1;
-            color: #222222;
+            line-height: 1.1;
+            color: #333333;
+            margin-right: 150px; /* 错落排版 */
         }
 
-        /* 第二行 Xiwen's - 独一无二的高级定制大字体 */
+        /* 第二行 Xiwen's - 使用极度华丽的 Dura Sans 粗体 */
         .title-name {
-            font-family: 'Cinzel', serif; /* 更具雕刻感和视觉冲击力的艺术字体 */
-            font-size: 5rem; /* 字号明显加大，突出名字 */
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -1px;
+            font-family: 'Dura Sans', serif; /* 极具手账艺术感的顶级华丽字体 */
+            font-size: 7.2rem; /* 字号巨大，气场拉满 */
+            font-weight: 700;
+            line-height: 0.95;
+            letter-spacing: -3px; /* 紧凑的字母间距，强化整体视觉冲击 */
             color: #000000;
-            margin: 5px 0;
+            transform: rotate(-4deg); /* 带有一个好看的艺术性倾斜角度 */
+            margin: -5px 0 -15px 0; /* 错落重叠排版 */
+            text-align: center;
         }
 
         /* 第三行 world. */
         .title-world {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-style: italic; /* 用优雅的斜体作结尾 */
+            font-size: 3.2rem;
             font-weight: 400;
-            line-height: 1;
-            margin-bottom: 30px;
+            line-height: 1.1;
+            margin-left: 150px; /* 错落排版 */
         }
 
-        .text-sidebar p {
-            font-size: 0.9rem;
-            color: #666666;
-            line-height: 1.6;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
+        /* 移除左侧原本的小字说明，保持页面干净聚焦 */
 
-        /* --- 右侧铁盒交互板块（基于高度缩放，确保在一页面内完美容纳） --- */
+        /* --- 右侧铁盒交互板块（通过核心放大，彻底消灭两侧宽黑边阻碍） --- */
         .tin-case-container {
             position: relative;
             flex: 0 0 auto;
-            /* 智能比例：高度占屏幕的 75%，宽度根据 16:9 比例自动换算，确保 100% 不超出屏幕 */
-            height: 75vh; 
-            width: calc(75vh * (1000 / 562.5)); 
-            max-height: 680px; /* 设定最大上限防止超大屏幕下糊掉 */
-            max-width: 1208px;
+            height: 85vh; /* 高度占屏幕的 85% */
+            width: calc(85vh * (1000 / 562.5)); /* 保持完美高宽比 */
+            max-height: 720px; 
+            max-width: 1280px;
             
             background-image: url('tin-case-bg.jpg'); 
-            background-size: cover; /* 切除原图左右多余的边距，完美贴合交互物件 */
-            background-position: center center;
+            background-size: 162% auto; /* 核心魔法：放大1.6倍底图，直接把两侧黑边推开并隐藏 */
+            background-position: 49.5% center; /* 完美聚焦在正中央的金属铁盒上 */
             background-repeat: no-repeat;
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.15)); 
-            border-radius: 30px;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12)); 
+            z-index: 1;
         }
 
-        /* 所有可交互物品的初始状态（完全透明重合在底图上） */
+        /* 所有可交互物品的初始状态（保持完全可见） */
         .interactive-item {
             position: absolute;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-            opacity: 0; 
+            opacity: 1; /* 保持可见，不隐藏 */
             z-index: 10;
         }
 
         /* 鼠标悬停时的通用高亮魔法 */
         .interactive-item:hover {
-            opacity: 1;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45)) drop-shadow(0 0 15px rgba(255,255,255,0.8));
             z-index: 50;
         }
 
-        /* --- 基于自适应百分比坐标系统，无论屏幕怎么变，落点都精准完美 --- */
+        /* --- 配合无黑边新视窗与文字错落重叠调整坐标定位 --- */
 
         /* 1. 照片 (About Me) */
         #item-about {
-            width: 14.5%;      
-            top: 26.25%;      
-            left: 35%;       
+            width: 23%;       
+            top: 21%;      
+            left: 26.5%;       
             transform: rotate(-3deg);
             transform-origin: center center;
         }
         #item-about:hover {
-            transform: scale(1.12) rotate(-3deg);
+            transform: scale(1.08) rotate(-3deg);
         }
 
         /* 2. 手帐本 (Experiences) */
         #item-experiences {
-            width: 15.25%;    
-            top: 44.4%;        
-            left: 31.5%;       
+            width: 24%;    
+            top: 41.5%;        
+            left: 21.2%;       
             transform: rotate(-6deg); 
             transform-origin: center center;
         }
         #item-experiences:hover {
-            transform: scale(1.12) rotate(-6deg); 
+            transform: scale(1.08) rotate(-6deg); 
         }
 
         /* 3. 拓麻歌子 (Projects) */
         #item-projects {
-            width: 14.5%;      
-            top: 68.9%;        
-            left: 54.5%;       
+            width: 23%;      
+            top: 68.8%;        
+            left: 57.5%;       
             transform: rotate(5deg);
             transform-origin: center center; 
         }
         #item-projects:hover {
-            transform: scale(1.35) rotate(5deg); 
+            transform: scale(1.25) rotate(5deg); 
         }
 
-        /* --- 动态弹出的提示标签（定位同步换算为百分比） --- */
+        /* --- 动态弹出的提示标签 --- */
         .tooltip {
             position: absolute;
             background: #111111;
             color: #ffffff;
             padding: 6px 14px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
             letter-spacing: 1px;
             pointer-events: none;
@@ -178,10 +176,10 @@
 
         .interactive-item:hover + .tooltip {
             opacity: 1;
-            transform: scale(1) translate(-50%, -140%);
+            transform: scale(1) translate(-50%, -130%);
         }
 
-        /* --- 📱 手机移动端布局与样式适配 --- */
+        /* --- 📱 手机移动端布局适配（同上一版，保持响应式） --- */
         .mobile-portfolio {
             display: none; 
             width: 100%;
@@ -199,13 +197,14 @@
             filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
         }
 
-        /* 当屏幕真的很矮时，微调字体大小防止溢出一屏 */
-        @media (max-height: 700px) {
-            .title-name { font-size: 4rem; }
-            .title-welcome, .title-world { font-size: 2.5rem; }
+        @media (max-height: 780px) {
+            /* 智能缩放：当屏幕真的很矮时，等比例缩小字体防止溢出一屏 */
+            .title-name { font-size: 6rem; }
+            .title-welcome, .title-world { font-size: 2.8rem; }
+            .main-layout { gap: -100px; }
         }
 
-        /* 响应式切换到手机端 */
+        /* 移动端自适应 */
         @media (max-width: 992px) {
             .main-layout {
                 display: none; 
@@ -266,18 +265,17 @@
             <span class="title-welcome">Welcome to</span>
             <span class="title-name">Xiwen's</span>
             <span class="title-world">world.</span>
-            <p>→ Hover and click the objects inside the tin case to explore.</p>
         </div>
 
         <div class="tin-case-container">
             <img src="about-me.png" id="item-about" class="interactive-item" alt="About Me" onclick="window.location.href='about.html'">
-            <div class="tooltip" style="top: 26.25%; left: 42.25%;">ABOUT ME</div>
+            <div class="tooltip" style="top: 21%; left: 38%;">ABOUT ME</div>
 
             <img src="experiences.png" id="item-experiences" class="interactive-item" alt="Experiences" onclick="window.location.href='experiences.html'">
-            <div class="tooltip" style="top: 44.4%; left: 39.12%;">EXPERIENCES</div>
+            <div class="tooltip" style="top: 41.5%; left: 33.2%;">EXPERIENCES</div>
 
             <img src="projects.png" id="item-projects" class="interactive-item" alt="Projects" onclick="window.location.href='projects.html'">
-            <div class="tooltip" style="top: 68.9%; left: 61.75%;">PROJECTS</div>
+            <div class="tooltip" style="top: 68.8%; left: 69%;">PROJECTS</div>
         </div>
     </div>
 
