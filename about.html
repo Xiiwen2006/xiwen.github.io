@@ -109,43 +109,42 @@
     📊 左侧 Meta 区域字体与大小完美对齐修复
     ======================================================== */
 .basic-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    font-size: 0.82rem;
-    color: #666666;
-    text-transform: uppercase; /* 确保右侧所有的字默认都是大写 */
-    letter-spacing: 1px;
-    font-weight: 600;
-    font-family: 'Plus Jakarta Sans', sans-serif; /* 统一样式 */
-}
+            display: flex;
+            flex-direction: column;
+            gap: 12px;                  /* 稍微拉开一点行间距，换行后更美观 */
+            font-size: 0.82rem;
+            color: #666666;
+            text-transform: uppercase; /* 确保所有文本默认大写 */
+            letter-spacing: 1px;        /* 恢复与前两行完全一致的舒适字间距 */
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-/* 控制 Status //, uni //, Major // 的特殊手写衬线体 */
-.meta-item span {
-    color: #111111;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    text-transform: none; /* 标签不需要大写 */
-    font-size: 1rem;
-    margin-right: 4px;
-}
+        .meta-item {
+            line-height: 1.4;           /* 允许第三行如果换行的话，有舒适的行高 */
+        }
 
-/* 伪元素生成标签文本 */
-.meta-status::before { content: 'Status // '; }
-.meta-uni::before { content: 'uni // '; }
-.meta-major::before { content: 'Major // '; }
+        /* 控制 Status //, uni //, Major // 的特殊手写衬线体 */
+        .meta-item span.label-italic {
+            color: #111111;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-transform: none;      /* 标签保留原本的大小写设计 */
+            font-size: 1rem;
+            margin-right: 6px;
+            display: inline;
+        }
 
-/* 💡 精准修复第三行：彻底去掉 italic 斜体，保持跟 NTU 一模一样的字体骨架，只压缩大小 */
-.long-major {
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-style: normal !important;        /* 👈 核心修改：强制变回正体，拒绝斜体！ */
-    font-weight: 600 !important;          /* 粗细与前两行完全一致 */
-    text-transform: uppercase !important;     /* 强制大写 */
-    font-size: 0.82rem !important;         /* 大小与前两行完全一致 */
-    letter-spacing: -0.3px !important;    /* 稍微微调字距，确保单行完美放下 */
-    white-space: nowrap !important;        /* 严禁换行 */
-    color: #666666 !important;            /* 颜色与前两行保持完全一致 */
-}
+        /* 💡 彻底修复：去掉缩放和严禁换行，让它自然舒展 */
+        .long-major {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-style: normal !important;        /* 确保是标准正体，拒绝斜体 */
+            font-weight: 600 !important;
+            color: #666666 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;       /* 核心：字间距完美同步前两行 */
+            display: inline;                      /* 核心：让它紧跟在 Major // 后面 */
+        }
         
         /* ========================================================
             📖 Right Section: Scrollable Content
@@ -402,9 +401,9 @@
                 <img src="my-profile.png" alt="Xiwen's Profile">
             </div>
             <div class="basic-meta">
-                <div class="meta-item"><span class="meta-status"></span>Undergraduate Y3</div>
-                <div class="meta-item"><span class="meta-uni"></span>NTU, Singapore</div>
-                <div class="meta-item"><span class="meta-major"></span><span class="long-major">Information Engineering and Media</span></div>
+                <div class="meta-item"><span class="label-italic">Status //</span>Undergraduate Y3</div>
+                <div class="meta-item"><span class="label-italic">uni //</span>NTU, Singapore</div>
+                <div class="meta-item"><span class="label-italic">Major //</span><span class="long-major">Information Engineering and Media</span></div>
             </div>
         </div>
 
