@@ -124,19 +124,19 @@
         /* --- 🪄 触发效果：加大缩放比例 (scale) 让弹出更显著 --- */
         #hotspot-about:hover ~ #popup-about {
             opacity: 1;
-            transform: scale(1.18) rotate(-3deg); /* 放大比例从 1.04 提升至 1.18 */
+            transform: scale(1.18) rotate(-3deg); 
             filter: drop-shadow(0 25px 45px rgba(0,0,0,0.4));
         }
 
         #hotspot-experiences:hover ~ #popup-experiences {
             opacity: 1;
-            transform: scale(1.18) rotate(-5deg); /* 放大比例提升至 1.18 */
+            transform: scale(1.18) rotate(-5deg); 
             filter: drop-shadow(0 25px 45px rgba(0,0,0,0.4));
         }
 
         #hotspot-projects:hover ~ #popup-projects {
             opacity: 1;
-            transform: scale(1.50) rotate(4deg); /* 拓麻歌子放大比例提升至 1.22 */
+            transform: scale(1.50) rotate(4deg); 
             filter: drop-shadow(0 25px 45px rgba(0,0,0,0.4));
         }
 
@@ -160,15 +160,15 @@
             width: 17.5%;        
             height: 48%;
             top: 44%;
-            left: 26.5%;       
+            left: 26.5%;      
         }
         #popup-experiences {
             width: 15.8%; 
             top: 44%;
-            left: 26.8%;       
+            left: 26.8%;      
         }
 
-        /* 3. 拓麻歌子区域 (Projects) —— 维持精准对齐的右下位移 */
+        /* 3. 拓麻歌子区域 (Projects) */
         #hotspot-projects {
             width: 16%;
             height: 30%;
@@ -177,7 +177,7 @@
         }
         #popup-projects {
             width: 15.2%; 
-            top: 68.5%;       
+            top: 68.5%;      
             left: 56.5%;      
         }
 
@@ -204,13 +204,16 @@
         #hotspot-projects:hover ~ #tip-projects { opacity: 1; transform: translate(-50%, -25px) scale(1); }
 
 
-        /* --- 📱 手机移动端自适应布局 --- */
+        /* ========================================================
+           📱 手机移动端自适应布局
+           ======================================================== */
         .mobile-portfolio {
             display: none; 
             width: 100%;
             padding: 40px 24px;
         }
 
+        /* 💡 核心优化：完美放大 1.5 倍的移动端铁盒预览 */
         .mobile-tin-case-preview {
             width: 100%;
             aspect-ratio: 1000 / 562.5; 
@@ -218,16 +221,28 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            margin-bottom: 40px; 
+            transform: scale(1.5);           /* 👈 精准放大 1.5 倍 */
+            margin-top: 45px;                /* 👈 留出顶部空隙防止重叠 */
+            margin-bottom: 75px;             /* 👈 留出底部空隙防止遮挡卡片 */
+        }
+
+        /* 💡 手机端电脑体验提示样式 */
+        .mobile-header .desktop-tip {
+            font-size: 0.8rem;
+            color: #b56969;                  /* 采用柔和的复古红/棕色，醒目却不突兀 */
+            font-style: italic;
+            letter-spacing: 0.3px;
+            margin-bottom: 24px;
+            font-weight: 500;
         }
 
         @media (max-width: 992px) {
             .main-layout { display: none; }
             body { overflow-y: auto; align-items: flex-start; height: auto; width: auto; }
             .mobile-portfolio { display: block; }
-            .mobile-header h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 12px; }
-            .mobile-header p { font-size: 0.85rem; color: #666; margin-bottom: 24px; text-transform: uppercase; }
-            .mobile-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; }
+            .mobile-header h1 { font-family: 'Playfair Display', serif; font-size: 2.3rem; margin-bottom: 8px; }
+            .mobile-header p { font-size: 0.82rem; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+            .mobile-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; cursor: pointer; }
             .mobile-card img { width: 70px; height: auto; object-fit: contain; }
             .mobile-card-text h2 { font-size: 1.1rem; margin-bottom: 4px; color: #111; }
             .mobile-card-text p { font-size: 0.85rem; color: #888; }
@@ -266,6 +281,7 @@
         <div class="mobile-header">
             <h1>Welcome to Xiwen's world.</h1>
             <p>Scroll down to explore my space</p>
+            <div class="desktop-tip">* Best experienced on desktop.</div>
         </div>
 
         <div class="mobile-tin-case-preview"></div>
