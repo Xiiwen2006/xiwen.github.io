@@ -136,15 +136,15 @@
 .meta-major::before { content: 'Major // '; }
 
 /* 💡 精准修复第三行：彻底去掉 italic 斜体，保持跟 NTU 一模一样的字体骨架，只压缩大小 */
-/* 💡 完美对齐 NTU 字体与大小，通过微调字距确保不换行 */
 .long-major {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-weight: 600 !important;      /* 粗细和前两行完全一致 */
-    text-transform: uppercase !important; /* 强制大写，保持字形一致 */
-    font-size: 0.82rem !important;     /* 大小和前两行完全一致 */
-    letter-spacing: -0.5px !important; /* 微调字距，像挤压弹簧一样让它绝对缩在一行内 */
-    white-space: nowrap !important;    /* 强制禁止换行 */
-    color: #666666 !important;
+    font-style: normal !important;        /* 👈 核心修改：强制变回正体，拒绝斜体！ */
+    font-weight: 600 !important;          /* 粗细与前两行完全一致 */
+    text-transform: uppercase !important;     /* 强制大写 */
+    font-size: 0.82rem !important;         /* 大小与前两行完全一致 */
+    letter-spacing: -0.3px !important;    /* 稍微微调字距，确保单行完美放下 */
+    white-space: nowrap !important;        /* 严禁换行 */
+    color: #666666 !important;            /* 颜色与前两行保持完全一致 */
 }
         
         /* ========================================================
