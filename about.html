@@ -124,15 +124,19 @@
             font-size: 1rem;
             margin-right: 4px;
         }
-        /* [💡 Fix]: Unified English labels */
         .meta-status::before { content: 'Status // '; }
         .meta-uni::before { content: 'uni // '; }
         .meta-major::before { content: 'Major // '; }
 
-        /* [💡 Fix]: Constrain long professional course names to a single line */
+        /* [💡 Fix]: Font type unified with NTU (Playfair Display) and downscaled to fit perfectly in a single line */
         .long-major {
-            font-size: 0.8rem; /* Font size downscaled to keep on one line */
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            font-style: italic;
+            text-transform: none; /* Keeps original letter casing */
+            font-size: 0.85rem; 
             white-space: nowrap;
+            color: #111111;
         }
 
         /* ========================================================
@@ -161,7 +165,7 @@
             margin-bottom: 18px;
         }
 
-        /* 1. User Manual Text */
+        /* User Manual Text Styling */
         .manual-text {
             font-size: 1.05rem;
             color: #333333;
@@ -172,7 +176,7 @@
             margin-bottom: 16px;
         }
 
-        /* 2. Structured Skills Cards */
+        /* Structured Skills Cards */
         .skills-container {
             display: flex;
             flex-direction: column;
@@ -215,7 +219,7 @@
             transform: translateY(-2px);
         }
 
-        /* 3. Hobbies Grid */
+        /* Hobbies Grid */
         .hobby-grid {
             display: flex;
             flex-direction: column;
@@ -240,7 +244,7 @@
             color: #555555;
         }
 
-        /* 4. Contact Me Links */
+        /* Contact Me Links */
         .contact-container {
             display: flex;
             flex-wrap: wrap;
@@ -279,7 +283,7 @@
 
 
         /* ========================================================
-           🐾 Naonao the Corgi - Advanced Interaction Logic
+           🐾 Naonao the Corgi Animation Styles
            ======================================================== */
         #corgi-naonaon {
             position: fixed;
@@ -289,15 +293,10 @@
             z-index: 5;         
             user-select: none;
             -webkit-user-drag: none;
-            
-            /* [💡 Fix]: mix-blend-mode screen removed as it turns corgi semi-transparent. 
-               Rely on JS pure black color extraction for background removal. */
-            
-            /* [💡 Fix]: Movement speed slowed down dramatically (6s for smooth transition) */
+            /* Wandering speed slowed down completely (6s smooth transition) */
             transition: top 6s linear, left 6s linear, transform 0.2s ease; 
         }
 
-        /* Clicking Naonao triggers bounce */
         .corgi-jump {
             animation: corgiBounce 0.4s ease-out;
         }
@@ -306,7 +305,7 @@
             50% { transform: scale(0.95) translateY(-30px); }
         }
 
-        /* Speech Bubble Dialogue */
+        /* Dialogue Speech Bubble */
         .dog-bubble {
             position: fixed;
             background: #111111;
@@ -340,7 +339,7 @@
             width: 0;
         }
 
-        /* [💡 Fix]: Unified Black Block Interaction Tip (Same as First Page) */
+        /* 💡 Unified Black Block Interaction Tip (Same style as homepage hover tags) */
         .dog-interact-tip {
             position: fixed;
             background: #000000;
@@ -353,11 +352,11 @@
             pointer-events: none;
             opacity: 0;
             transform: translate(-50%, -100%) scale(0.8);
-            transition: all 0.2s ease;
+            transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 1000;
             white-space: nowrap;
         }
-        #corgi-naonaon:hover ~ .dog-interact-tip {
+        .dog-interact-tip.active {
             opacity: 1;
             transform: translate(-50%, -130%) scale(1);
         }
@@ -371,7 +370,7 @@
     
     <div id="dog-speech-bubble" class="dog-bubble">Woof! I'm Naonao! 🐾</div>
     
-    <div class="dog-interact-tip">CLICK TO PET HIM</div>
+    <div id="dog-hover-tip" class="dog-interact-tip">CLICK TO PET HIM</div>
 
 
     <div class="about-layout">
@@ -391,9 +390,9 @@
         <div class="details-right">
             
             <section>
-                <h2 class="section-title">The Manual // Personal Manual</h2>
+                <h2 class="section-title">About Me // Personal Manual</h2>
                 <div class="manual-text">
-                    <p>Hiii, I'm Xiwen! Welcome to my Personal User Manual: I am a Year 3 student at NTU (Nanyang Technological University), pursuing a degree in Information Engineering and Media. With a strong interest in game design, Human-Computer Interaction (HCI), and AR/VR technologies, I consider myself a free spirit navigating the creative and technical intersection between engineering and design.</p>
+                    <p>Hiii, I'm Xiwen! Welcome to my Personal User Manual:<br><br>I am a Year 3 student at NTU (Nanyang Technological University), pursuing a degree in Information Engineering and Media. With a strong interest in game design, Human-Computer Interaction (HCI), and AR/VR technologies, I consider myself a free spirit navigating the creative and technical intersection between engineering and design.</p>
                     <p>I have a huge soft spot for fluffy things and strawberry shortcakes, while frequently splitting my brain capacity between contemplating the boundaries of the universe and deciding what to eat next. Operating as a perpetual dialectical thinker, I firmly hold the belief that there are no absolute blessings or curses in this world.</p>
                     <p>This worldview fuels my urge to explore—to discover how much further this world can evolve, and to uncover who I can truly become in the future.</p>
                     <p style="color: #777; font-style: italic; font-size: 0.95rem;">Oh, by the way, the corgi you see wandering around the page is my dog, Naonao. Feel free to pet him! :) </p>
@@ -471,10 +470,10 @@
             <section style="margin-bottom: 40px;">
                 <h2 class="section-title">Contact Me // Stay Connected</h2>
                 <div class="contact-container">
-                    <a href="#" target="_blank" class="contact-link">Instagram</a>
-                    <a href="#" target="_blank" class="contact-link">Telegram</a>
-                    <a href="#" target="_blank" class="contact-link">WhatsApp</a>
-                    <a href="#" target="_blank" class="contact-link">LinkedIn</a>
+                    <a href="https://www.instagram.com/liiiily0329?igsh=MWdoa2V6MzFnZGhycg==" target="_blank" class="contact-link">Instagram</a>
+                    <a href="https://t.me/ZHANG_XIWEN" target="_blank" class="contact-link">Telegram</a>
+                    <a href="https://wa.me/6587305788" target="_blank" class="contact-link">WhatsApp</a>
+                    <a href="https://www.linkedin.com/in/xiwen-zhang-60199435a" target="_blank" class="contact-link">LinkedIn</a>
                 </div>
             </section>
 
@@ -485,9 +484,8 @@
     <script>
         const dog = document.getElementById('corgi-naonaon');
         const bubble = document.getElementById('dog-speech-bubble');
-        const interactTip = document.querySelector('.dog-interact-tip');
+        const hoverTip = document.getElementById('dog-hover-tip');
         
-        // English Sayings for Naonao
         const dogSayings = [
             "Woof! I'm Naonao! 🐾",
             "You pet me! Let's hang out! ✨",
@@ -499,43 +497,101 @@
         let isHovered = false;
         let isSitting = false;
 
-        // Naonao Wander Engine (Very slow & smooth)
+        // Slow & Elegant Wander Mechanics
         function moveDog() {
-            if (isHovered || isSitting) return; // 立定，不执行漫步逻辑
+            if (isHovered || isSitting) return; 
 
             const padding = 120;
             const screenWidth = window.innerWidth - padding;
             const screenHeight = window.innerHeight - padding;
 
-            // 💡 Slow movement step length downscaled
             const randomX = Math.floor(Math.random() * screenWidth) + 30;
             const randomY = Math.floor(Math.random() * screenHeight) + 30;
 
             const currentX = parseFloat(dog.style.left) || window.innerWidth / 2;
             if (randomX > currentX) {
-                dog.style.transform = "scaleX(-1)"; // Image flip, facing right
+                dog.style.transform = "scaleX(-1)"; 
             } else {
-                dog.style.transform = "scaleX(1)";  // Image original, facing left
+                dog.style.transform = "scaleX(1)";  
             }
 
             dog.style.left = randomX + 'px';
             dog.style.top = randomY + 'px';
             
-            updateBubblePosition();
+            updateElementsPosition();
         }
 
-        function updateBubblePosition() {
+        // Real-time tracker for floating UI positions
+        function updateElementsPosition() {
             const dogRect = dog.getBoundingClientRect();
-            bubble.style.left = (dogRect.left + dogRect.width / 2) + 'px';
+            const centerX = dogRect.left + dogRect.width / 2;
+            
+            // Sync speech bubble position
+            bubble.style.left = centerX + 'px';
             bubble.style.top = dogRect.top + 'px';
+
+            // Sync black tooltip box position
+            hoverTip.style.left = centerX + 'px';
+            hoverTip.style.top = dogRect.top + 'px';
         }
 
-        // [💡 Fix]: Function to extract and remove pure black color from dog.gif
+        // 💡 [💡 Fix]: Native JS Mouse Listeners ensures hover label pops up perfectly without layer conflicts
+        dog.addEventListener('mouseenter', () => { 
+            isHovered = true; 
+            if (!isSitting) {
+                hoverTip.classList.add('active'); // Pops up "CLICK TO PET HIM" box
+            }
+        });
+        
+        dog.addEventListener('mouseleave', () => { 
+            isHovered = false; 
+            hoverTip.classList.remove('active'); // Removes hover box safely
+        });
+
+        // "Click to Sit Down" 5-Second Loop Timer Logic
+        let bubbleTimeout;
+        dog.addEventListener('click', () => {
+            if (isSitting) return; 
+
+            isSitting = true;
+            dog.classList.add('corgi-jump');
+            hoverTip.classList.remove('active'); // Instantly drops tooltip on click
+
+            const randomPhrase = dogSayings[Math.floor(Math.random() * dogSayings.length)];
+            bubble.innerText = randomPhrase;
+            bubble.classList.add('show');
+
+            // 💡 Enforces dog-sit.png frame swap on click
+            const currentSrc = dog.src;
+            dog.src = 'dog-sit.png'; 
+
+            bubbleTimeout = setTimeout(() => {
+                bubble.classList.remove('show');
+                dog.src = currentSrc; // Recover walking gif
+                isSitting = false;
+                dog.classList.remove('corgi-jump');
+                setTimeout(moveDog, 100);
+            }, 5000); // Original sits down for exactly 5 seconds
+        });
+
+        // Wander update route recalculation cycle (3.8s intervals)
+        setInterval(moveDog, 3800);
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            dog.style.left = (window.innerWidth / 2) + 'px';
+            dog.style.top = (window.innerHeight - 140) + 'px';
+            setTimeout(moveDog, 300);
+            
+            // Immediate pixel scanning for dark pixels extraction
+            removeBlackBackground();
+        });
+
+        // Pure black pixels color removal automation engine
         function removeBlackBackground() {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             const img = new Image();
-            img.crossOrigin = "Anonymous"; // Crucial for loading across origins
+            img.crossOrigin = "Anonymous";
             img.src = dog.src;
 
             img.onload = () => {
@@ -545,64 +601,18 @@
                 const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const data = imgData.data;
 
-                // 💡 Color Extraction Loop: mark pure black as transparent
                 for (let i = 0; i < data.length; i += 4) {
                     if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 0) {
-                        data[i + 3] = 0; // Mark pure black color as transparent
+                        data[i + 3] = 0; 
                     }
                 }
                 ctx.putImageData(imgData, 0, 0);
-                dog.src = canvas.toDataURL(); // Replace gif source with dynamic transparent version
+                dog.src = canvas.toDataURL();
             };
         }
 
-        dog.addEventListener('mouseenter', () => { isHovered = true; });
-        dog.addEventListener('mouseleave', () => { isHovered = false; });
-
-        // [💡 Fix]: 点击闹闹，“点击坐下”逻辑，停留5秒后恢复漫步
-        let bubbleTimeout;
-        dog.addEventListener('click', () => {
-            if (isSitting) return; // 已经坐下了，不触发
-
-            // 💡 Stop wandering and petting tip
-            isSitting = true;
-            dog.classList.add('corgi-jump');
-            interactTip.style.opacity = "0"; // 💡 Petting tip disappears
-
-            // 💡 "CLICK TO PET HIM" tip disappears
-            const randomPhrase = dogSayings[Math.floor(Math.random() * dogSayings.length)];
-            bubble.innerText = randomPhrase;
-            bubble.classList.add('show');
-
-            // 💡 [💡 Fix]: Change dog source image to dog-sit.png for 5 seconds
-            // 提示：你需要在根目录上传一张鬧鬧坐下的PNG图片，命名为 dog-sit.png
-            const currentSrc = dog.src;
-            dog.src = 'dog-sit.png'; 
-
-            bubbleTimeout = setTimeout(() => {
-                bubble.classList.remove('show');
-                dog.src = currentSrc; // 💡 Recover original walking gif
-                isSitting = false;
-                dog.classList.remove('corgi-jump');
-                dog.style.transition = "top 6s linear, left 6s linear, transform 0.2s ease"; // Slow movement recovery
-                setTimeout(moveDog, 100);
-            }, 5000); // 💡 naonao sits for 5 seconds原地立定
-        });
-
-        // 💡 Movement interval applied every 3.8s (consistent smooth pathing recovery)
-        setInterval(moveDog, 3800);
-        
-        window.addEventListener('DOMContentLoaded', () => {
-            dog.style.left = (window.innerWidth / 2) + 'px';
-            dog.style.top = (window.innerHeight - 140) + 'px';
-            setTimeout(moveDog, 300);
-            
-            // 💡 Start Color Extraction immediately on page load
-            removeBlackBackground();
-        });
-
-        window.addEventListener('resize', updateBubblePosition);
-        setInterval(updateBubblePosition, 80); 
+        window.addEventListener('resize', updateElementsPosition);
+        setInterval(updateElementsPosition, 50); // Ultra precision tracking loop
     </script>
 
 </body>
