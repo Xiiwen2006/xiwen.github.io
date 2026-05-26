@@ -22,7 +22,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             height: 100vh;
             width: 100vw;
-            overflow: hidden; /* Prevent page scrolling */
+            overflow: hidden; /* Prevent page scrolling on desktop */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -106,22 +106,22 @@
         }
 
         /* ========================================================
-    📊 左侧 Meta 区域字体与大小完美对齐修复
-    ======================================================== */
-.basic-meta {
+           📊 左侧 Meta 区域字体与大小完美对齐修复
+           ======================================================== */
+        .basic-meta {
             display: flex;
             flex-direction: column;
-            gap: 12px;                  /* 稍微拉开一点行间距，换行后更美观 */
+            gap: 12px;                  
             font-size: 0.82rem;
             color: #666666;
-            text-transform: uppercase; /* 确保所有文本默认大写 */
-            letter-spacing: 1px;        /* 恢复与前两行完全一致的舒适字间距 */
+            text-transform: uppercase; 
+            letter-spacing: 1px;        
             font-weight: 600;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .meta-item {
-            line-height: 1.4;           /* 允许第三行如果换行的话，有舒适的行高 */
+            line-height: 1.4;           
         }
 
         /* 控制 Status //, uni //, Major // 的特殊手写衬线体 */
@@ -129,7 +129,7 @@
             color: #111111;
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            text-transform: none;      /* 标签保留原本的大小写设计 */
+            text-transform: none;      
             font-size: 1rem;
             margin-right: 6px;
             display: inline;
@@ -138,12 +138,12 @@
         /* 💡 彻底修复：去掉缩放和严禁换行，让它自然舒展 */
         .long-major {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
-            font-style: normal !important;        /* 确保是标准正体，拒绝斜体 */
+            font-style: normal !important;        
             font-weight: 600 !important;
             color: #666666 !important;
             text-transform: uppercase !important;
-            letter-spacing: 1px !important;       /* 核心：字间距完美同步前两行 */
-            display: inline;                      /* 核心：让它紧跟在 Major // 后面 */
+            letter-spacing: 1px !important;       
+            display: inline;                      
         }
         
         /* ========================================================
@@ -285,33 +285,26 @@
             transform-origin: bottom left;
         }
 
-
         /* ========================================================
            🐾 Naonao the Corgi - High Precision Core Wrapper
            ======================================================== */
         .corgi-wrapper {
             position: fixed;
-            /* 💡 大小改由内部图片动态决定，防止强行拉伸 */
             width: auto;
             height: auto;
             cursor: pointer;
-            z-index: 9999; /* Higher priority layer for uninterrupted hover/clicks */
+            z-index: 9999;
             user-select: none;
             -webkit-user-drag: none;
-            
-            /* [🎨 Fix]: Super slow and fluid walking velocity (6 seconds) */
             transition: top 6s linear, left 6s linear; 
         }
 
         #corgi-naonaon {
-            width: 170px;  /* 💡 默认走路状态设定为 170px 大狗 */
-            height: 170px; /* 💡 默认走路状态设定为 170px 大狗 */
+            width: 170px;  
+            height: 170px; 
             object-fit: contain;
             display: block;
             transition: transform 0.2s ease, width 0.1s ease, height 0.1s ease;
-
-            /* [🎨 Fix]: CSS filter blend removes pure black background instantly 
-               while preserving fluid 60FPS GIF frame-by-frame animation looping! */
             filter: drop-shadow(0px 0px 0px transparent);
             mix-blend-mode: screen; 
         }
@@ -358,7 +351,7 @@
             width: 0;
         }
 
-        /* [🎨 Fix]: Black Box Interaction Tip (Perfectly synced with absolute accuracy) */
+        /* Black Box Interaction Tip */
         .dog-interact-tip {
             position: fixed;
             background: #000000;
@@ -378,6 +371,91 @@
         .dog-interact-tip.active {
             opacity: 1;
             transform: translate(-50%, -140%) scale(1);
+        }
+
+        /* ========================================================
+           📱 新增：手机端完美响应式适配（Media Query）
+           ======================================================== */
+        @media (max-width: 768px) {
+            body {
+                overflow-y: auto;          /* 允许手机整页上下滑动滚动 */
+                height: auto;
+                padding: 30px 20px;
+            }
+
+            .back-home-btn {
+                top: 20px;
+                left: 20px;
+                font-size: 1rem;
+            }
+
+            .about-layout {
+                flex-direction: column;    /* 核心：左右布局变成上下堆叠 */
+                height: auto;
+                gap: 40px;
+                padding: 40px 0 20px 0;    /* 留出顶部返回按钮的空间 */
+            }
+
+            .profile-left {
+                width: 100%;               /* 宽度撑满手机屏 */
+                align-items: center;       /* 所有左侧元素（名字、相框、Meta）全部居中对齐 */
+                position: relative;
+                top: 0;
+            }
+
+            .left-name {
+                font-size: 2.8rem;         /* 缩小缩放超大名字字体 */
+                text-align: center;
+                margin-bottom: 16px;
+            }
+
+            .photo-frame {
+                width: 260px;              /* 稍微收窄一点手机相框宽度 */
+                padding: 12px 12px 35px 12px;
+                margin-bottom: 24px;
+                transform: rotate(-1deg);   /* 稍微减弱旋转，防止边缘切出屏幕 */
+            }
+
+            .basic-meta {
+                align-items: center;       /* Meta 信息在手机上也居中排列 */
+                text-align: center;
+                width: 100%;
+                gap: 10px;
+            }
+
+            .meta-item {
+                display: block;
+                width: 100%;
+                word-wrap: break-word;     /* 允许超长单词或拼写换行 */
+            }
+
+            .details-right {
+                width: 100%;
+                height: auto;
+                overflow: visible;         /* 融入整页滚动，取消右栏独立内部滚动 */
+                padding-right: 0;
+                gap: 40px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;         /* 适当缩小章节标题 */
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                padding-bottom: 6px;
+            }
+
+            .hobby-card {
+                flex-direction: column;    /* 兴趣爱好的小标签标题和内容也变成上下排布 */
+                gap: 4px;
+            }
+            .hobby-card-title {
+                min-width: auto;
+            }
+
+            /* 🐾 缩小手机端闹闹的常规尺寸，防止严重遮挡阅读 */
+            #corgi-naonaon {
+                width: 110px !important;
+                height: 110px !important;
+            }
         }
     </style>
 </head>
@@ -518,7 +596,6 @@
         let isHovered = false;
         let isSitting = false;
 
-        // Fluid Wander Mechanics
         function moveDog() {
             if (isHovered || isSitting) return; 
 
@@ -531,9 +608,9 @@
 
             const currentX = parseFloat(container.style.left) || window.innerWidth / 2;
             if (randomX > currentX) {
-                dogImg.style.transform = "scaleX(-1)"; // Face right
+                dogImg.style.transform = "scaleX(-1)"; 
             } else {
-                dogImg.style.transform = "scaleX(1)";  // Face left
+                dogImg.style.transform = "scaleX(1)";  
             }
 
             container.style.left = randomX + 'px';
@@ -542,7 +619,6 @@
             updateUIPositions();
         }
 
-        // Live coordinate binding loop
         function updateUIPositions() {
             const rect = container.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
@@ -554,7 +630,6 @@
             hoverTip.style.top = rect.top + 'px';
         }
 
-        // [🎨 Fix]: Event listeners bound to container element for 100% accurate tracking
         container.addEventListener('mouseenter', () => { 
             isHovered = true; 
             if (!isSitting) {
@@ -567,7 +642,6 @@
             hoverTip.classList.remove('active');
         });
 
-        // [🎨 Fix]: 100% Reliable Click handling to toggle sitting PNG asset state
         let sitTimeout;
         container.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -577,16 +651,15 @@
             hoverTip.classList.remove('active');
             dogImg.classList.add('corgi-jump');
 
-            // Set dialogue saying
             const randomPhrase = dogSayings[Math.floor(Math.random() * dogSayings.length)];
             bubble.innerText = randomPhrase;
             bubble.classList.add('show');
 
-            // 💡【核心修改】：点击坐下时，瞬间将图片大小缩回原先的 85px
-            dogImg.style.width = '85px';
-            dogImg.style.height = '85px';
+            // 💡 适配修改：点击坐下时，手机端尺寸等比例变小
+            const isMobile = window.innerWidth <= 768;
+            dogImg.style.width = isMobile ? '55px' : '85px';
+            dogImg.style.height = isMobile ? '55px' : '85px';
 
-            // Swap asset path instantly to static sitting image frame
             dogImg.src = 'dog-sit.png'; 
 
             clearTimeout(sitTimeout);
@@ -594,33 +667,37 @@
                 bubble.classList.remove('show');
                 dogImg.classList.remove('corgi-jump');
                 
-                // 💡【恢复行走】：5秒结束起立时，瞬间将图片恢复至 170px 走路大小
-                dogImg.style.width = '170px';
-                dogImg.style.height = '170px';
+                dogImg.style.width = isMobile ? '110px' : '170px';
+                dogImg.style.height = isMobile ? '110px' : '170px';
 
-                // Recover running loop gif file asset link channel
                 dogImg.src = 'dog.gif'; 
                 
                 isSitting = false;
                 setTimeout(moveDog, 100);
-            }, 5000); // Original sits down for exactly 5 seconds
+            }, 5000); 
         });
 
-        // Loop wander update tracking route
         setInterval(moveDog, 4500);
         
         window.addEventListener('DOMContentLoaded', () => {
-            // 💡 页面刚加载时，初始大小设定为 170px 走路状态
-            dogImg.style.width = '170px';
-            dogImg.style.height = '170px';
+            const isMobile = window.innerWidth <= 768;
+            dogImg.style.width = isMobile ? '110px' : '170px';
+            dogImg.style.height = isMobile ? '110px' : '170px';
 
-            container.style.left = (window.innerWidth / 2 - 85) + 'px';
+            container.style.left = (window.innerWidth / 2 - (isMobile ? 55 : 85)) + 'px';
             container.style.top = (window.innerHeight - 240) + 'px';
             setTimeout(moveDog, 300);
         });
 
-        window.addEventListener('resize', updateUIPositions);
-        setInterval(updateUIPositions, 30); // Ultra tight rendering tracker tick rate
+        window.addEventListener('resize', () => {
+            const isMobile = window.innerWidth <= 768;
+            if (!isSitting) {
+                dogImg.style.width = isMobile ? '110px' : '170px';
+                dogImg.style.height = isMobile ? '110px' : '170px';
+            }
+            updateUIPositions();
+        });
+        setInterval(updateUIPositions, 30); 
     </script>
 
 </body>
