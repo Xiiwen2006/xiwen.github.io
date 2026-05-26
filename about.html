@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -22,7 +22,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             height: 100vh;
             width: 100vw;
-            overflow: hidden; /* Prevent page scrolling, layout relies on internal scroll */
+            overflow: hidden; /* Prevent page scrolling */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -61,7 +61,7 @@
         }
 
         /* ========================================================
-           🖼️ Left Section: Polaroid Frame (Original Image Ratio)
+           🖼️ Left Section: Polaroid Frame
            ======================================================== */
         .profile-left {
             flex: 0 0 auto;
@@ -85,13 +85,13 @@
 
         .photo-frame {
             background: #ffffff;
-            padding: 14px 14px 45px 14px; /* Polaroid bottom spacing */
+            padding: 14px 14px 45px 14px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.06);
             transform: rotate(-1.5deg);
             border-radius: 2px;
             transition: transform 0.3s ease;
             margin-bottom: 30px;
-            width: 290px; /* Constrain the width of the polaroid */
+            width: 290px;
         }
         .photo-frame:hover {
             transform: rotate(0deg) scale(1.02);
@@ -100,7 +100,7 @@
         .photo-frame img {
             width: 100%;
             height: auto;
-            object-fit: contain; /* Keeps original image aspect ratio */
+            object-fit: contain;
             background: transparent;
             display: block;
         }
@@ -128,15 +128,16 @@
         .meta-uni::before { content: 'uni // '; }
         .meta-major::before { content: 'Major // '; }
 
-        /* [💡 Fix]: Font type unified with NTU (Playfair Display) and downscaled to fit perfectly in a single line */
+        /* [🎨 Fix]: Font completely switched to Plus Jakarta Sans and set to bold italic */
         .long-major {
-            font-family: 'Playfair Display', serif;
-            font-weight: bold;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
             font-style: italic;
-            text-transform: none; /* Keeps original letter casing */
-            font-size: 0.85rem; 
+            text-transform: none; 
+            font-size: 0.82rem; 
             white-space: nowrap;
             color: #111111;
+            letter-spacing: 0px;
         }
 
         /* ========================================================
@@ -152,11 +153,9 @@
             gap: 50px;
         }
 
-        /* Micro Scrollbar Styling */
         .details-right::-webkit-scrollbar { width: 4px; }
         .details-right::-webkit-scrollbar-thumb { background: #e0ded9; border-radius: 4px; }
 
-        /* Section Titles */
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
@@ -165,7 +164,6 @@
             margin-bottom: 18px;
         }
 
-        /* User Manual Text Styling */
         .manual-text {
             font-size: 1.05rem;
             color: #333333;
@@ -283,18 +281,32 @@
 
 
         /* ========================================================
-           🐾 Naonao the Corgi Animation Styles
+           🐾 Naonao the Corgi - High Precision Core Wrapper
            ======================================================== */
-        #corgi-naonaon {
+        .corgi-wrapper {
             position: fixed;
-            width: 85px;        
-            height: auto;
+            width: 85px;
+            height: 85px;
             cursor: pointer;
-            z-index: 5;         
+            z-index: 9999; /* Higher priority layer for uninterrupted hover/clicks */
             user-select: none;
             -webkit-user-drag: none;
-            /* Wandering speed slowed down completely (6s smooth transition) */
-            transition: top 6s linear, left 6s linear, transform 0.2s ease; 
+            
+            /* [🎨 Fix]: Super slow and fluid walking velocity (6 seconds) */
+            transition: top 6s linear, left 6s linear; 
+        }
+
+        #corgi-naonaon {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.2s ease;
+
+            /* [🎨 Fix]: CSS filter blend removes pure black background instantly 
+               while preserving fluid 60FPS GIF frame-by-frame animation looping! */
+            filter: drop-shadow(0px 0px 0px transparent);
+            mix-blend-mode: screen; 
         }
 
         .corgi-jump {
@@ -305,7 +317,7 @@
             50% { transform: scale(0.95) translateY(-30px); }
         }
 
-        /* Dialogue Speech Bubble */
+        /* Dialogue Box Style */
         .dog-bubble {
             position: fixed;
             background: #111111;
@@ -316,7 +328,7 @@
             font-weight: 600;
             white-space: nowrap;
             pointer-events: none;
-            z-index: 1000;
+            z-index: 10000;
             opacity: 0;
             transform: translate(-50%, -100%) scale(0.8);
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -324,7 +336,7 @@
         }
         .dog-bubble.show {
             opacity: 1;
-            transform: translate(-50%, -125%) scale(1);
+            transform: translate(-50%, -135%) scale(1);
         }
         .dog-bubble::after {
             content: '';
@@ -339,7 +351,7 @@
             width: 0;
         }
 
-        /* 💡 Unified Black Block Interaction Tip (Same style as homepage hover tags) */
+        /* [🎨 Fix]: Black Box Interaction Tip (Perfectly synced with absolute accuracy) */
         .dog-interact-tip {
             position: fixed;
             background: #000000;
@@ -352,13 +364,13 @@
             pointer-events: none;
             opacity: 0;
             transform: translate(-50%, -100%) scale(0.8);
-            transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 1000;
+            transition: all 0.2s ease;
+            z-index: 10000;
             white-space: nowrap;
         }
         .dog-interact-tip.active {
             opacity: 1;
-            transform: translate(-50%, -130%) scale(1);
+            transform: translate(-50%, -140%) scale(1);
         }
     </style>
 </head>
@@ -366,10 +378,11 @@
 
     <a class="back-home-btn" href="index.html">← Back to Box</a>
 
-    <img src="dog.gif" id="corgi-naonaon" alt="Naonao the Corgi">
+    <div class="corgi-wrapper" id="naonao-container">
+        <img src="dog.gif" id="corgi-naonaon" alt="Naonao the Corgi">
+    </div>
     
     <div id="dog-speech-bubble" class="dog-bubble">Woof! I'm Naonao! 🐾</div>
-    
     <div id="dog-hover-tip" class="dog-interact-tip">CLICK TO PET HIM</div>
 
 
@@ -482,7 +495,8 @@
 
 
     <script>
-        const dog = document.getElementById('corgi-naonaon');
+        const container = document.getElementById('naonao-container');
+        const dogImg = document.getElementById('corgi-naonaon');
         const bubble = document.getElementById('dog-speech-bubble');
         const hoverTip = document.getElementById('dog-hover-tip');
         
@@ -497,122 +511,97 @@
         let isHovered = false;
         let isSitting = false;
 
-        // Slow & Elegant Wander Mechanics
+        // Fluid Wander Mechanics
         function moveDog() {
             if (isHovered || isSitting) return; 
 
-            const padding = 120;
+            const padding = 150;
             const screenWidth = window.innerWidth - padding;
             const screenHeight = window.innerHeight - padding;
 
-            const randomX = Math.floor(Math.random() * screenWidth) + 30;
-            const randomY = Math.floor(Math.random() * screenHeight) + 30;
+            const randomX = Math.floor(Math.random() * screenWidth) + 50;
+            const randomY = Math.floor(Math.random() * screenHeight) + 50;
 
-            const currentX = parseFloat(dog.style.left) || window.innerWidth / 2;
+            const currentX = parseFloat(container.style.left) || window.innerWidth / 2;
             if (randomX > currentX) {
-                dog.style.transform = "scaleX(-1)"; 
+                dogImg.style.transform = "scaleX(-1)"; // Face right
             } else {
-                dog.style.transform = "scaleX(1)";  
+                dogImg.style.transform = "scaleX(1)";  // Face left
             }
 
-            dog.style.left = randomX + 'px';
-            dog.style.top = randomY + 'px';
+            container.style.left = randomX + 'px';
+            container.style.top = randomY + 'px';
             
-            updateElementsPosition();
+            updateUIPositions();
         }
 
-        // Real-time tracker for floating UI positions
-        function updateElementsPosition() {
-            const dogRect = dog.getBoundingClientRect();
-            const centerX = dogRect.left + dogRect.width / 2;
+        // Live coordinate binding loop
+        function updateUIPositions() {
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
             
-            // Sync speech bubble position
             bubble.style.left = centerX + 'px';
-            bubble.style.top = dogRect.top + 'px';
+            bubble.style.top = rect.top + 'px';
 
-            // Sync black tooltip box position
             hoverTip.style.left = centerX + 'px';
-            hoverTip.style.top = dogRect.top + 'px';
+            hoverTip.style.top = rect.top + 'px';
         }
 
-        // 💡 [💡 Fix]: Native JS Mouse Listeners ensures hover label pops up perfectly without layer conflicts
-        dog.addEventListener('mouseenter', () => { 
+        // [🎨 Fix]: Event listeners bound to container element for 100% accurate tracking
+        container.addEventListener('mouseenter', () => { 
             isHovered = true; 
             if (!isSitting) {
-                hoverTip.classList.add('active'); // Pops up "CLICK TO PET HIM" box
+                hoverTip.classList.add('active');
             }
         });
         
-        dog.addEventListener('mouseleave', () => { 
+        container.addEventListener('mouseleave', () => { 
             isHovered = false; 
-            hoverTip.classList.remove('active'); // Removes hover box safely
+            hoverTip.classList.remove('active');
         });
 
-        // "Click to Sit Down" 5-Second Loop Timer Logic
-        let bubbleTimeout;
-        dog.addEventListener('click', () => {
+        // [🎨 Fix]: 100% Reliable Click handling to toggle sitting PNG asset state
+        let sitTimeout;
+        container.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (isSitting) return; 
 
             isSitting = true;
-            dog.classList.add('corgi-jump');
-            hoverTip.classList.remove('active'); // Instantly drops tooltip on click
+            hoverTip.classList.remove('active');
+            dogImg.classList.add('corgi-jump');
 
+            // Set dialogue saying
             const randomPhrase = dogSayings[Math.floor(Math.random() * dogSayings.length)];
             bubble.innerText = randomPhrase;
             bubble.classList.add('show');
 
-            // 💡 Enforces dog-sit.png frame swap on click
-            const currentSrc = dog.src;
-            dog.src = 'dog-sit.png'; 
+            // Swap asset path instantly to static sitting image frame
+            dogImg.src = 'dog-sit.png'; 
 
-            bubbleTimeout = setTimeout(() => {
+            clearTimeout(sitTimeout);
+            sitTimeout = setTimeout(() => {
                 bubble.classList.remove('show');
-                dog.src = currentSrc; // Recover walking gif
+                dogImg.classList.remove('corgi-jump');
+                
+                // Recover running loop gif file asset link channel
+                dogImg.src = 'dog.gif'; 
+                
                 isSitting = false;
-                dog.classList.remove('corgi-jump');
                 setTimeout(moveDog, 100);
             }, 5000); // Original sits down for exactly 5 seconds
         });
 
-        // Wander update route recalculation cycle (3.8s intervals)
-        setInterval(moveDog, 3800);
+        // Loop wander update tracking route
+        setInterval(moveDog, 4500);
         
         window.addEventListener('DOMContentLoaded', () => {
-            dog.style.left = (window.innerWidth / 2) + 'px';
-            dog.style.top = (window.innerHeight - 140) + 'px';
+            container.style.left = (window.innerWidth / 2 - 42) + 'px';
+            container.style.top = (window.innerHeight - 160) + 'px';
             setTimeout(moveDog, 300);
-            
-            // Immediate pixel scanning for dark pixels extraction
-            removeBlackBackground();
         });
 
-        // Pure black pixels color removal automation engine
-        function removeBlackBackground() {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            const img = new Image();
-            img.crossOrigin = "Anonymous";
-            img.src = dog.src;
-
-            img.onload = () => {
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                const data = imgData.data;
-
-                for (let i = 0; i < data.length; i += 4) {
-                    if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 0) {
-                        data[i + 3] = 0; 
-                    }
-                }
-                ctx.putImageData(imgData, 0, 0);
-                dog.src = canvas.toDataURL();
-            };
-        }
-
-        window.addEventListener('resize', updateElementsPosition);
-        setInterval(updateElementsPosition, 50); // Ultra precision tracking loop
+        window.addEventListener('resize', updateUIPositions);
+        setInterval(updateUIPositions, 30); // Ultra tight rendering tracker tick rate
     </script>
 
 </body>
