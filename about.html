@@ -106,8 +106,8 @@
         }
 
         /* ========================================================
-   📊 左侧 Meta 区域字体与大小完美对齐修复
-   ======================================================== */
+    📊 左侧 Meta 区域字体与大小完美对齐修复
+    ======================================================== */
 .basic-meta {
     display: flex;
     flex-direction: column;
@@ -136,19 +136,20 @@
 .meta-major::before { content: 'Major // '; }
 
 /* 💡 精准修复第三行：彻底去掉 italic 斜体，保持跟 NTU 一模一样的字体骨架，只压缩大小 */
+/* 💡 完美对齐 NTU 字体与大小，通过微调字距确保不换行 */
 .long-major {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
-    font-weight: 600 !important; /* 保持跟前面两行一样的粗细 */
-    text-transform: uppercase !important; /* 强制大写，让它和 NTU 的字形完全对齐 */
-    font-size: 0.72rem !important; /* 调小字体，确保它能缩在一行里 */
-    letter-spacing: 0.5px !important; /* 稍微紧凑一点点 */
-    white-space: nowrap;
-    color: #666666 !important; /* 颜色也跟前两行保持完全一致的深灰 */
+    font-weight: 600 !important;      /* 粗细和前两行完全一致 */
+    text-transform: uppercase !important; /* 强制大写，保持字形一致 */
+    font-size: 0.82rem !important;     /* 大小和前两行完全一致 */
+    letter-spacing: -0.5px !important; /* 微调字距，像挤压弹簧一样让它绝对缩在一行内 */
+    white-space: nowrap !important;    /* 强制禁止换行 */
+    color: #666666 !important;
 }
         
         /* ========================================================
-           📖 Right Section: Scrollable Content
-           ======================================================== */
+            📖 Right Section: Scrollable Content
+            ======================================================== */
         .details-right {
             flex: 1 1 auto;
             height: 100%;
@@ -291,8 +292,9 @@
            ======================================================== */
         .corgi-wrapper {
             position: fixed;
-            width: 170px;
-            height: 170px;
+            /* 💡 大小改由内部图片动态决定，防止强行拉伸 */
+            width: auto;
+            height: auto;
             cursor: pointer;
             z-index: 9999; /* Higher priority layer for uninterrupted hover/clicks */
             user-select: none;
@@ -303,11 +305,11 @@
         }
 
         #corgi-naonaon {
-            width: 100%;
-            height: 100%;
+            width: 170px;  /* 💡 默认走路状态设定为 170px 大狗 */
+            height: 170px; /* 💡 默认走路状态设定为 170px 大狗 */
             object-fit: contain;
             display: block;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, width 0.1s ease, height 0.1s ease;
 
             /* [🎨 Fix]: CSS filter blend removes pure black background instantly 
                while preserving fluid 60FPS GIF frame-by-frame animation looping! */
@@ -581,6 +583,10 @@
             bubble.innerText = randomPhrase;
             bubble.classList.add('show');
 
+            // 💡【核心修改】：点击坐下时，瞬间将图片大小缩回原先的 85px
+            dogImg.style.width = '85px';
+            dogImg.style.height = '85px';
+
             // Swap asset path instantly to static sitting image frame
             dogImg.src = 'dog-sit.png'; 
 
@@ -589,6 +595,10 @@
                 bubble.classList.remove('show');
                 dogImg.classList.remove('corgi-jump');
                 
+                // 💡【恢复行走】：5秒结束起立时，瞬间将图片恢复至 170px 走路大小
+                dogImg.style.width = '170px';
+                dogImg.style.height = '170px';
+
                 // Recover running loop gif file asset link channel
                 dogImg.src = 'dog.gif'; 
                 
@@ -601,8 +611,12 @@
         setInterval(moveDog, 4500);
         
         window.addEventListener('DOMContentLoaded', () => {
-            container.style.left = (window.innerWidth / 2 - 42) + 'px';
-            container.style.top = (window.innerHeight - 160) + 'px';
+            // 💡 页面刚加载时，初始大小设定为 170px 走路状态
+            dogImg.style.width = '170px';
+            dogImg.style.height = '170px';
+
+            container.style.left = (window.innerWidth / 2 - 85) + 'px';
+            container.style.top = (window.innerHeight - 240) + 'px';
             setTimeout(moveDog, 300);
         });
 
