@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Xiwen's World</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f7f6f3; /* 温暖细腻的手账纸底色 */
+            color: #222222;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* 禁止整页滚动，保持手账版面优雅 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 优雅的返回主页按钮 */
+        .back-home-btn {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #666666;
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.2s ease;
+        }
+        .back-home-btn:hover {
+            color: #000000;
+            transform: translateX(-4px);
+        }
+
+        /* 左右分栏高级排版大容器 */
+        .about-layout {
+            display: flex;
+            width: 100%;
+            max-width: 1150px;
+            height: 85vh;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 60px;
+            padding: 20px 40px;
+            z-index: 10; /* 文字置于小狗上方，确保不影响点击和阅读 */
+        }
+
+        /* ========================================================
+           🖼️ 左侧固定：大名字 + 拍立得照片 + 简短基本信息
+           ======================================================== */
+        .profile-left {
+            flex: 0 0 auto;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: sticky;
+            top: 0;
+        }
+
+        .left-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 800;
+            color: #000000;
+            line-height: 1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .photo-frame {
+            background: #ffffff;
+            padding: 14px 14px 35px 14px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            transform: rotate(-1.5deg);
+            border-radius: 2px;
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+        }
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .photo-frame img {
+            width: 260px;
+            height: 260px;
+            object-fit: cover;
+            background: #eee;
+            display: block;
+        }
+
+        /* 简短基本信息排版 */
+        .basic-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.88rem;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .meta-item span {
+            color: #111111;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-transform: none;
+            font-size: 1rem;
+            margin-right: 4px;
+        }
+
+        /* ========================================================
+           📖 右侧区域：平滑叙事滚动栏（包含说明书、技能、爱好、联系）
+           ======================================================== */
+        .details-right {
+            flex: 1 1 auto;
+            height: 100%;
+            overflow-y: auto; /* 允许右侧长文本纵向自由滚动 */
+            padding-right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        /* 高级感隐藏原生滚动条 */
+        .details-right::-webkit-scrollbar { width: 4px; }
+        .details-right::-webkit-scrollbar-thumb { background: #e0ded9; border-radius: 4px; }
+
+        /* 通用大标题 */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #111111;
+            margin-bottom: 18px;
+        }
+
+        /* 1. 个人说明书文本 */
+        .manual-text {
+            font-size: 1.05rem;
+            color: #333333;
+            line-height: 1.75;
+            letter-spacing: 0.2px;
+        }
+        .manual-text p {
+            margin-bottom: 16px;
+        }
+
+        /* 2. 更有规划的技能卡片设计 */
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .skill-block {
+            background: #ffffff;
+            padding: 18px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .skill-block-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .skill-tag {
+            background: #f7f6f3;
+            color: #444444;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .skill-tag:hover {
+            background: #111111;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* 3. 爱好手账排版 */
+        .hobby-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .hobby-card {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            line-height: 1.6;
+        }
+        .hobby-card-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #111111;
+            min-width: 120px;
+        }
+        .hobby-card-detail {
+            font-size: 0.98rem;
+            color: #555555;
+        }
+
+        /* 4. 一击即中的一键跳转 Contact Me */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        .contact-link {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #555555;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        .contact-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #000000;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+        .contact-link:hover {
+            color: #000000;
+        }
+        .contact-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+
+        /* ========================================================
+           🐾 独家交互：满屏幕随心乱跑的柯基“闹闹”系统
+           ======================================================== */
+        #corgi-naonaon {
+            position: fixed;
+            width: 85px;        
+            height: auto;
+            cursor: pointer;
+            z-index: 5;         
+            user-select: none;
+            -webkit-user-drag: none;
+            transition: top 3.8s linear, left 3.8s linear, transform 0.2s ease; 
+        }
+
+        #corgi-naonaon:hover {
+            transition: transform 0.2s ease !important;
+        }
+
+        .corgi-jump {
+            animation: corgiBounce 0.4s ease-out;
+        }
+        @keyframes corgiBounce {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(0.95) translateY(-30px); }
+        }
+
+        .dog-bubble {
+            position: fixed;
+            background: #111111;
+            color: #ffffff;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+            transform: translate(-50%, -100%) scale(0.8);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        .dog-bubble.show {
+            opacity: 1;
+            transform: translate(-50%, -125%) scale(1);
+        }
+        .dog-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px 5px 0;
+            border-style: solid;
+            border-color: #111111 transparent;
+            display: block;
+            width: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <a class="back-home-btn" href="index.html">← Back to Box</a>
+
+    <img src="dog.gif" id="corgi-naonaon" alt="Naonao the Corgi" onerror="this.src='my-profile.png'; console.log('提示：请记得在仓库根目录上传闹闹的图片dog.gif哦！')">
+    
+    <div id="dog-speech-bubble" class="dog-bubble">Woof! 我是闹闹！🐾</div>
+
+
+    <div class="about-layout">
+        
+        <div class="profile-left">
+            <h1 class="left-name">Xiwen</h1>
+            <div class="photo-frame">
+                <img src="my-profile.png" alt="Xiwen's Photo">
+            </div>
+            <div class="basic-meta">
+                <div class="meta-item"><span>Status //</span> Undergraduate Y3</div>
+                <div class="meta-item"><span>Univ //</span> NTU, Singapore</div>
+                <div class="meta-item"><span>Major //</span> Info Engineering & Media</div>
+            </div>
+        </div>
+
+        <div class="details-right">
+            
+            <section>
+                <h2 class="section-title">The Manual // 个人说明书</h2>
+                <div class="manual-text">
+                    <p>Hiii 我是Xiwen！这是我的个人说明书：我是一个来自NTU就读于information engineering and media的大三学生，对游戏设计 / HCI / ARVR领域很感兴趣，是一个游走在engineer和designer之间的自由的灵魂。</p>
+                    <p>我喜欢毛茸茸的东西和草莓蛋糕，也喜欢思考宇宙的边界和待会儿吃什么。我是一个永远保持辩证思考的人，坚信这个世界上没有绝对的好事和坏事。</p>
+                    <p>所以我喜欢去探索，探索这个世界还可以变成什么样，探索未来的我还可以变成什么样。</p>
+                    <p style="color: #666; font-style: italic; font-size: 0.95rem;">哦对了，这个页面里的corgi是我的狗狗，他叫闹闹，你可以跟他打个招呼：）</p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Technical Skills // 技能栈</h2>
+                <div class="skills-container">
+                    
+                    <div class="skill-block">
+                        <div class="skill-block-title">Programming Languages</div>
+                        <div class="skill-tags">
+                            <div class="skill-tag">C#</div>
+                            <div class="skill-tag">C Language</div>
+                            <div class="skill-tag">Python (Data Processing & Visualisation)</div>
+                            <div class="skill-tag">Java (OOP)</div>
+                        </div>
+                    </div>
+
+                    <div class="skill-block">
+                        <div class="skill-block-title">App & Interactive Game Design</div>
+                        <div class="skill-tags">
+                            <div class="skill-tag">Unity (Game Design)</div>
+                            <div class="skill-tag">Figma (Interface Design)</div>
+                            <div class="skill-tag">Adobe Photoshop</div>
+                            <div class="skill-tag">Adobe Illustrator</div>
+                            <div class="skill-tag">Microsoft Office (Functions & Data Analysis)</div>
+                        </div>
+                    </div>
+
+                    <div class="skill-block">
+                        <div class="skill-block-title">Relevant Coursework</div>
+                        <div class="skill-tags">
+                            <div class="skill-tag">Game & Interactive Application Development</div>
+                            <div class="skill-tag">Programming & Software Development</div>
+                            <div class="skill-tag">Artistic & Visual Design</div>
+                            <div class="skill-tag">Electronics & Embedded Systems</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Hobbies // 兴趣与碎碎念</h2>
+                <div class="hobby-grid">
+                    <div class="hobby-card">
+                        <div class="hobby-card-title">Piano & Music</div>
+                        <div class="hobby-card-detail">钢琴通过 ABRSM Grade 8，之前还在乐队里客串做过 Keyboard。</div>
+                    </div>
+                    <div class="hobby-card">
+                        <div class="hobby-card-title">Art & Craft</div>
+                        <div class="hobby-card-detail">喜欢画画、摄影。心情不好的时候，做手账拼贴（Collage）和纯手工能让我彻底治愈。</div>
+                    </div>
+                    <div class="hobby-card">
+                        <div class="hobby-card-title">Musicals & Films</div>
+                        <div class="hobby-card-detail">喜欢看音乐剧和电影，尤其是迪士尼的动画电影，百看不厌。</div>
+                    </div>
+                    <div class="hobby-card">
+                        <div class="hobby-card-title">And More...</div>
+                        <div class="hobby-card-detail" style="font-style: italic; color: #888;">还有很多我的隐藏爱好，等着你以后去一点点开发。</div>
+                    </div>
+                </div>
+            </section>
+
+            <section style="margin-bottom: 40px;">
+                <h2 class="section-title">Contact Me // 保持联系</h2>
+                <div class="contact-container">
+                    <a href="#" target="_blank" class="contact-link">Instagram</a>
+                    <a href="#" target="_blank" class="contact-link">Telegram</a>
+                    <a href="#" target="_blank" class="contact-link">WhatsApp</a>
+                    <a href="#" target="_blank" class="contact-link">LinkedIn</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+
+    <script>
+        const dog = document.getElementById('corgi-naonaon');
+        const bubble = document.getElementById('dog-speech-bubble');
+        
+        const dogSayings = [
+            "Woof! 我是闹闹！🐾",
+            "被你点到了！贴贴！✨",
+            "汪汪！喜欢草莓蛋糕还是喜欢我？🍰",
+            "我在帮Xiwen巡逻整个网页！🐕",
+            "Woof! 给你表演一个原地定格！",
+            "🐾 (疯狂摇尾巴表示友好)"
+        ];
+
+        let isHovered = false;
+
+        function moveDog() {
+            if (isHovered) return; 
+
+            const padding = 120;
+            const screenWidth = window.innerWidth - padding;
+            const screenHeight = window.innerHeight - padding;
+
+            const randomX = Math.floor(Math.random() * screenWidth) + 30;
+            const randomY = Math.floor(Math.random() * screenHeight) + 30;
+
+            const currentX = parseFloat(dog.style.left) || window.innerWidth / 2;
+            if (randomX > currentX) {
+                dog.style.transform = "scaleX(-1)"; 
+            } else {
+                dog.style.transform = "scaleX(1)";  
+            }
+
+            dog.style.left = randomX + 'px';
+            dog.style.top = randomY + 'px';
+            
+            updateBubblePosition();
+        }
+
+        function updateBubblePosition() {
+            const dogRect = dog.getBoundingClientRect();
+            bubble.style.left = (dogRect.left + dogRect.width / 2) + 'px';
+            bubble.style.top = dogRect.top + 'px';
+        }
+
+        dog.addEventListener('mouseenter', () => { isHovered = true; });
+        dog.addEventListener('mouseleave', () => { isHovered = false; });
+
+        let bubbleTimeout;
+        dog.addEventListener('click', () => {
+            dog.classList.add('corgi-jump');
+            setTimeout(() => dog.classList.remove('corgi-jump'), 400);
+
+            const randomPhrase = dogSayings[Math.floor(Math.random() * dogSayings.length)];
+            bubble.innerText = randomPhrase;
+            
+            updateBubblePosition();
+            bubble.classList.add('show');
+
+            clearTimeout(bubbleTimeout);
+            bubbleTimeout = setTimeout(() => {
+                bubble.classList.remove('show');
+            }, 3000);
+        });
+
+        setInterval(moveDog, 3800);
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            dog.style.left = (window.innerWidth / 2) + 'px';
+            dog.style.top = (window.innerHeight - 140) + 'px';
+            setTimeout(moveDog, 300);
+        });
+
+        window.addEventListener('resize', updateBubblePosition);
+        setInterval(updateBubblePosition, 80); 
+    </script>
+
+</body>
+</html>
