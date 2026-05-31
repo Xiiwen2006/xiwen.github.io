@@ -53,7 +53,7 @@
         }
 
         /* ========================================================
-           📁 文件夹核心系统 (完美放大 1.5 倍 + 向左平移 1/3)
+            📁 文件夹核心系统 (完美放大 1.5 倍 + 向左平移 1/3)
            ======================================================== */
         .folder-base {
             position: absolute;
@@ -117,7 +117,7 @@
         }
 
         /* ========================================================
-           📄 5 张纸质档案卡片样式重构 (图层提到最前，百分比横向排开)
+            📄 5 张纸质档案卡片样式重构 (图层提到最前，百分比横向排开)
            ======================================================== */
         .project-card {
             position: absolute;
@@ -158,7 +158,7 @@
         .stage-container.is-opened .card-4 { transform: translate(190px, -190px) scale(1) rotate(-3deg); transition-delay: 0.34s; }
         .stage-container.is-opened .card-5 { transform: translate(380px, -140px) scale(1) rotate(5deg);  transition-delay: 0.42s; }
 
-        /* ⚡ 零延迟瞬间悬停起飞（提升物理响应速度） */
+        /* 挤零延迟瞬间悬停起飞（提升物理响应速度） */
         .stage-container.is-opened .card-1:hover { transform: translate(-380px, -210px) scale(1.06) rotate(-4deg); z-index: 200; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
         .stage-container.is-opened .card-2:hover { transform: translate(-190px, -240px) scale(1.06) rotate(0deg);  z-index: 200; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
         .stage-container.is-opened .card-3:hover { transform: translate(0px, -220px) scale(1.06) rotate(3deg);    z-index: 200; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
@@ -198,7 +198,7 @@
         }
 
         /* ========================================================
-           🎯 终极全屏大屏：完美绝对居中锁定，彻底消除乱动
+            🎯 终极全屏大屏：完美绝对居中锁定，彻底消除乱动
            ======================================================== */
         .stage-container.has-active-card .folder-opened {
             transform: translate(calc(-50% - 150px), 120px) scale(1.5);
@@ -254,7 +254,7 @@
         .close-btn:hover { color: #000; }
 
         /* ========================================================
-           🪄 双向悬停提示标签（自动跟随居中计算）
+            🪄 双向悬停提示标签（自动跟随居中计算）
            ======================================================== */
         .hover-tooltip {
             position: absolute;
@@ -285,6 +285,75 @@
         .stage-container.has-active-card .hover-tooltip {
             display: none !important;
         }
+
+        /* ========================================================
+            🎨 新增：优雅的手账风格图文混排辅助样式
+           ======================================================== */
+        .card-inner-detailed h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #111;
+            margin: 25px 0 10px 0;
+            border-left: 3px solid #e5dfd5;
+            padding-left: 10px;
+        }
+        .card-inner-detailed blockquote {
+            background: #faf9f6;
+            border-left: 3px solid #d3cbbd;
+            padding: 12px 16px;
+            margin: 15px 0;
+            font-size: 0.92rem;
+            font-style: italic;
+            color: #555;
+            border-radius: 0 4px 4px 0;
+        }
+        .card-inner-detailed ul {
+            margin: 12px 0 18px 20px;
+        }
+        .card-inner-detailed li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+        .card-inner-detailed .media-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 18px 0;
+        }
+        .card-inner-detailed img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid #e8e5de;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            object-fit: cover;
+        }
+        .card-inner-detailed .img-half {
+            width: calc(50% - 6px);
+            min-width: 200px;
+        }
+        .card-inner-detailed .img-full {
+            width: 100%;
+        }
+        .card-inner-detailed .play-link {
+            display: inline-block;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #000;
+            text-decoration: none;
+            background: #f1ede4;
+            padding: 8px 16px;
+            border-radius: 4px;
+            margin: 15px 0;
+            transition: all 0.2s ease;
+        }
+        .card-inner-detailed .play-link:hover {
+            background: #111;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -306,13 +375,34 @@
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
                 <span>Project // 01</span>
-                Alchemage Build
+                FREAKY bread
             </div>
             <div class="card-inner-detailed">
-                <p><strong>Role:</strong> Client-Side Game Developer Intern</p>
-                <p style="margin-top: 15px; color: #666;">
-                    负责端侧核心玩法架构与交互逻辑编写。通过对 Unity 动画状态机、C# 模块以及底层交互数据流的深度打磨，实现了极为流畅的魔法合成反馈。
+                <p><strong>Position:</strong> Unity Indie Game Project // Horror Interactive Concept</p>
+                
+                <a href="https://play.unity.com/api/v1/games/game/75a6442c-2d14-4a9b-8e1c-68562c46ec89/build/latest/frame" target="_blank" class="play-link">▸ CLICK HERE TO PLAY THE GAME (UNITY PLAY)</a>
+
+                <h4>[ THE BRIEF // A Nightshift Invitation ]</h4>
+                <blockquote>
+                    Oof. After surviving a total meltdown of a post-graduation job hunt and collecting a mountain of rejection letters, I out of nowhere received a midnight offer from a mysterious bakery. The job description sounded like a total breeze: pack the right types and quantities of bread onto the delivery truck in a dead-silent factory at night. Simple, right? Well, wrong. The second the conveyor belt started rolling, I froze—some of the loaves were... moving? They were literally breathing in the shadows! To make it a certified nightmare, a terrifying Manager is constantly breathing down my neck, throwing furious rushes and deadly attacks. My single brain cell at that moment: frantic bread-counting, avoiding death, and punching the clock to survive. Welcome to the ultimate corporate horror.
+                </blockquote>
+
+                <div class="media-container">
+                    <img src="assets/freaky-bread-order.gif" alt="Initial Order Screen" class="img-half">
+                    <img src="assets/freaky-bread-warehouse.gif" alt="Bakery Warehouse Environment" class="img-half">
+                </div>
+
+                <h4>[ BEHIND THE SCENES // The Magic Reel ]</h4>
+                <p>
+                    The spark for this game came from the most random thing ever. My friend and I were doomscrolling on Instagram and stumbled upon a hilarious, oddly satisfying Reel of a guy sharing his real-world midnight shift—mechanically sorting and packing endless bread onto trays. The industrial absurdity and raw rhythm of it were so incredibly captivating! Naturally, my cracked partner-in-crime <strong>Michelle</strong> and I teamed up for our <strong>IDP course</strong>, hijacked this brainrot concept, and weaponized it into a full-fledged indie horror game for our major project.
                 </p>
+
+                <h4>[ TECH SETUP // Under the Hood ]</h4>
+                <ul>
+                    <li><strong>Engine & Architecture:</strong> Engineered entirely in Unity with all gameplay logic, player state machines, and interactive behaviors driven by modular C# scripting.</li>
+                    <li><strong>Animation States:</strong> Fine-tuned Unity Animator Controllers to blend seamlessly between the subtle "breathing" blend shapes of the bread, the aggressive pursuit AI paths of the Manager, and the physics-based feedback of the player.</li>
+                    <li><strong>Data Integrity:</strong> Implemented a real-time sorting and validation system to track packing quotas under high-pressure environments, ensuring robust collision detection and accurate inventory calculation.</li>
+                </ul>
             </div>
         </div>
 
@@ -320,13 +410,42 @@
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
                 <span>Research // 02</span>
-                VR Cultural Heritage
+                S'pookie Bread
             </div>
             <div class="card-inner-detailed">
-                <p><strong>Topic:</strong> Visualising Cultural Heritage in VR (URECA)</p>
-                <p style="margin-top: 15px; color: #666;">
-                    基于 3D Gaussian Splatting (3DGS) 技术实现高保真三维重构。将前沿实时高精渲染管线引入虚拟现实系统，完成文化遗产的数字化永生与沉浸式人机交互。
+                <p><strong>Position:</strong> Roblox Hackathon Project // Hardcore Multiplayer Remake</p>
+                
+                <a href="https://www.roblox.com/share?code=9b278d717a4eff458e2e7cf42add7750&type=ExperienceDetails&stamp=1779678580728" target="_blank" class="play-link">▸ CLICK HERE TO ENTER THE EXPERIENCE (ROBLOX)</a>
+
+                <h4>[ THE EVOLUTION // The Shift Just Got Worse ]</h4>
+                <blockquote>
+                    Guess what? The legendary midnight bakery is back, but this time it’s an absolute upgrade on Roblox! We resurrected the same Reels-inspired chaos but cranked the packing nightmare up to eleven with multi-player madness and unpredictable anomalies. Every single night you clock in, the entire factory layout and shelves randomly shape-shift into something completely unhinged. The Boss is now a certified stalker—his terrifying eyes lock onto you and he literally shadows your every move (feels like he's trying to dock my pay forever). On the bright side, we hooked up a mysterious vending machine deep in the facility selling chaotic power-ups, and there's even a forbidden switch that "spawns more bread" for the greedy brave souls. Sounds like fun perks? Well, the performance review is lethal—word on the street is that four employees who missed their KPIs last shift completely vanished into the dark...
+                </blockquote>
+
+                <div class="media-container">
+                    <img src="assets/spookie-lobby.gif" alt="Roblox Game Lobby" class="img-half">
+                    <img src="assets/spookie-grab-bread.gif" alt="Grabbing Bread Interaction" class="img-half">
+                </div>
+                <div class="media-container">
+                    <img src="assets/spookie-breathing-bread.gif" alt="Roblox Breathing Bread Mechanical Anomaly" class="img-half">
+                    <img src="assets/spookie-manager-chase.gif" alt="Terrifying Manager AI Pursuit" class="img-half">
+                </div>
+
+                <h4>[ HACKATHON GLORY // Sleep Deprivation & T-shirts ]</h4>
+                <p>
+                    We locked into this world-building and rushed to build it for the <strong>Garena Hackathon</strong>. In a brutal, sleep-deprived marathon against the clock, we pulled an all-night coding spree to birth this chaotic, multiplayer-native experience from scratch—and we actually walked away with <strong>4th Place (Top 4)</strong>! Beyond the trophy, we walked away with a ride-or-die tech friendship. Fun fact: we were so hyped about this world that we even printed limited-edition custom T-shirts for the game, and rocking them on campus felt incredibly badass!
                 </p>
+
+                <div class="media-container">
+                    <img src="assets/garena-hackathon-team.jpg" alt="Our Amazing Team at Garena Hackathon" class="img-full">
+                </div>
+
+                <h4>[ TECH SETUP // Under the Hood ]</h4>
+                <ul>
+                    <li><strong>Multiplayer Gameplay Logic:</strong> Scripted entirely within the Roblox Studio ecosystem using Luau, building client-server replication structures for a chaotic multiplayer environment.</li>
+                    <li><strong>Procedural Map Shuffle:</strong> Architected a lightweight runtime randomization engine that rearranges factory corridors, inventory shelves, and spawn points every round to massively boost replayability.</li>
+                    <li><strong>AI & Item Systems:</strong> Developed custom chasing behavior trees for the NPC boss and coded a transactional vending machine database mapping dynamic item buffs/debuffs to real-time triggers.</li>
+                </ul>
             </div>
         </div>
 
@@ -334,13 +453,39 @@
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
                 <span>System // 03</span>
-                Digital Wellness Web
+                Sashimi's Movie Store
             </div>
             <div class="card-inner-detailed">
-                <p><strong>Type:</strong> Interactive Web Application</p>
-                <p style="margin-top: 15px; color: #666;">
-                    面向青少年的端到端全栈心理健康设计。通过深度的用户调研与细腻的前端人机界面开发，将原本枯燥的数据转化为极具情感陪伴感的交互工具。
+                <p><strong>Position:</strong> Full-Stack Web Application // E-Commerce Architecture</p>
+                
+                <blockquote>
+                    <strong>Deployment Note:</strong> This digital store currently lives a happy, quiet life tucked away entirely inside my local machine (firmly bound to my local database environment), running gracefully on <code>localhost</code>. Thus, no public URL is available—but look at the tech setup below to see how smoothly it runs!
+                </blockquote>
+
+                <h4>[ WELCOME TO THE SHOP // Boutique Cinema Experience ]</h4>
+                <p>
+                    Welcome to Sashimi's private cinema lounge! This is a massive, feature-rich full-stack monster we built for our <strong>IDP course</strong>. We basically packed every single e-commerce feature you could dream of into this online store: you can run wild searching your favorite titles, instantly drop them into a personalized Watchlist, simulate checkout purchases, and log into securely authenticated personal accounts. 
                 </p>
+                <p style="margin-top: 10px;">
+                    We even threw in a "What should I watch today?" randomized smart recommendation engine! Oh, and to make it feel like a buzzing movie community, we built an interactive review portal where users can drop ratings and—the coolest part—<strong>directly upload screenshots</strong> to show off their favorite cinematic frames or share hilarious reactions.
+                </p>
+
+                <div class="media-container">
+                    <img src="assets/movie-store-browse.gif" alt="Browse All Collections" class="img-half">
+                    <img src="assets/movie-store-search.gif" alt="Search Functionality Input" class="img-half">
+                </div>
+                <div class="media-container">
+                    <img src="assets/movie-store-surprise.gif" alt="Surprise Me Recommendation System" class="img-third" style="width: calc(33.33% - 8px);">
+                    <img src="assets/movie-store-review.gif" alt="Interactive Review & Screenshot Upload" class="img-third" style="width: calc(33.33% - 8px);">
+                    <img src="assets/movie-store-checkout.gif" alt="Checkout Transaction Pipeline" class="img-third" style="width: calc(33.33% - 8px);">
+                </div>
+
+                <h4>[ TECH SETUP // Under the Hood ]</h4>
+                <ul>
+                    <li><strong>Full-Stack Infrastructure:</strong> Developed with a solid Java backend utilizing core <strong>Java Servlet</strong> components, served over an <strong>Apache Tomcat</strong> web server environment.</li>
+                    <li><strong>Database Schema & Architecture:</strong> Backed by a relational <strong>MySQL</strong> database with meticulously mapped multi-table relations (Users, Movie Assets, Orders, and User Reviews) to guarantee seamless data persistence and rapid local query performance.</li>
+                    <li><strong>Frontend Multimedia Stream:</strong> Built an intuitive, clean human-computer interface integrating a specialized multipart multimedia file upload module, enabling robust and validated frontend image submissions for movie screenshots.</li>
+                </ul>
             </div>
         </div>
 
@@ -348,12 +493,29 @@
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
                 <span>Interactive // 04</span>
-                Rement Narrative
+                BonsaiGarden VR
             </div>
             <div class="card-inner-detailed">
-                <p><strong>Concept:</strong> Narrative-Driven Game Project</p>
-                <p style="margin-top: 15px; color: #666;">
-                    在 Unity 引擎中独立开发搭建的交互叙事探索项目。深度挖掘人类与人工智能（Human-AI）的共生纽带，将艺术化的剧本逻辑和细腻的客户端控制逻辑做深度的解耦与融合。
+                <p><strong>Position:</strong> URECA Undergraduate Research Program // 3DGS Reconstructions</p>
+                
+                <a href="#" onclick="return false;" class="play-link" style="opacity: 0.7; cursor: not-allowed;">▸ WEB-BASED INTERACTIVE PORTAL (COMING SOON)</a>
+
+                <h4>[ INTRODUCTION // Digital Immortality ]</h4>
+                <blockquote>
+                    Conducted under the <strong>URECA Undergraduate Research Program</strong>, this study tackles the urgent need for digital preservation of cultural heritage. The core target of this project is the "BonsaiGarden"—an artifact of immense historical and aesthetic value. Compared to traditional Photogrammetry, cutting-edge <strong>3D Gaussian Splatting (3DGS)</strong> offers a revolutionary paradigm shift in real-time high-fidelity rendering and geometric fidelity. The ultimate objective of this research is to bridge technical divides by establishing a complete, end-to-end technical pipeline from 360° real-world video capture to immersive Virtual Reality (VR) deployment.
+                </blockquote>
+
+                <h4>[ TECHNICAL PIPELINE // The Methodology ]</h4>
+                <ul>
+                    <li><strong>Data Acquisition:</strong> Devised a custom Omnidirectional Capture Protocol utilizing high-resolution 360° cameras to perform precise spatial movement sampling across the real-world garden.</li>
+                    <li><strong>Data Pre-processing:</strong> Implemented custom FFmpeg and AliceVision conversion logic to unpack raw spherical video streams into equirectangular formats, which were then cleanly segmented into multi-view perspective images.</li>
+                    <li><strong>3DGS Training & Optimization:</strong> Fed multi-view perspective datasets into the 3DGS optimization framework for mathematical fitting, employing advanced post-processing to eliminate floating artifacts and refine micro-foliage high-frequency details.</li>
+                    <li><strong>VR Integration:</strong> Losslessly imported optimized high-definition 3D spatial Gaussian splatting assets into <strong>Unreal Engine</strong>. Developed narrative-driven VR interaction mechanics, custom material shaders, and a bespoke VR headset HUD layout.</li>
+                </ul>
+
+                <h4>[ SIGNIFICANCE // Cultural Echoes ]</h4>
+                <p>
+                    The experimental results demonstrate that this pipeline successfully masters the notoriously difficult balance between large-scale spatial environments and the micro-details of miniature bonsai trees. This narrative-driven interactive VR experience significantly reduces the distance between modern users and fragile historical heritage, opening a brand-new engineering blueprint for digital museum curation worldwide.
                 </p>
             </div>
         </div>
@@ -362,13 +524,39 @@
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
                 <span>Future Lab // 05</span>
-                Animation Tech Exploration
+                Rement Narrative
             </div>
             <div class="card-inner-detailed">
-                <p><strong>Vision:</strong> Technological Art Research</p>
-                <p style="margin-top: 15px; color: #666;">
-                    关于数字动画、沉浸式图形技术（Graphics Research）的未来探索集合。融合了严谨工程底色与前沿数字美学，致力于打破现实物理与光影科技的次元边际。
+                <p><strong>Position:</strong> Interactive Dreamcore Project // Cognitive Psychology Exploration</p>
+                
+                <a href="https://codepen.io/echvhghn-the-bashful/full/WbxYNjd" target="_blank" class="play-link">▸ CLICK HERE TO EXPLORE THE MEMORY PROBE (CODEPEN)</a>
+
+                <h4>[ PHILOSOPHY // Systematically Manufactured Nostalgia ]</h4>
+                <blockquote>
+                    The seed of this project was planted by a peculiar modern social phenomenon: the absolute tsunami of "Dreamcore" and fake nostalgia taking over social media. People everywhere are obsessively reposting blurry old photos—faded vintage toys, discontinued magazines, empty afternoon parks, or rainy train stations. Fascinatingly, these images stir up massive psychological waves among peers who never lived them, convincing them that "this is my childhood memory".
+                </blockquote>
+                <p style="margin-top: 10px;">
+                    As <i>Renwu Magazine</i> pointed out in <i>"Why Are We Growing More Homesick for the Past?"</i>, this generational homesickness often serves as an idealized shelter to escape current anxieties. Psychologists note that while nostalgia is a warm, cozy safety nest, staying trapped in it robs us of our present and our courage to carve out paths for the future. <strong>Rement</strong> targets this pink bubble using code. I wanted to show that <strong>nostalgia is systematically manufactured</strong>. Systems average human behavior, erasing raw friction, conflicts, and painful truths to present a filtered, "harmless" version of reality. You don't love the past; you love a cinematic filter stripped of suffering.
                 </p>
+
+                <div class="media-container">
+                    <img src="assets/rement-vhs-ambience.gif" alt="Dreamcore VHS Glitch Environment" class="img-half">
+                    <img src="assets/rement-radar-sensing.gif" alt="Euclidean Radar Probing Interface" class="img-half">
+                </div>
+
+                <h4>[ DEVLOG // The CodePen Production Line ]</h4>
+                <ul>
+                    <li><strong>HTML Structure (The Skeleton):</strong> Structured an interactive canvas container (<code>#stage</code>), multi-parallax background layers (<code>#scene</code>), a raw retro VHS scanline/glitch layer (<code>#fx</code>), a mouse/touch interaction pointer (<code>#probe</code>), and a live-rendering diagnostic terminal (<code>#logPanel</code>).</li>
+                    <li><strong>CSS Atmosphere (The Aesthetic):</strong> Simulated true analog videotape textures using custom vignettes, noise filters, and CRT scanlines. Bound CSS global variables (like radar rotation speeds and probe coordinates) to <code>:root</code> to allow immediate physical interaction with JavaScript.</li>
+                    <li><strong>JS Interaction & Data-Driven Logic (The Engine):</strong>
+                        <ul>
+                            <li style="margin-top: 5px;"><i>Data Isolation:</i> Utilized a multi-dimensional Scenes Array to decouple text strings, asset paths, entry subtitles, and hidden fragments from the main logic loop.</li>
+                            <li><i>Parallax Sensing:</i> Listened to <code>mousemove/touchmove</code> to inject real-time coordinates into CSS variables, producing a subtle spatial parallax effect.</li>
+                            <li><i>Euclidean Radar:</i> High-frequency executed <code>computeNearest()</code> every frame to calculate the Euclidean distance between the probe and hidden memory shards. As the distance shrinks, it updates the radar UI state from <i>Detected</i> to <i>Locked</i>, accelerating scan rates and directing the radar sweep line toward the target.</li>
+                            <li><i>Pointer-Hold Harvest:</i> Developed a time-accumulator bound to <code>pointerdown</code>. Once the <code>holdFill</code> bar hits 100%, it displays the memory fragment, logs the data to the diagnostic terminal, and increments state until triggering <code>loadScene()</code> to shift into the next memory matrix.</li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
 
