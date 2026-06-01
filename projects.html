@@ -53,63 +53,61 @@
         }
 
         /* ========================================================
-            📁 文件夹核心系统 (精致缩小 + 绝对正居中)
+            📁 文件夹核心系统（放大尺寸 + 绝对正居中锁死）
            ======================================================== */
         .folder-base {
             position: absolute;
-            width: 780px; /* 精致化整体宽度 */
-            height: 440px; /* 优化高度平衡 */
+            width: 960px; /* 根据截图意图，放大整体文件夹的视觉体量 */
+            height: 540px;
             left: 50%;
             top: 50%;
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
-            /* 彻底移除向左偏移，实现大屏绝对正居中，尺寸调整为更优雅的1.2倍 */
-            transform: translate(-50%, -40%) scale(1.2);
+            transform: translate(-50%, -42%) scale(1.1);
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* 初始封闭状态 (图1：file.jpg) */
         .folder-closed {
             background-image: url('file.jpg');
-            z-index: 300; /* 🔥 提到纸质卡片上方，从而把卡片身体挡在后面 */
+            z-index: 500; /* 初始在最前，挡住所有后续图层 */
             cursor: pointer;
             filter: drop-shadow(0 25px 50px rgba(0,0,0,0.1));
         }
         .folder-closed:hover {
-            transform: translate(-50%, -41%) scale(1.22);
+            transform: translate(-50%, -44%) scale(1.12);
             filter: drop-shadow(0 35px 60px rgba(0,0,0,0.15));
         }
 
-        /* 打开后的后壳底座 (图2：file-opened.jpg) */
+        /* 打开后的底座后壳 (图2：file-opened.jpg) */
         .folder-opened {
             background-image: url('file-opened.jpg');
-            z-index: 10; /* 打开后退到最底层，充当大背景板 */
+            z-index: 100; /* 🔥 关键：置于卡片的图层前方，从而把卡片下半身完美挡在内侧 */
             opacity: 0;
             pointer-events: none;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.06));
-            cursor: pointer;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.08));
         }
 
-        /* 状态联动：文件夹打开后 */
+        /* 状态联动：点击文件夹开启后 */
         .stage-container.is-opened .folder-closed {
             opacity: 0;
-            transform: translate(-50%, -30%) scale(1.0);
             pointer-events: none;
+            transform: translate(-50%, -30%) scale(0.9);
         }
         .stage-container.is-opened .folder-opened {
             opacity: 1;
             pointer-events: auto;
         }
 
-        /* 用于点击页面空白处可以合上文件夹的巨型隐形地毯 */
+        /* 点击空白处合上文件夹 */
         .close-folder-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 5;
+            z-index: 10; /* 躺在最底下 */
             display: none;
         }
         .stage-container.is-opened .close-folder-overlay {
@@ -117,75 +115,52 @@
         }
 
         /* ========================================================
-            📄 5 张纸质档案卡片样式重构 (初始藏在文件夹后，仅露出顶部标题)
+            📄 5 张纸质档案卡片样式重构（精确对齐截图中的夹子收纳形态）
            ======================================================== */
         .project-card {
             position: absolute;
-            width: 220px;
-            height: 330px;
+            width: 215px;
+            height: 350px;
             background: #ffffff;
-            border: 1px solid #e5dfd5;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #e3ded4;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
             border-radius: 4px;
-            z-index: 200; /* 🔥 处于 z-index 300 的前壳下方，完美隐藏身体 */
             padding: 20px;
             cursor: pointer;
             transform-origin: bottom center;
+            opacity: 0;
+            pointer-events: none;
             
-            /* 丝滑物理动效过渡 */
+            /* 卡片本身的层级在 file-opened (100) 的后面，实现遮挡 */
+            z-index: 50; 
+            
+            /* 丝滑的上下抽拉动画过渡 */
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
                         opacity 0.4s ease, 
-                        box-shadow 0.3s ease,
-                        width 0.5s ease,
-                        height 0.5s ease;
+                        box-shadow 0.3s ease;
         }
 
-        /* 📁 初始状态（闭合时）：卡片在正中央整齐排开，上半截标题正好翻越文件夹上缘漏出来 */
-        .card-1 { transform: translate(-300px, -230px) scale(0.95) rotate(-5deg); }
-        .card-2 { transform: translate(-150px, -245px) scale(0.95) rotate(-2deg); }
-        .card-3 { transform: translate(0px, -240px) scale(0.95) rotate(1deg); }
-        .card-4 { transform: translate(150px, -250px) scale(0.95) rotate(-3deg); }
-        .card-5 { transform: translate(300px, -225px) scale(0.95) rotate(4deg); }
-
-        /* 🖱️ 文件夹未打开时，鼠标划过谁，谁就平滑向上弹起抽出一截（动画不变且更灵动） */
-        .stage-container:not(.is-opened):not(.has-active-card) .card-1:hover { transform: translate(-300px, -290px) scale(1.02) rotate(-3deg); z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-        .stage-container:not(.is-opened):not(.has-active-card) .card-2:hover { transform: translate(-150px, -305px) scale(1.02) rotate(0deg);  z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-        .stage-container:not(.is-opened):not(.has-active-card) .card-3:hover { transform: translate(0px, -300px) scale(1.02) rotate(3deg);    z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-        .stage-container:not(.is-opened):not(.has-active-card) .card-4:hover { transform: translate(150px, -310px) scale(1.02) rotate(-1deg); z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-        .stage-container:not(.is-opened):not(.has-active-card) .card-5:hover { transform: translate(300px, -285px) scale(1.02) rotate(6deg);  z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-
-        /* 🎬 打开文件夹后的扇形散开状态（层级自动提升，确保完全不被挡住） */
+        /* 📁 当点击打开文件夹后，卡片以完全符合“截屏2026-06-01 下午5.26.40.jpg”的形态探出标头 */
         .stage-container.is-opened .project-card {
-            z-index: 400; /* 越过前壳层级 */
+            opacity: 1;
+            pointer-events: auto;
         }
-        .stage-container.is-opened .card-1 { transform: translate(-360px, -140px) scale(1) rotate(-6deg); }
-        .stage-container.is-opened .card-2 { transform: translate(-180px, -170px) scale(1) rotate(-2deg); }
-        .stage-container.is-opened .card-3 { transform: translate(0px, -150px) scale(1) rotate(1deg); }
-        .stage-container.is-opened .card-4 { transform: translate(180px, -180px) scale(1) rotate(-3deg); }
-        .stage-container.is-opened .card-5 { transform: translate(360px, -130px) scale(1) rotate(5deg); }
 
-        /* 打开后的悬停起飞 */
-        .stage-container.is-opened .card-1:hover { transform: translate(-360px, -200px) scale(1.06) rotate(-4deg); z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
-        .stage-container.is-opened .card-2:hover { transform: translate(-180px, -230px) scale(1.06) rotate(0deg);  z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
-        .stage-container.is-opened .card-3:hover { transform: translate(0px, -210px) scale(1.06) rotate(3deg);    z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
-        .stage-container.is-opened .card-4:hover { transform: translate(180px, -240px) scale(1.06) rotate(-1deg); z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
-        .stage-container.is-opened .card-5:hover { transform: translate(360px, -190px) scale(1.06) rotate(7deg);  z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
+        /* 初始插入夹子深处的坐标：刚好只把顶部的 tab-title 边界探到文件夹外壳上方 (利用 -310px 左右的纵向高度精确卡位) */
+        .stage-container.is-opened .card-1 { transform: translate(-330px, -290px) scale(0.95) rotate(-5deg); }
+        .stage-container.is-opened .card-2 { transform: translate(-165px, -315px) scale(0.95) rotate(-2deg); }
+        .stage-container.is-opened .card-3 { transform: translate(0px, -310px) scale(0.95) rotate(1deg); }
+        .stage-container.is-opened .card-4 { transform: translate(165px, -320px) scale(0.95) rotate(-3deg); }
+        .stage-container.is-opened .card-5 { transform: translate(330px, -285px) scale(0.95) rotate(4deg); }
 
-        /* 卡片详情文本域 */
-        .card-inner-detailed {
-            opacity: 0;
-            display: none;
-            height: calc(100% - 70px);
-            overflow-y: auto;
-            padding-right: 15px;
-            margin-top: 25px;
-            font-size: 0.98rem;
-            color: #555;
-            line-height: 1.65;
-        }
-        .card-inner-detailed::-webkit-scrollbar { width: 5px; }
-        .card-inner-detailed::-webkit-scrollbar-thumb { background: #e5dfd5; border-radius: 4px; }
+        /* 🖱️ 鼠标滑动到某张卡片时，平滑向上“多漏出来一截”的抽屉动画（大部分面积依旧安全藏在后方） */
+        .stage-container.is-opened:not(.has-active-card) .card-1:hover { transform: translate(-330px, -360px) scale(0.98) rotate(-3deg); z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        .stage-container.is-opened:not(.has-active-card) .card-2:hover { transform: translate(-165px, -385px) scale(0.98) rotate(0deg);  z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        .stage-container.is-opened:not(.has-active-card) .card-3:hover { transform: translate(0px, -380px) scale(0.98) rotate(3deg);    z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        .stage-container.is-opened:not(.has-active-card) .card-4:hover { transform: translate(165px, -390px) scale(0.98) rotate(-1deg); z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        .stage-container.is-opened:not(.has-active-card) .card-5:hover { transform: translate(330px, -355px) scale(0.98) rotate(6deg);  z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
 
+        /* 卡片内文标头区域 */
         .card-tab-title {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
@@ -203,8 +178,23 @@
             margin-bottom: 4px;
         }
 
+        /* 卡片独立详情区 */
+        .card-inner-detailed {
+            opacity: 0;
+            display: none;
+            height: calc(100% - 70px);
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-top: 25px;
+            font-size: 0.98rem;
+            color: #555;
+            line-height: 1.65;
+        }
+        .card-inner-detailed::-webkit-scrollbar { width: 5px; }
+        .card-inner-detailed::-webkit-scrollbar-thumb { background: #e5dfd5; border-radius: 4px; }
+
         /* ========================================================
-            🎯 第二个问题：大幅扩容全屏弹窗展示区（巨幕化升级）
+            🎯 全屏大气项目展示窗（保留上一轮优化的巨幕形态）
            ======================================================== */
         .stage-container.has-active-card .folder-closed,
         .stage-container.has-active-card .folder-opened {
@@ -217,22 +207,22 @@
             pointer-events: none;
         }
 
-        /* 🚀 选中激活的项目卡片：全新放大版大板仓 */
+        /* 铺满全屏核心窗 */
         .project-card.is-active {
             position: fixed !important;
             top: 50% !important;
             left: 50% !important;
             transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
-            width: 92vw;        /* 从 75vw 扩大到 92vw，几乎铺满横向 */
-            max-width: 1200px;  /* 极大扩展最大上限，展示多栏内容更从容 */
-            height: 88vh;       /* 从 75vh 扩大到 88vh，纵向空间大幅提升 */
-            max-height: 820px;  
+            width: 92vw;
+            max-width: 1200px;
+            height: 88vh;
+            max-height: 820px;
             z-index: 9999 !important;
             box-shadow: 0 40px 90px rgba(0,0,0,0.18);
             border-radius: 14px;
             cursor: default;
             background-color: #fff;
-            padding: 40px;      /* 增大呼吸感内边距 */
+            padding: 40px;
         }
 
         .project-card.is-active .card-inner-detailed {
@@ -240,11 +230,11 @@
             display: block;
         }
         .project-card.is-active .card-tab-title {
-            font-size: 2.2rem;   /* 标题更大气 */
+            font-size: 2.2rem;
             padding-bottom: 18px;
         }
 
-        /* 叉号按钮 */
+        /* 关闭按钮 */
         .close-btn {
             position: absolute;
             top: 35px;
@@ -259,9 +249,7 @@
         .project-card.is-active .close-btn { display: block; }
         .close-btn:hover { color: #000; }
 
-        /* ========================================================
-            🪄 双向悬停提示标签（居中校准）
-           ======================================================== */
+        /* 🪄 双向悬停提示标签 */
         .hover-tooltip {
             position: absolute;
             top: 50%;
@@ -281,19 +269,17 @@
         }
         .folder-closed:hover ~ #tip-open {
             opacity: 1;
-            transform: translate(-50%, -190px) scale(1);
+            transform: translate(-50%, -210px) scale(1);
         }
         .folder-opened:hover ~ #tip-close {
             opacity: 1;
-            transform: translate(-50%, -190px) scale(1);
+            transform: translate(-50%, -210px) scale(1);
         }
         .stage-container.has-active-card .hover-tooltip {
             display: none !important;
         }
 
-        /* ========================================================
-            🎨 手账风格图文混排辅助样式
-           ======================================================== */
+        /* 🎨 手账风格图文混排辅助样式 */
         .card-inner-detailed h4 {
             font-family: 'Playfair Display', serif;
             font-size: 1.35rem;
@@ -369,10 +355,10 @@
         
         <div class="close-folder-overlay" onclick="closeFolder()"></div>
         
-        <!-- 📁 闭合前壳：挡在前面 -->
+        <!-- 📁 初始闭合前壳（file.jpg）：唯一的触发入口 -->
         <div class="folder-base folder-closed" id="folderCover" onclick="openFolder()"></div>
         
-        <!-- 📁 打开后壳：退到最后面 -->
+        <!-- 📁 打开状态夹子（file-opened.jpg）：挡在卡片前面，充当收纳外壳 -->
         <div class="folder-base folder-opened" onclick="closeFolder()"></div>
         
         <div class="hover-tooltip" id="tip-open">CLICK TO EXPLORE</div>
@@ -603,27 +589,27 @@
     <script>
         const stage = document.getElementById('projectStage');
 
-        // 1. 点开文件夹：触发5张卡片扇形破土而出动画
+        // 1. 点击闭合前壳：转换成打开状态，将5个卡片以收纳形态探出来
         function openFolder() {
             stage.classList.add('is-opened');
         }
 
-        // 2. 闭合文件夹：卡片缩回，重置
+        // 2. 点击空白或再次合上
         function closeFolder() {
             if (stage.classList.contains('has-active-card')) return;
             stage.classList.remove('is-opened');
         }
 
-        // 3. 点击卡片：Fixed 锁定死屏幕正中心，激活内部独立滚动
+        // 3. 点击露出来的标头：瞬间激活动态全屏巨幕弹窗
         function activateCard(card) {
-            // 现在允许在文件夹闭合（露出标头）和打开状态下都能直接点击激活
+            if (!stage.classList.contains('is-opened')) return; 
             if (card.classList.contains('is-active')) return;
             
             stage.classList.add('has-active-card');
             card.classList.add('is-active');
         }
 
-        // 4. 点击叉号：平稳收回卡片
+        // 4. 关闭大窗
         function deactivateCard(event, btn) {
             event.stopPropagation(); 
             const card = btn.closest('.project-card');
