@@ -152,16 +152,17 @@
 .stage-container.is-opened .card-2 { transform: translate(-165px, -140px) scale(0.95) rotate(-2deg); }
 .stage-container.is-opened .card-3 { transform: translate(0px, -135px) scale(0.95) rotate(1deg); }
 .stage-container.is-opened .card-4 { transform: translate(165px, -145px) scale(0.95) rotate(-3deg); }
-.stage-container.is-opened .card-5 { transform: translate(330px, -110px) scale(0.95) rotate(4deg); }
+.stage-container.is-opened .card-5 { transform: translate(330px, -140px) scale(0.95) rotate(4deg); }
         
         /* 🖱️ 鼠标滑动到某张卡片时，平滑向上“多漏出来一截”的抽屉动画（大部分面积依旧安全藏在后方） */
        /* ✨ 悬停动画同步下移：确保划过时只平滑向上探出一点，其余身体仍留在夹子内 */
-.stage-container.is-opened:not(.has-active-card) .card-1:hover { transform: translate(-330px, -185px) scale(0.98) rotate(-3deg); z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-.stage-container.is-opened:not(.has-active-card) .card-2:hover { transform: translate(-165px, -210px) scale(0.98) rotate(0deg);  z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-.stage-container.is-opened:not(.has-active-card) .card-3:hover { transform: translate(0px, -205px) scale(0.98) rotate(3deg);    z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-.stage-container.is-opened:not(.has-active-card) .card-4:hover { transform: translate(165px, -215px) scale(0.98) rotate(-1deg); z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-.stage-container.is-opened:not(.has-active-card) .card-5:hover { transform: translate(330px, -180px) scale(0.98) rotate(6deg);  z-index: 150; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-        /* 卡片内文标头区域 */
+/* ✨ 完美锁死在底层：去掉 z-index，保持在文件夹下方抽拉 */
+.stage-container.is-opened:not(.has-active-card) .card-1:hover { transform: translate(-330px, -185px) scale(0.98) rotate(-3deg); box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+.stage-container.is-opened:not(.has-active-card) .card-2:hover { transform: translate(-165px, -210px) scale(0.98) rotate(0deg);  box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+.stage-container.is-opened:not(.has-active-card) .card-3:hover { transform: translate(0px, -205px) scale(0.98) rotate(3deg);    box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+.stage-container.is-opened:not(.has-active-card) .card-4:hover { transform: translate(165px, -215px) scale(0.98) rotate(-1deg); box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+.stage-container.is-opened:not(.has-active-card) .card-5:hover { transform: translate(330px, -230px) scale(0.98) rotate(6deg);  box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        
         .card-tab-title {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
