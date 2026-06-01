@@ -37,7 +37,7 @@
             font-size: 1.1rem;
             color: #666666;
             text-decoration: none;
-            z-index: 10000; /* 确保不被任何大屏遮挡 */
+            z-index: 10000;
             transition: all 0.2s ease;
         }
         .back-to-box:hover { color: #000; transform: translateX(-4px); }
@@ -53,38 +53,38 @@
         }
 
         /* ========================================================
-            📁 文件夹核心系统 (完美放大 1.5 倍 + 向左平移 1/3)
+            📁 文件夹核心系统 (精致缩小 + 绝对正居中)
            ======================================================== */
         .folder-base {
             position: absolute;
-            width: 900px; /* 优化基准大小，防止撑满全屏 */
-            height: 506px;
+            width: 780px; /* 精致化整体宽度 */
+            height: 440px; /* 优化高度平衡 */
             left: 50%;
             top: 50%;
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
-            /* 始终保持放大 1.5 倍并左移 150px */
-            transform: translate(calc(-50% - 150px), -50%) scale(1.5);
+            /* 彻底移除向左偏移，实现大屏绝对正居中，尺寸调整为更优雅的1.2倍 */
+            transform: translate(-50%, -40%) scale(1.2);
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* 初始封闭状态 (图1：file.jpg) */
         .folder-closed {
             background-image: url('file.jpg');
-            z-index: 500; /* 未打开时挡在最前面 */
+            z-index: 300; /* 🔥 提到纸质卡片上方，从而把卡片身体挡在后面 */
             cursor: pointer;
-            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));
+            filter: drop-shadow(0 25px 50px rgba(0,0,0,0.1));
         }
         .folder-closed:hover {
-            transform: translate(calc(-50% - 150px), -52%) scale(1.53);
-            filter: drop-shadow(0 40px 70px rgba(0,0,0,0.18));
+            transform: translate(-50%, -41%) scale(1.22);
+            filter: drop-shadow(0 35px 60px rgba(0,0,0,0.15));
         }
 
         /* 打开后的后壳底座 (图2：file-opened.jpg) */
         .folder-opened {
             background-image: url('file-opened.jpg');
-            z-index: 10; /* 🔥 极其重要：打开后降到最低层，绝对不能挡住卡片！ */
+            z-index: 10; /* 打开后退到最底层，充当大背景板 */
             opacity: 0;
             pointer-events: none;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.06));
@@ -94,7 +94,7 @@
         /* 状态联动：文件夹打开后 */
         .stage-container.is-opened .folder-closed {
             opacity: 0;
-            transform: translate(calc(-50% - 150px), -40%) scale(1.3);
+            transform: translate(-50%, -30%) scale(1.0);
             pointer-events: none;
         }
         .stage-container.is-opened .folder-opened {
@@ -109,7 +109,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 5; /* 躺在最底层 */
+            z-index: 5;
             display: none;
         }
         .stage-container.is-opened .close-folder-overlay {
@@ -117,67 +117,73 @@
         }
 
         /* ========================================================
-            📄 5 张纸质档案卡片样式重构 (图层提到最前，百分比横向排开)
+            📄 5 张纸质档案卡片样式重构 (初始藏在文件夹后，仅露出顶部标题)
            ======================================================== */
         .project-card {
             position: absolute;
-            width: 230px;
-            height: 340px;
+            width: 220px;
+            height: 330px;
             background: #ffffff;
             border: 1px solid #e5dfd5;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             border-radius: 4px;
-            z-index: 100; /* 🔥 确保在打开后的文件夹上方，100% 摸得到 */
-            padding: 22px;
+            z-index: 200; /* 🔥 处于 z-index 300 的前壳下方，完美隐藏身体 */
+            padding: 20px;
             cursor: pointer;
-            opacity: 0;
-            pointer-events: none;
-            
-            /* 初始定位：藏在文件夹的下腹部 */
-            left: 50%;
-            top: 50%;
             transform-origin: bottom center;
-            transform: translate(-50%, 200px) scale(0.4) rotate(0deg);
             
             /* 丝滑物理动效过渡 */
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), 
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
                         opacity 0.4s ease, 
-                        box-shadow 0.3s ease;
+                        box-shadow 0.3s ease,
+                        width 0.5s ease,
+                        height 0.5s ease;
         }
 
-        /* 🎬 核心：点击打开后，5张卡片从文件夹中心“破土而出”散开的动画 */
+        /* 📁 初始状态（闭合时）：卡片在正中央整齐排开，上半截标题正好翻越文件夹上缘漏出来 */
+        .card-1 { transform: translate(-300px, -230px) scale(0.95) rotate(-5deg); }
+        .card-2 { transform: translate(-150px, -245px) scale(0.95) rotate(-2deg); }
+        .card-3 { transform: translate(0px, -240px) scale(0.95) rotate(1deg); }
+        .card-4 { transform: translate(150px, -250px) scale(0.95) rotate(-3deg); }
+        .card-5 { transform: translate(300px, -225px) scale(0.95) rotate(4deg); }
+
+        /* 🖱️ 文件夹未打开时，鼠标划过谁，谁就平滑向上弹起抽出一截（动画不变且更灵动） */
+        .stage-container:not(.is-opened):not(.has-active-card) .card-1:hover { transform: translate(-300px, -290px) scale(1.02) rotate(-3deg); z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .stage-container:not(.is-opened):not(.has-active-card) .card-2:hover { transform: translate(-150px, -305px) scale(1.02) rotate(0deg);  z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .stage-container:not(.is-opened):not(.has-active-card) .card-3:hover { transform: translate(0px, -300px) scale(1.02) rotate(3deg);    z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .stage-container:not(.is-opened):not(.has-active-card) .card-4:hover { transform: translate(150px, -310px) scale(1.02) rotate(-1deg); z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .stage-container:not(.is-opened):not(.has-active-card) .card-5:hover { transform: translate(300px, -285px) scale(1.02) rotate(6deg);  z-index: 250; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+
+        /* 🎬 打开文件夹后的扇形散开状态（层级自动提升，确保完全不被挡住） */
         .stage-container.is-opened .project-card {
-            opacity: 1;
-            pointer-events: auto;
+            z-index: 400; /* 越过前壳层级 */
         }
-        
-        /* 重新计算的百分比相对坐标，配合完美的倾斜度，保证不管是大屏小屏都不错位 */
-        .stage-container.is-opened .card-1 { transform: translate(-380px, -150px) scale(1) rotate(-6deg); transition-delay: 0.1s; }
-        .stage-container.is-opened .card-2 { transform: translate(-190px, -180px) scale(1) rotate(-2deg); transition-delay: 0.18s; }
-        .stage-container.is-opened .card-3 { transform: translate(0px, -160px) scale(1) rotate(1deg);    transition-delay: 0.26s; }
-        .stage-container.is-opened .card-4 { transform: translate(190px, -190px) scale(1) rotate(-3deg); transition-delay: 0.34s; }
-        .stage-container.is-opened .card-5 { transform: translate(380px, -140px) scale(1) rotate(5deg);  transition-delay: 0.42s; }
+        .stage-container.is-opened .card-1 { transform: translate(-360px, -140px) scale(1) rotate(-6deg); }
+        .stage-container.is-opened .card-2 { transform: translate(-180px, -170px) scale(1) rotate(-2deg); }
+        .stage-container.is-opened .card-3 { transform: translate(0px, -150px) scale(1) rotate(1deg); }
+        .stage-container.is-opened .card-4 { transform: translate(180px, -180px) scale(1) rotate(-3deg); }
+        .stage-container.is-opened .card-5 { transform: translate(360px, -130px) scale(1) rotate(5deg); }
 
-        /* 挤零延迟瞬间悬停起飞（提升物理响应速度） */
-        .stage-container.is-opened .card-1:hover { transform: translate(-380px, -210px) scale(1.06) rotate(-4deg); z-index: 200; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
-        .stage-container.is-opened .card-2:hover { transform: translate(-190px, -240px) scale(1.06) rotate(0deg);  z-index: 200; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
-        .stage-container.is-opened .card-3:hover { transform: translate(0px, -220px) scale(1.06) rotate(3deg);    z-index: 200; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
-        .stage-container.is-opened .card-4:hover { transform: translate(190px, -250px) scale(1.06) rotate(-1deg); z-index: 200; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
-        .stage-container.is-opened .card-5:hover { transform: translate(380px, -200px) scale(1.06) rotate(7deg);  z-index: 200; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
+        /* 打开后的悬停起飞 */
+        .stage-container.is-opened .card-1:hover { transform: translate(-360px, -200px) scale(1.06) rotate(-4deg); z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
+        .stage-container.is-opened .card-2:hover { transform: translate(-180px, -230px) scale(1.06) rotate(0deg);  z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
+        .stage-container.is-opened .card-3:hover { transform: translate(0px, -210px) scale(1.06) rotate(3deg);    z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
+        .stage-container.is-opened .card-4:hover { transform: translate(180px, -240px) scale(1.06) rotate(-1deg); z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
+        .stage-container.is-opened .card-5:hover { transform: translate(360px, -190px) scale(1.06) rotate(7deg);  z-index: 500; box-shadow: 0 25px 45px rgba(0,0,0,0.08); }
 
-        /* 卡片详情文本域（带平滑滚动，大屏下稳如泰山） */
+        /* 卡片详情文本域 */
         .card-inner-detailed {
             opacity: 0;
             display: none;
-            height: calc(100% - 60px);
+            height: calc(100% - 70px);
             overflow-y: auto;
-            padding-right: 8px;
+            padding-right: 15px;
             margin-top: 25px;
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.65;
         }
-        .card-inner-detailed::-webkit-scrollbar { width: 4px; }
+        .card-inner-detailed::-webkit-scrollbar { width: 5px; }
         .card-inner-detailed::-webkit-scrollbar-thumb { background: #e5dfd5; border-radius: 4px; }
 
         .card-tab-title {
@@ -198,35 +204,35 @@
         }
 
         /* ========================================================
-            🎯 终极全屏大屏：完美绝对居中锁定，彻底消除乱动
+            🎯 第二个问题：大幅扩容全屏弹窗展示区（巨幕化升级）
            ======================================================== */
+        .stage-container.has-active-card .folder-closed,
         .stage-container.has-active-card .folder-opened {
-            transform: translate(calc(-50% - 150px), 120px) scale(1.5);
-            opacity: 0;
+            opacity: 0 !important;
             pointer-events: none;
         }
         .stage-container.has-active-card .project-card:not(.is-active) {
-            transform: translate(-50%, -600px) scale(0.6) !important; /* 其余卡片统一往正上方退场 */
+            transform: translate(-50%, -700px) scale(0.5) !important;
             opacity: 0;
             pointer-events: none;
         }
 
-        /* 选中激活的项目卡片：锁死屏幕中心 */
+        /* 🚀 选中激活的项目卡片：全新放大版大板仓 */
         .project-card.is-active {
             position: fixed !important;
             top: 50% !important;
             left: 50% !important;
-            transform: translate(-50%, -50%) scale(1) rotate(0deg) !important; /* 强制绝对稳固居中 */
-            width: 75vw;
-            max-width: 860px;
-            height: 75vh;
-            max-height: 580px;
+            transform: translate(-50%, -50%) scale(1) rotate(0deg) !important;
+            width: 92vw;        /* 从 75vw 扩大到 92vw，几乎铺满横向 */
+            max-width: 1200px;  /* 极大扩展最大上限，展示多栏内容更从容 */
+            height: 88vh;       /* 从 75vh 扩大到 88vh，纵向空间大幅提升 */
+            max-height: 820px;  
             z-index: 9999 !important;
-            box-shadow: 0 35px 80px rgba(0,0,0,0.15);
-            border-radius: 12px;
+            box-shadow: 0 40px 90px rgba(0,0,0,0.18);
+            border-radius: 14px;
             cursor: default;
             background-color: #fff;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            padding: 40px;      /* 增大呼吸感内边距 */
         }
 
         .project-card.is-active .card-inner-detailed {
@@ -234,16 +240,16 @@
             display: block;
         }
         .project-card.is-active .card-tab-title {
-            font-size: 1.8rem;
-            padding-bottom: 15px;
+            font-size: 2.2rem;   /* 标题更大气 */
+            padding-bottom: 18px;
         }
 
         /* 叉号按钮 */
         .close-btn {
             position: absolute;
-            top: 24px;
-            right: 28px;
-            font-size: 1.6rem;
+            top: 35px;
+            right: 40px;
+            font-size: 2rem;
             color: #aaa;
             cursor: pointer;
             display: none;
@@ -254,7 +260,7 @@
         .close-btn:hover { color: #000; }
 
         /* ========================================================
-            🪄 双向悬停提示标签（自动跟随居中计算）
+            🪄 双向悬停提示标签（居中校准）
            ======================================================== */
         .hover-tooltip {
             position: absolute;
@@ -273,65 +279,64 @@
             z-index: 600;
             white-space: nowrap;
         }
-        /* 提示词坐标与大文件夹镜像对齐 */
         .folder-closed:hover ~ #tip-open {
             opacity: 1;
-            transform: translate(calc(-50% - 150px), -160px) scale(1);
+            transform: translate(-50%, -190px) scale(1);
         }
         .folder-opened:hover ~ #tip-close {
             opacity: 1;
-            transform: translate(calc(-50% - 150px), -160px) scale(1);
+            transform: translate(-50%, -190px) scale(1);
         }
         .stage-container.has-active-card .hover-tooltip {
             display: none !important;
         }
 
         /* ========================================================
-            🎨 新增：优雅的手账风格图文混排辅助样式
+            🎨 手账风格图文混排辅助样式
            ======================================================== */
         .card-inner-detailed h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: #111;
-            margin: 25px 0 10px 0;
-            border-left: 3px solid #e5dfd5;
-            padding-left: 10px;
+            margin: 35px 0 12px 0;
+            border-left: 4px solid #e5dfd5;
+            padding-left: 12px;
         }
         .card-inner-detailed blockquote {
             background: #faf9f6;
-            border-left: 3px solid #d3cbbd;
-            padding: 12px 16px;
-            margin: 15px 0;
-            font-size: 0.92rem;
+            border-left: 4px solid #d3cbbd;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 0.96rem;
             font-style: italic;
             color: #555;
             border-radius: 0 4px 4px 0;
         }
         .card-inner-detailed ul {
-            margin: 12px 0 18px 20px;
+            margin: 15px 0 22px 25px;
         }
         .card-inner-detailed li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #444;
         }
         .card-inner-detailed .media-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin: 18px 0;
+            gap: 16px;
+            margin: 24px 0;
         }
         .card-inner-detailed img, .card-inner-detailed video {
             max-width: 100%;
             height: auto;
-            border-radius: 6px;
+            border-radius: 8px;
             border: 1px solid #e8e5de;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
             object-fit: cover;
         }
         .card-inner-detailed .img-half {
-            width: calc(50% - 6px);
-            min-width: 200px;
+            width: calc(50% - 8px);
+            min-width: 280px;
         }
         .card-inner-detailed .img-full {
             width: 100%;
@@ -340,14 +345,14 @@
             display: inline-block;
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             letter-spacing: 1px;
             color: #000;
             text-decoration: none;
             background: #f1ede4;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 4px;
-            margin: 15px 0;
+            margin: 18px 0;
             transition: all 0.2s ease;
         }
         .card-inner-detailed .play-link:hover {
@@ -364,13 +369,16 @@
         
         <div class="close-folder-overlay" onclick="closeFolder()"></div>
         
+        <!-- 📁 闭合前壳：挡在前面 -->
         <div class="folder-base folder-closed" id="folderCover" onclick="openFolder()"></div>
         
+        <!-- 📁 打开后壳：退到最后面 -->
         <div class="folder-base folder-opened" onclick="closeFolder()"></div>
         
         <div class="hover-tooltip" id="tip-open">CLICK TO EXPLORE</div>
         <div class="hover-tooltip" id="tip-close">CLICK TO CLOSE FOLDER</div>
 
+        <!-- 📄 Card 1: FREAKY bread -->
         <div class="project-card card-1" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -383,7 +391,7 @@
                 <a href="https://play.unity.com/api/v1/games/game/75a6442c-2d14-4a9b-8e1c-68562c46ec89/build/latest/frame" target="_blank" class="play-link">▸ CLICK HERE TO PLAY THE GAME (UNITY PLAY)</a>
 
                 <h4>[ THE BRIEF // A Nightshift Invitation ]</h4>
-                blockquote>
+                <blockquote>
                     Oof. After surviving a total meltdown of a post-graduation job hunt and collecting a mountain of rejection letters, I out of nowhere received a midnight offer from a mysterious bakery. The job description sounded like a total breeze: pack the right types and quantities of bread onto the delivery truck in a dead-silent factory at night. Simple, right? Well, wrong. The second the conveyor belt started rolling, I froze—some of the loaves were... moving? They were literally breathing in the shadows! To make it a certified nightmare, a terrifying Manager is constantly breathing down my neck, throwing furious rushes and deadly attacks. My single brain cell at that moment: frantic bread-counting, avoiding death, and punching the clock to survive. Welcome to the ultimate corporate horror.
                 </blockquote>
 
@@ -410,6 +418,7 @@
             </div>
         </div>
 
+        <!-- 📄 Card 2: S'pookie Bread -->
         <div class="project-card card-2" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -422,7 +431,7 @@
                 <a href="https://www.roblox.com/share?code=9b278d717a4eff458e2e7cf42add7750&type=ExperienceDetails&stamp=1779678580728" target="_blank" class="play-link">▸ CLICK HERE TO ENTER THE EXPERIENCE (ROBLOX)</a>
 
                 <h4>[ THE EVOLUTION // The Shift Just Got Worse ]</h4>
-                blockquote>
+                <blockquote>
                     Guess what? The legendary midnight bakery is back, but this time it’s an absolute upgrade on Roblox! We resurrected the same Reels-inspired chaos but cranked the packing nightmare up to eleven with multi-player madness and unpredictable anomalies. Every single night you clock in, the entire factory layout and shelves randomly shape-shift into something completely unhinged. The Boss is now a certified stalker—his terrifying eyes lock onto you and he literally shadows your every move (feels like he's trying to dock my pay forever). On the bright side, we hooked up a mysterious vending machine deep in the facility selling chaotic power-ups, and there's even a forbidden switch that "spawns more bread" for the greedy brave souls. Sounds like fun perks? Well, the performance review is lethal—word on the street is that four employees who missed their KPIs last shift completely vanished into the dark...
                 </blockquote>
 
@@ -461,6 +470,7 @@
             </div>
         </div>
 
+        <!-- 📄 Card 3: Sashimi's Movie Store -->
         <div class="project-card card-3" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -470,7 +480,7 @@
             <div class="card-inner-detailed">
                 <p><strong>Position:</strong> Full-Stack Web Application // E-Commerce Architecture</p>
                 
-                blockquote>
+                <blockquote>
                     <strong>Deployment Note:</strong> This digital store currently lives a happy, quiet life tucked away entirely inside my local machine (firmly bound to my local database environment), running gracefully on <code>localhost</code>. Thus, no public URL is available—but look at the tech setup below to see how smoothly it runs!
                 </blockquote>
 
@@ -511,6 +521,7 @@
             </div>
         </div>
 
+        <!-- 📄 Card 4: Preserving BonsaiGarden in VR -->
         <div class="project-card card-4" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -523,7 +534,7 @@
                 <a href="#" onclick="return false;" class="play-link" style="opacity: 0.7; cursor: not-allowed;">▸ WEB-BASED INTERACTIVE PORTAL (COMING SOON)</a>
 
                 <h4>[ INTRODUCTION // Digital Immortality ]</h4>
-                blockquote>
+                <blockquote>
                     Conducted under the <strong>URECA Undergraduate Research Program</strong>, this study tackles the urgent need for digital preservation of cultural heritage. The core target of this project is the "BonsaiGarden"—an artifact of immense historical and aesthetic value. Compared to traditional Photogrammetry, cutting-edge <strong>3D Gaussian Splatting (3DGS)</strong> offers a revolutionary paradigm shift in real-time high-fidelity rendering and geometric fidelity. The ultimate objective of this research is to bridge technical divides by establishing a complete, end-to-end technical pipeline from 360° real-world video capture to immersive Virtual Reality (VR) deployment.
                 </blockquote>
 
@@ -542,6 +553,7 @@
             </div>
         </div>
 
+        <!-- 📄 Card 5: Rement Narrative -->
         <div class="project-card card-5" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -554,7 +566,7 @@
                 <a href="https://codepen.io/echvhghn-the-bashful/full/WbxYNjd" target="_blank" class="play-link">▸ CLICK HERE TO EXPLORE THE MEMORY PROBE (CODEPEN)</a>
 
                 <h4>[ PHILOSOPHY // Systematically Manufactured Nostalgia ]</h4>
-                blockquote>
+                <blockquote>
                     The seed of this project was planted by a peculiar modern social phenomenon: the absolute tsunami of "Dreamcore" and fake nostalgia taking over social media. People everywhere are obsessively reposting blurry old photos—faded vintage toys, discontinued magazines, empty afternoon parks, or rainy train stations. Fascinatingly, these images stir up massive psychological waves among peers who never lived them, convincing them that "this is my childhood memory".
                 </blockquote>
                 <p style="margin-top: 10px;">
@@ -604,7 +616,7 @@
 
         // 3. 点击卡片：Fixed 锁定死屏幕正中心，激活内部独立滚动
         function activateCard(card) {
-            if (!stage.classList.contains('is-opened')) return; 
+            // 现在允许在文件夹闭合（露出标头）和打开状态下都能直接点击激活
             if (card.classList.contains('is-active')) return;
             
             stage.classList.add('has-active-card');
