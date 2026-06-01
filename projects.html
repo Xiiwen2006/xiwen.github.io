@@ -100,28 +100,19 @@
             pointer-events: auto;
         }
 
-        /* ✨ 最新微调：中心点不变，缩小到原来文件夹的 80% 大小 */
-.close-folder-overlay {
-    position: absolute;
-    width: 960px; /* 保持与文件夹基准宽度一致 */
-    height: 540px; /* 保持与文件夹基准高度一致 */
-    left: 50%;
-    top: 50%;
-    
-    /* 🔥 关键修改：原比例 1.1 * 0.8 = 0.88，实现中心点锁死，四周往里缩进 20% */
-    transform: translate(-50%, -42%) scale(0.88); 
-    
-    z-index: 90;  /* 依然躺在文件夹后壳下方，精准捕捉核心区域的点击 */
-    display: none;
-    cursor: pointer;
-    
-    /* 💡 调试小贴士：如果你想在浏览器里肉眼看到这个 80% 的区域具体在哪， */
-    /* 可以把下面这行 background 的注释解开，它会变成半透明红色，调完再删掉即可 */
-    /* background: rgba(255, 0, 0, 0.2); */
-}
-.stage-container.is-opened .close-folder-overlay {
-    display: block;
-}
+        /* 点击空白处合上文件夹 */
+        .close-folder-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10; /* 躺在最底下 */
+            display: none;
+        }
+        .stage-container.is-opened .close-folder-overlay {
+            display: block;
+        }
 
         /* ========================================================
             📄 5 张纸质档案卡片样式重构（精确对齐截图中的夹子收纳形态）
@@ -364,17 +355,17 @@
 
     <div class="stage-container" id="projectStage">
         
+        <div class="close-folder-overlay" onclick="closeFolder()"></div>
+        
+        <!-- 📁 初始闭合前壳（file.jpg）：唯一的触发入口 -->
         <div class="folder-base folder-closed" id="folderCover" onclick="openFolder()"></div>
         
-        <div class="folder-base folder-opened"></div>
-        
-        <div class="close-folder-overlay" onclick="closeFolder()"></div>
+        <!-- 📁 打开状态夹子（file-opened.jpg）：挡在卡片前面，充当收纳外壳 -->
+        <div class="folder-base folder-opened" onclick="closeFolder()"></div>
         
         <div class="hover-tooltip" id="tip-open">CLICK TO EXPLORE</div>
         <div class="hover-tooltip" id="tip-close">CLICK TO CLOSE FOLDER</div>
 
-        <div class="project-card card-1" onclick="activateCard(this)">
-            
         <!-- 📄 Card 1: FREAKY bread -->
         <div class="project-card card-1" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
