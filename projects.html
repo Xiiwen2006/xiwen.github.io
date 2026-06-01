@@ -103,7 +103,7 @@
         /* 点击空白处合上文件夹 */
         .close-folder-overlay {
             position: absolute;
-            top: 20px;
+            top: 200px; /* 🔥 保持你改好的 200px 下移效果，彻底避开标头 */
             left: 0;
             width: 100vw;
             height: 100vh;
@@ -140,28 +140,25 @@
                         box-shadow 0.3s ease;
         }
 
-        /* 📁 当点击打开文件夹后，卡片以完全符合“截屏2026-06-01 下午5.26.40.jpg”的形态探出标头 */
+        /* 📁 当点击打开文件夹后，卡片以完全符合形态探出标头 */
         .stage-container.is-opened .project-card {
             opacity: 1;
             pointer-events: auto;
         }
 
-        /* 初始插入夹子深处的坐标：刚好只把顶部的 tab-title 边界探到文件夹外壳上方 (利用 -310px 左右的纵向高度精确卡位) */
-        /* 这是修改后的新样式：整体打包下移 1/2 长度 */
-.stage-container.is-opened .card-1 { transform: translate(-330px, -115px) scale(0.95) rotate(-5deg); }
-.stage-container.is-opened .card-2 { transform: translate(-165px, -140px) scale(0.95) rotate(-2deg); }
-.stage-container.is-opened .card-3 { transform: translate(0px, -135px) scale(0.95) rotate(1deg); }
-.stage-container.is-opened .card-4 { transform: translate(165px, -145px) scale(0.95) rotate(-3deg); }
-.stage-container.is-opened .card-5 { transform: translate(330px, -140px) scale(0.95) rotate(4deg); }
+        /* 初始插入夹子深处的坐标 */
+        .stage-container.is-opened .card-1 { transform: translate(-330px, -115px) scale(0.95) rotate(-5deg); }
+        .stage-container.is-opened .card-2 { transform: translate(-165px, -140px) scale(0.95) rotate(-2deg); }
+        .stage-container.is-opened .card-3 { transform: translate(0px, -135px) scale(0.95) rotate(1deg); }
+        .stage-container.is-opened .card-4 { transform: translate(165px, -145px) scale(0.95) rotate(-3deg); }
+        .stage-container.is-opened .card-5 { transform: translate(330px, -140px) scale(0.95) rotate(4deg); }
         
-        /* 🖱️ 鼠标滑动到某张卡片时，平滑向上“多漏出来一截”的抽屉动画（大部分面积依旧安全藏在后方） */
-       /* ✨ 悬停动画同步下移：确保划过时只平滑向上探出一点，其余身体仍留在夹子内 */
-/* ✨ 完美锁死在底层：去掉 z-index，保持在文件夹下方抽拉 */
-.stage-container.is-opened:not(.has-active-card) .card-1:hover { transform: translate(-330px, -185px) scale(0.98) rotate(-3deg); box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-.stage-container.is-opened:not(.has-active-card) .card-2:hover { transform: translate(-165px, -210px) scale(0.98) rotate(0deg);  box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-.stage-container.is-opened:not(.has-active-card) .card-3:hover { transform: translate(0px, -205px) scale(0.98) rotate(3deg);    box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-.stage-container.is-opened:not(.has-active-card) .card-4:hover { transform: translate(165px, -215px) scale(0.98) rotate(-1deg); box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
-.stage-container.is-opened:not(.has-active-card) .card-5:hover { transform: translate(330px, -230px) scale(0.98) rotate(6deg);  box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        /* 🖱️ 鼠标滑动到某张卡片时向上平滑抽拉的悬停动画 */
+        .stage-container.is-opened:not(.has-active-card) .card-1:hover { transform: translate(-330px, -185px) scale(0.98) rotate(-3deg); box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        .stage-container.is-opened:not(.has-active-card) .card-2:hover { transform: translate(-165px, -210px) scale(0.98) rotate(0deg);  box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        .stage-container.is-opened:not(.has-active-card) .card-3:hover { transform: translate(0px, -205px) scale(0.98) rotate(3deg);    box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        .stage-container.is-opened:not(.has-active-card) .card-4:hover { transform: translate(165px, -215px) scale(0.98) rotate(-1deg); box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
+        .stage-container.is-opened:not(.has-active-card) .card-5:hover { transform: translate(330px, -230px) scale(0.98) rotate(6deg);  box-shadow: 0 -10px 25px rgba(0,0,0,0.08); }
         
         .card-tab-title {
             font-family: 'Playfair Display', serif;
@@ -196,7 +193,7 @@
         .card-inner-detailed::-webkit-scrollbar-thumb { background: #e5dfd5; border-radius: 4px; }
 
         /* ========================================================
-            🎯 全屏大气项目展示窗（保留上一轮优化的巨幕形态）
+            🎯 全屏大气项目展示窗
            ======================================================== */
         .stage-container.has-active-card .folder-closed,
         .stage-container.has-active-card .folder-opened {
@@ -329,6 +326,14 @@
         .card-inner-detailed .img-full {
             width: 100%;
         }
+        .card-inner-detailed .video-desc {
+            font-size: 0.88rem;
+            color: #666;
+            margin-top: 4px;
+            margin-bottom: 20px;
+            font-style: italic;
+            line-height: 1.4;
+        }
         .card-inner-detailed .play-link {
             display: inline-block;
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -347,6 +352,43 @@
             background: #111;
             color: #fff;
         }
+
+        /* ========================================================
+            📱 纯响应式移动端体验优化补丁（保持原有功能形态）
+           ======================================================== */
+        @media (max-width: 992px) {
+            .folder-base {
+                width: 90vw;
+                height: calc(90vw * 0.5625);
+                transform: translate(-50%, -42%) scale(1);
+            }
+            .stage-container.is-opened .folder-closed {
+                transform: translate(-50%, -30%) scale(0.9);
+            }
+            /* 手机端收拢堆叠时，微调间距防止完全超出屏幕 */
+            .stage-container.is-opened .card-1 { transform: translate(-38%, -115px) scale(0.9) rotate(-5deg); }
+            .stage-container.is-opened .card-2 { transform: translate(-19%, -130px) scale(0.9) rotate(-2deg); }
+            .stage-container.is-opened .card-3 { transform: translate(0px, -125px) scale(0.9) rotate(1deg); }
+            .stage-container.is-opened .card-4 { transform: translate(19%, -135px) scale(0.9) rotate(-3deg); }
+            .stage-container.is-opened .card-5 { transform: translate(38%, -130px) scale(0.9) rotate(4deg); }
+
+            /* 手机端悬停换成简单的轻微位移 */
+            .stage-container.is-opened:not(.has-active-card) .card-1:hover { transform: translate(-38%, -145px) scale(0.92) rotate(-3deg); }
+            .stage-container.is-opened:not(.has-active-card) .card-2:hover { transform: translate(-19%, -160px) scale(0.92) rotate(0deg); }
+            .stage-container.is-opened:not(.has-active-card) .card-3:hover { transform: translate(0px, -155px) scale(0.92) rotate(3deg); }
+            .stage-container.is-opened:not(.has-active-card) .card-4:hover { transform: translate(19%, -165px) scale(0.92) rotate(-1deg); }
+            .stage-container.is-opened:not(.has-active-card) .card-5:hover { transform: translate(38%, -160px) scale(0.92) rotate(6deg); }
+
+            .project-card.is-active {
+                width: 96vw;
+                height: 94vh;
+                padding: 20px;
+                border-radius: 8px;
+            }
+            .project-card.is-active .card-tab-title { font-size: 1.5rem; }
+            .close-btn { top: 15px; right: 20px; font-size: 1.8rem; }
+            .card-inner-detailed .img-half { width: 100%; }
+        }
     </style>
 </head>
 <body>
@@ -357,20 +399,17 @@
         
         <div class="close-folder-overlay" onclick="closeFolder()"></div>
         
-        <!-- 📁 初始闭合前壳（file.jpg）：唯一的触发入口 -->
         <div class="folder-base folder-closed" id="folderCover" onclick="openFolder()"></div>
         
-        <!-- 📁 打开状态夹子（file-opened.jpg）：挡在卡片前面，充当收纳外壳 -->
         <div class="folder-base folder-opened" onclick="closeFolder()"></div>
         
         <div class="hover-tooltip" id="tip-open">CLICK TO EXPLORE</div>
         <div class="hover-tooltip" id="tip-close">CLICK TO CLOSE FOLDER</div>
 
-        <!-- 📄 Card 1: FREAKY bread -->
         <div class="project-card card-1" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
-                <span>Project // 01</span>
+                <span>GAME // 01</span>
                 FREAKY bread
             </div>
             <div class="card-inner-detailed">
@@ -379,7 +418,7 @@
                 <a href="https://play.unity.com/api/v1/games/game/75a6442c-2d14-4a9b-8e1c-68562c46ec89/build/latest/frame" target="_blank" class="play-link">▸ CLICK HERE TO PLAY THE GAME (UNITY PLAY)</a>
 
                 <h4>[ THE BRIEF // A Nightshift Invitation ]</h4>
-                <blockquote>
+                blockquote>
                     Oof. After surviving a total meltdown of a post-graduation job hunt and collecting a mountain of rejection letters, I out of nowhere received a midnight offer from a mysterious bakery. The job description sounded like a total breeze: pack the right types and quantities of bread onto the delivery truck in a dead-silent factory at night. Simple, right? Well, wrong. The second the conveyor belt started rolling, I froze—some of the loaves were... moving? They were literally breathing in the shadows! To make it a certified nightmare, a terrifying Manager is constantly breathing down my neck, throwing furious rushes and deadly attacks. My single brain cell at that moment: frantic bread-counting, avoiding death, and punching the clock to survive. Welcome to the ultimate corporate horror.
                 </blockquote>
 
@@ -406,11 +445,10 @@
             </div>
         </div>
 
-        <!-- 📄 Card 2: S'pookie Bread -->
         <div class="project-card card-2" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
-                <span>Research // 02</span>
+                <span>GAME // 02</span>
                 S'pookie Bread
             </div>
             <div class="card-inner-detailed">
@@ -419,34 +457,33 @@
                 <a href="https://www.roblox.com/share?code=9b278d717a4eff458e2e7cf42add7750&type=ExperienceDetails&stamp=1779678580728" target="_blank" class="play-link">▸ CLICK HERE TO ENTER THE EXPERIENCE (ROBLOX)</a>
 
                 <h4>[ THE EVOLUTION // The Shift Just Got Worse ]</h4>
-                <blockquote>
+                blockquote>
                     Guess what? The legendary midnight bakery is back, but this time it’s an absolute upgrade on Roblox! We resurrected the same Reels-inspired chaos but cranked the packing nightmare up to eleven with multi-player madness and unpredictable anomalies. Every single night you clock in, the entire factory layout and shelves randomly shape-shift into something completely unhinged. The Boss is now a certified stalker—his terrifying eyes lock onto you and he literally shadows your every move (feels like he's trying to dock my pay forever). On the bright side, we hooked up a mysterious vending machine deep in the facility selling chaotic power-ups, and there's even a forbidden switch that "spawns more bread" for the greedy brave souls. Sounds like fun perks? Well, the performance review is lethal—word on the street is that four employees who missed their KPIs last shift completely vanished into the dark...
                 </blockquote>
 
-                <div class="media-container">
-                    <video autoplay loop muted playsinline class="img-half">
-                        <source src="assets/spookie-lobby.webm" type="video/webm">
-                    </video>
-                    <video autoplay loop muted playsinline class="img-half">
-                        <source src="assets/spookie-grab-bread.webm" type="video/webm">
-                    </video>
-                </div>
-                <div class="media-container">
-                    <video autoplay loop muted playsinline class="img-half">
-                        <source src="assets/spookie-breathing-bread.webm" type="video/webm">
-                    </video>
-                    <video autoplay loop muted playsinline class="img-half">
-                        <source src="assets/spookie-manager-chase.webm" type="video/webm">
-                    </video>
-                </div>
-
                 <h4>[ HACKATHON GLORY // Sleep Deprivation & T-shirts ]</h4>
                 <p>
-                    We locked into this world-building and rushed to build it for the <strong>Garena Hackathon</strong>. In a brutal, sleep-deprived marathon against the clock, we pulled an all-night coding spree to birth this chaotic, multiplayer-native experience from scratch—and we actually walked away with <strong>4th Place (Top 4)</strong>! Beyond the trophy, we walked away with a ride-or-die tech friendship. Fun fact: we were so hyped about this world that we even printed limited-edition custom T-shirts for the game, and rocking them on campus felt incredibly badass!
+                    We locked into this world-building and rushed to build it for the <strong>Garena Hackathon</strong>. In a brutal, sleep-deprived marathon against the clock, we pulled an all-night coding spree to birth this chaotic, multiplayer-native experience from scratch—and we actually walked away with <strong>4th Place (Top 4)</strong>! Beyond the trophy, we walked away with a ride-or-die tech friendship.
                 </p>
 
                 <div class="media-container">
-                    <img src="assets/garena-hackathon-team.jpg" alt="Our Amazing Team at Garena Hackathon" class="img-full">
+                    <img src="assets/garena-hackathon-team.jpg" alt="Our Amazing Team at Garena Hackathon" class="img-half">
+                    <img src="assets/garena-hackathon-shirt.jpg" alt="Limited Edition Custom Hackathon T-shirts" class="img-half">
+                </div>
+
+                <h4>[ GAMEPLAY ANIMATIONS ]</h4>
+                <div class="media-container" style="gap: 8px;">
+                    <video autoplay loop muted playsinline class="img-full"><source src="assets/spookie-lobby.webm" type="video/webm"></video>
+                    <div class="video-desc">▲ spookie-lobby: Showcases the custom multi-user room lobby interface and player synchronization setup.</div>
+
+                    <video autoplay loop muted playsinline class="img-full"><source src="assets/spookie-grab-bread.webm" type="video/webm"></video>
+                    <div class="video-desc">▲ spookie-grab-bread: Real-time validation of dynamic object holding logic and physics-based inventory grabbing.</div>
+
+                    <video autoplay loop muted playsinline class="img-full"><source src="assets/spookie-breathing-bread.webm" type="video/webm"></video>
+                    <div class="video-desc">▲ spookie-breathing-bread: Demonstrates the creepy breathing loop vertex animation applied to individual bread assets.</div>
+
+                    <video autoplay loop muted playsinline class="img-full"><source src="assets/spookie-manager-chase.webm" type="video/webm"></video>
+                    <div class="video-desc">▲ spookie-manager-chase: Tests the advanced runtime pathfinding and predictive target pursuit behaviors of the Manager AI.</div>
                 </div>
 
                 <h4>[ TECH SETUP // Under the Hood ]</h4>
@@ -458,11 +495,10 @@
             </div>
         </div>
 
-        <!-- 📄 Card 3: Sashimi's Movie Store -->
         <div class="project-card card-3" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
-                <span>System // 03</span>
+                <span>WEBSITE // 03</span>
                 Sashimi's Movie Store
             </div>
             <div class="card-inner-detailed">
@@ -476,29 +512,22 @@
                 <p>
                     Welcome to Sashimi's private cinema lounge! This is a massive, feature-rich full-stack monster we built for our <strong>IDP course</strong>. We basically packed every single e-commerce feature you could dream of into this online store: you can run wild searching your favorite titles, instantly drop them into a personalized Watchlist, simulate checkout purchases, and log into securely authenticated personal accounts. 
                 </p>
-                <p style="margin-top: 10px;">
-                    We even threw in a "What should I watch today?" randomized smart recommendation engine! Oh, and to make it feel like a buzzing movie community, we built an interactive review portal where users can drop ratings and—the coolest part—<strong>directly upload screenshots</strong> to show off their favorite cinematic frames or share hilarious reactions.
-                </p>
 
-                <div class="media-container">
-                    <video autoplay loop muted playsinline class="img-half">
-                        <source src="assets/movie-store-browse.webm" type="video/webm">
-                    </video>
-                    <video autoplay loop muted playsinline class="img-half">
-                        <source src="assets/movie-store-search.webm" type="video/webm">
-                    </video>
+                <h4>[ CORE SYSTEM OVERVIEW ]</h4>
+                <p style="font-weight: 600; margin-top: 15px; font-size: 0.9rem; color: #111;">I. Discovery & Exploration Layer</p>
+                <div class="media-container" style="gap: 12px;">
+                    <video autoplay loop muted playsinline style="width: calc(33.33% - 8px); border-radius: 6px;"><source src="assets/movie-store-browse.webm" type="video/webm"></video>
+                    <video autoplay loop muted playsinline style="width: calc(33.33% - 8px); border-radius: 6px;"><source src="assets/movie-store-search.webm" type="video/webm"></video>
+                    <video autoplay loop muted playsinline style="width: calc(33.33% - 8px); border-radius: 6px;"><source src="assets/movie-store-surprise.webm" type="video/webm"></video>
                 </div>
+                <div class="video-desc">This upper matrix illustrates the dynamic catalogs inside the client frontend, showing off global item queries alongside the randomized "Surprise Me" instant recommendation mechanics.</div>
+
+                <p style="font-weight: 600; margin-top: 20px; font-size: 0.9rem; color: #111;">II. Engagement & Transaction Pipeline</p>
                 <div class="media-container">
-                    <video autoplay loop muted playsinline class="img-third" style="width: calc(33.33% - 8px);">
-                        <source src="assets/movie-store-surprise.webm" type="video/webm">
-                    </video>
-                    <video autoplay loop muted playsinline class="img-third" style="width: calc(33.33% - 8px);">
-                        <source src="assets/movie-store-review.webm" type="video/webm">
-                    </video>
-                    <video autoplay loop muted playsinline class="img-third" style="width: calc(33.33% - 8px);">
-                        <source src="assets/movie-store-checkout.webm" type="video/webm">
-                    </video>
+                    <video autoplay loop muted playsinline class="img-half"><source src="assets/movie-store-review.webm" type="video/webm"></video>
+                    <video autoplay loop muted playsinline class="img-half"><source src="assets/movie-store-checkout.webm" type="video/webm"></video>
                 </div>
+                <div class="video-desc">This operational tier demonstrates the user community feedback panel (supporting direct local image attachment uploads) followed by the mock checkout system validation flow.</div>
 
                 <h4>[ TECH SETUP // Under the Hood ]</h4>
                 <ul>
@@ -509,11 +538,10 @@
             </div>
         </div>
 
-        <!-- 📄 Card 4: Preserving BonsaiGarden in VR -->
         <div class="project-card card-4" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
-                <span>Interactive // 04</span>
+                <span>RESEARCH // 04</span>
                 BonsaiGarden VR
             </div>
             <div class="card-inner-detailed">
@@ -522,7 +550,7 @@
                 <a href="#" onclick="return false;" class="play-link" style="opacity: 0.7; cursor: not-allowed;">▸ WEB-BASED INTERACTIVE PORTAL (COMING SOON)</a>
 
                 <h4>[ INTRODUCTION // Digital Immortality ]</h4>
-                <blockquote>
+                blockquote>
                     Conducted under the <strong>URECA Undergraduate Research Program</strong>, this study tackles the urgent need for digital preservation of cultural heritage. The core target of this project is the "BonsaiGarden"—an artifact of immense historical and aesthetic value. Compared to traditional Photogrammetry, cutting-edge <strong>3D Gaussian Splatting (3DGS)</strong> offers a revolutionary paradigm shift in real-time high-fidelity rendering and geometric fidelity. The ultimate objective of this research is to bridge technical divides by establishing a complete, end-to-end technical pipeline from 360° real-world video capture to immersive Virtual Reality (VR) deployment.
                 </blockquote>
 
@@ -541,11 +569,10 @@
             </div>
         </div>
 
-        <!-- 📄 Card 5: Rement Narrative -->
         <div class="project-card card-5" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
-                <span>Future Lab // 05</span>
+                <span>INTERACTIVE ART // 05</span>
                 Rement Narrative
             </div>
             <div class="card-inner-detailed">
@@ -558,16 +585,12 @@
                     The seed of this project was planted by a peculiar modern social phenomenon: the absolute tsunami of "Dreamcore" and fake nostalgia taking over social media. People everywhere are obsessively reposting blurry old photos—faded vintage toys, discontinued magazines, empty afternoon parks, or rainy train stations. Fascinatingly, these images stir up massive psychological waves among peers who never lived them, convincing them that "this is my childhood memory".
                 </blockquote>
                 <p style="margin-top: 10px;">
-                    As <i>Renwu Magazine</i> pointed out in <i>"Why Are We Growing More Homesick for the Past?"</i>, this generational homesickness often serves as an idealized shelter to escape current anxieties. Psychologists note that while nostalgia is a warm, cozy safety nest, staying trapped in it robs us of our present and our courage to carve out paths for the future. <strong>Rement</strong> targets this pink bubble using code. I wanted to show that <strong>nostalgia is systematically manufactured</strong>. Systems average human behavior, erasing raw friction, conflicts, and painful truths to present a filtered, "harmless" version of reality. You don't love the past; you love a cinematic filter stripped of suffering.
+                    This generational homesickness often serves as an idealized shelter to escape current anxieties. Psychologists note that while nostalgia is a warm, cozy safety nest, staying trapped in it robs us of our present and our courage to carve out paths for the future. <strong>Rement</strong> targets this pink bubble using code. I wanted to show that <strong>nostalgia is systematically manufactured</strong>. Systems average human behavior, erasing raw friction, conflicts, and painful truths to present a filtered, "harmless" version of reality. You don't love the past; you love a cinematic filter stripped of suffering.
                 </p>
 
                 <div class="media-container">
-                    <video autoplay loop muted playsinline class="img-half">
-                        <source src="assets/rement-vhs-ambience.webm" type="video/webm">
-                    </video>
-                    <video autoplay loop muted playsinline class="img-half">
-                        <source src="assets/rement-radar-sensing.webm" type="video/webm">
-                    </video>
+                    <video autoplay loop muted playsinline class="img-half"><source src="assets/rement-vhs-ambience.webm" type="video/webm"></video>
+                    <video autoplay loop muted playsinline class="img-half"><source src="assets/rement-radar-sensing.webm" type="video/webm"></video>
                 </div>
 
                 <h4>[ DEVLOG // The CodePen Production Line ]</h4>
