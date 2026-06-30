@@ -28,7 +28,7 @@
         }
 
         /* ========================================================
-            🎀 殿堂级 ASCII / Dot-Matrix 微光背景引擎
+            🎀 殿堂级 ASCII / Dot-Matrix 微光背景引擎（已优化图层）
            ======================================================== */
         #matrix-background {
             position: fixed;
@@ -36,8 +36,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: none; /* 鼠标穿透 */
-            z-index: -1;          /* 铺在最底层 */
+            pointer-events: none; /* 鼠标穿透，不影响卡片点击 */
+            z-index: 1;           /* 提升至 1，确保盖在你的自定义底层背景上方 */
             overflow: hidden;
         }
 
@@ -45,15 +45,15 @@
             position: absolute;
             transform: translate(-50%, -50%);
             opacity: 0;
-            filter: drop-shadow(0 0 6px var(--glow-color)); /* 完美还原黑底微光感 */
-            animation: matrixFloat 12s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px var(--glow-color)); /* 增强微光霓虹感 */
+            animation: matrixFloat 14s ease-in-out infinite;
         }
 
         @keyframes matrixFloat {
-            0% { transform: translate(-50%, -40%) scale(0.8) rotate(-5deg); opacity: 0; }
-            15% { opacity: 0.18; } /* 柔和淡雅，不抢风头 */
-            85% { opacity: 0.18; }
-            100% { transform: translate(-50%, -60%) scale(1.05) rotate(5deg); opacity: 0; }
+            0% { transform: translate(-50%, -20%) scale(0.85) rotate(-8deg); opacity: 0; }
+            20% { opacity: 0.35; } /* 稍微提高透明度，确保清晰可见 */
+            80% { opacity: 0.35; }
+            100% { transform: translate(-50%, -45%) scale(1.1) rotate(8deg); opacity: 0; }
         }
 
         /* 优雅的返回按钮 */
@@ -76,7 +76,7 @@
             text-align: center;
             padding: 80px 20px 40px 20px;
             position: relative;
-            z-index: 10;
+            z-index: 10; /* 高于粒子层 */
         }
         .page-header h1 {
             font-family: 'Playfair Display', serif;
@@ -100,7 +100,7 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            z-index: 10;
+            z-index: 10; /* 高于粒子层，保证卡片文字不被遮挡 */
         }
 
         /* 🪱 完美的牛皮纸色手绘感蜿蜒虚线轴 */
@@ -140,7 +140,7 @@
         }
 
         .experience-badge {
-            background: rgba(255, 255, 255, 0.94); /* 微调透明，让背景微光渲染更透亮 */
+            background: rgba(255, 255, 255, 0.96); 
             border: 1px solid #e3ded4;
             border-radius: 12px;
             padding: 24px 28px;
@@ -235,6 +235,7 @@
 </head>
 <body>
 
+    <!-- 🌌 点阵艺术渲染画布（z-index已修正，绝对不再被吃掉） -->
     <div id="matrix-background"></div>
 
     <a href="index.html" class="back-to-box">← Back to Tin Case</a>
@@ -247,6 +248,7 @@
     <div class="timeline-container">
         <div class="timeline-line"></div>
 
+        <!-- Node 1: Northwestern University -->
         <div class="timeline-row" id="row-1">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-1')">
@@ -268,6 +270,7 @@
             </div>
         </div>
 
+        <!-- Node 2: NCSU -->
         <div class="timeline-row" id="row-2">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-2')">
@@ -288,6 +291,7 @@
             </div>
         </div>
 
+        <!-- Node 3: Nanyang Technological University -->
         <div class="timeline-row" id="row-3">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-3')">
@@ -309,11 +313,12 @@
             </div>
         </div>
 
+        <!-- Node 4: Quantum Arts -->
         <div class="timeline-row" id="row-4">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-4')">
                     <span class="badge-tag tag-industry">INDUSTRY // GAME ENGINE INTERN</span>
-                    <h2 class="badge-title">Quantum Arts </h2>
+                    <h2 class="badge-title">Quantum Arts</h2>
                     <div class="badge-sub">Software Development Intern (Client-side)</div>
                     <div class="badge-date">May 2025 – July 2025</div>
                     <div class="badge-details">
@@ -329,6 +334,7 @@
             </div>
         </div>
 
+        <!-- Node 5: NTU Student Union -->
         <div class="timeline-row" id="row-5">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-5')">
@@ -354,7 +360,6 @@
         // ========================================================
         const container = document.getElementById('matrix-background');
 
-        // 精准转译你发送的 4 张神仙图点阵走势（利用控制方程/路径矩阵生成完美圆滑的粒子分布）
         const matrixTemplates = [
             { // 🎀 飘逸大丝带蝴蝶结 (薄荷蓝绿)
                 draw: (g) => {
@@ -370,12 +375,11 @@
                         g.appendChild(c);
                     });
                 },
-                width: 140, height: 130, color: "#7bcbc4", glow: "rgba(123,203,196,0.4)"
+                width: 140, height: 130, color: "#7bcbc4", glow: "rgba(123,203,196,0.5)"
             },
             { // 💛 圆润空心正五角星 (柔和淡黄)
                 draw: (g) => {
                     for(let t=0; t<Math.PI*2; t+=0.12) {
-                        // 使用极坐标完美还原无暇星形外轮廓
                         const r = 40 + 20 * Math.cos(5 * t);
                         const x = 60 + r * Math.sin(t);
                         const y = 60 - r * Math.cos(t);
@@ -383,7 +387,6 @@
                         c.setAttribute("cx", x); c.setAttribute("cy", y); c.setAttribute("r", "1.5");
                         g.appendChild(c);
                     }
-                    // 星星内部的错落疏密点阵点缀
                     const inner = [[60,40],[52,50],[68,50],[45,60],[60,60],[75,60],[52,72],[68,72],[60,85]];
                     inner.forEach(([x,y]) => {
                         const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -391,11 +394,10 @@
                         g.appendChild(c);
                     });
                 },
-                width: 120, height: 120, color: "#f8e69a", glow: "rgba(248,230,154,0.4)"
+                width: 120, height: 120, color: "#f8e69a", glow: "rgba(248,230,154,0.5)"
             },
             { // 💗 动感流线五线谱与高音谱号 (蜜桃粉)
                 draw: (g) => {
-                    // 五线谱多重平行波动路径曲线点阵
                     for(let line=0; line<5; line++) {
                         const yOffset = line * 6;
                         for(let x=10; x<140; x+=7) {
@@ -405,34 +407,31 @@
                             g.appendChild(c);
                         }
                     }
-                    // 高音谱号核心点阵群
                     const clef = [[110,35],[113,25],[110,15],[105,25],[105,40],[112,50],[120,60],[122,70],[115,80],[108,75],[108,65],[115,60],[112,90]];
                     clef.forEach(([x,y]) => {
                         const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                         c.setAttribute("cx", x); c.setAttribute("cy", y); c.setAttribute("r", "1.6");
-                        g.appendChild(c);
+                        g.appendChild(g.appendChild(c));
                     });
                 },
-                width: 150, height: 110, color: "#fcaec6", glow: "rgba(252,174,198,0.4)"
+                width: 150, height: 110, color: "#fcaec6", glow: "rgba(252,174,198,0.5)"
             },
-            { // 🎵 跃动的心形音符点阵对 (薄荷绿 / 蜜桃粉双色混搭)
+            { // 🎵 跃动的心形音符点阵对 (蜜桃粉)
                 draw: (g) => {
-                    // 左侧心形音符符头
-                    const note1 = [[30,60],[25,54],[35,54],[22,62],[38,62],[26,70],[34,70],[30,76],/*符干*/[38,54],[38,44],[38,34],[38,24],/*符尾*/[44,26],[48,30]];
-                    // 右侧高位心形音符符头
-                    const note2 = [[70,40],[65,34],[75,34],[62,42],[78,42],[66,50],[74,50],[70,56],/*符干*/[78,34],[78,24],[78,14],[78,04],/*符尾*/[84,06],[88,10]];
+                    const note1 = [[30,60],[25,54],[35,54],[22,62],[38,62],[26,70],[34,70],[30,76],[38,54],[38,44],[38,34],[38,24],[44,26],[48,30]];
+                    const note2 = [[70,40],[65,34],[75,34],[62,42],[78,42],[66,50],[74,50],[70,56],[78,34],[78,24],[78,14],[78,04],[84,06],[88,10]];
                     [...note1, ...note2].forEach(([x,y]) => {
                         const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                         c.setAttribute("cx", x + 10); c.setAttribute("cy", y + 10); c.setAttribute("r", "1.4");
                         g.appendChild(c);
                     });
                 },
-                width: 110, height: 100, color: "#fcaec6", glow: "rgba(252,174,198,0.4)"
+                width: 110, height: 100, color: "#fcaec6", glow: "rgba(252,174,198,0.5)"
             }
         ];
 
         function spawnMatrixCluster() {
-            if (container.children.length > 12) return; // 维持清爽密度
+            if (container.children.length > 14) return; 
 
             const template = matrixTemplates[Math.floor(Math.random() * matrixTemplates.length)];
             
@@ -449,30 +448,27 @@
             template.draw(g);
             svg.appendChild(g);
 
-            // 智能定位：错落排布在卡片的两侧空白处
             const side = Math.random() > 0.5 ? 'left' : 'right';
-            const randomX = side === 'left' ? (Math.random() * 20 + 5) : (Math.random() * 20 + 75);
-            const randomY = Math.random() * 90 + 5;
+            const randomX = side === 'left' ? (Math.random() * 22 + 3) : (Math.random() * 22 + 75);
+            const randomY = Math.random() * 85 + 8;
 
             svg.style.left = `${randomX}vw`;
             svg.style.top = `${randomY}vh`;
             
-            // 随机大小微调
-            const scaleFactor = 0.8 + Math.random() * 0.4;
+            const scaleFactor = 0.85 + Math.random() * 0.35;
             svg.style.transform = `translate(-50%, -50%) scale(${scaleFactor})`;
-            svg.style.animationDelay = `${Math.random() * 3}s`;
+            svg.style.animationDelay = `${Math.random() * 2}s`;
 
             container.appendChild(svg);
 
-            setTimeout(() => { svg.remove(); }, 12000); // 顺滑消隐后自动销毁
+            setTimeout(() => { svg.remove(); }, 14000); 
         }
 
-        // 常驻背景生产循环
-        setInterval(spawnMatrixCluster, 900);
+        setInterval(spawnMatrixCluster, 1000);
         for(let i=0; i<6; i++) { spawnMatrixCluster(); }
 
         // ========================================================
-        // 📇 原生 3D 悬停卡片与纵向推开引擎（原封不动）
+        // 📇 原生 3D 悬停卡片与纵向推开引擎
         // ========================================================
         const badges = document.querySelectorAll('.experience-badge');
 
