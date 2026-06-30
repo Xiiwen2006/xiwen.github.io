@@ -425,18 +425,13 @@
         
         <div class="close-folder-overlay" onclick="closeFolder()"></div>
         
-        <!-- 📁 初始闭合前壳（file.jpg）：唯一的触发入口 -->
         <div class="folder-base folder-closed" id="folderCover" onclick="openFolder()"></div>
         
-        <!-- 📁 打开状态夹子（file-opened.jpg）：挡在卡片前面，充当收纳外壳 -->
         <div class="folder-base folder-opened" onclick="closeFolder()"></div>
         
         <div class="hover-tooltip" id="tip-open">CLICK TO EXPLORE</div>
         <div class="hover-tooltip" id="tip-close">CLICK TO CLOSE FOLDER</div>
 
-        <!-- ========================================================
-            📄 Card 1: FREAKY bread
-           ======================================================== -->
         <div class="project-card card-1" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -476,9 +471,6 @@
             </div>
         </div>
 
-        <!-- ========================================================
-            📄 Card 2: S'pookie Bread
-           ======================================================== -->
         <div class="project-card card-2" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -506,7 +498,6 @@
                 </div>
 
                 <h4>[ GAMEPLAY ANIMATIONS ]</h4>
-                <!-- ✨ 电脑端完美呈现两两排布的 2x2 四宫格，手机端为单列直排并带文字 -->
                 <div class="media-container">
                     <div class="img-half">
                         <video autoplay loop muted playsinline class="img-full"><source src="assets/spookie-lobby.webm" type="video/webm"></video>
@@ -535,9 +526,6 @@
             </div>
         </div>
 
-        <!-- ========================================================
-            📄 Card 3: Sashimi's Movie Store
-           ======================================================== -->
         <div class="project-card card-3" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -581,9 +569,6 @@
             </div>
         </div>
 
-        <!-- ========================================================
-            📄 Card 4: BonsaiGarden VR
-           ======================================================== -->
         <div class="project-card card-4" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
@@ -593,12 +578,20 @@
             <div class="card-inner-detailed">
                 <p><strong>Position:</strong> URECA Undergraduate Research Program // 3DGS Reconstructions</p>
                 
-                <a href="#" onclick="return false;" class="play-link" style="opacity: 0.7; cursor: not-allowed;">▸ WEB-BASED INTERACTIVE PORTAL (COMING SOON)</a>
+                <a href="https://kuula.co/share/collection/7T0wd?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1" target="_blank" class="play-link">▸ CLICK HERE TO VIEW 3DGS RESULT (WEB INTERACTIVE)</a>
 
                 <h4>[ INTRODUCTION // Digital Immortality ]</h4>
                 <blockquote>
                     Conducted under the <strong>URECA Undergraduate Research Program</strong>, this study tackles the urgent need for digital preservation of cultural heritage. The core target of this project is the "BonsaiGarden"—an artifact of immense historical and aesthetic value. Compared to traditional Photogrammetry, cutting-edge <strong>3D Gaussian Splatting (3DGS)</strong> offers a revolutionary paradigm shift in real-time high-fidelity rendering and geometric fidelity. The ultimate objective of this research is to bridge technical divides by establishing a complete, end-to-end technical pipeline from 360° real-world video capture to immersive Virtual Reality (VR) deployment.
                 </blockquote>
+
+                <h4>[ PROJECT DEPLOYMENT VIDEO ]</h4>
+                <div class="media-container">
+                    <video autoplay loop muted playsinline class="img-full">
+                        <source src="assets/bonsai-vr-demo.webm" type="video/webm">
+                    </video>
+                </div>
+                <div class="video-desc">Demonstration of the interactive 3D Gaussian Splatting (3DGS) scene rendering pipeline and runtime environment transition.</div>
 
                 <h4>[ TECHNICAL PIPELINE // The Methodology ]</h4>
                 <ul>
@@ -615,9 +608,6 @@
             </div>
         </div>
 
-        <!-- ========================================================
-            📄 Card 5: Rement Narrative
-           ======================================================== -->
         <div class="project-card card-5" onclick="activateCard(this)">
             <div class="close-btn" onclick="deactivateCard(event, this)">×</div>
             <div class="card-tab-title">
