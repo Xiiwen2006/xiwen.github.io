@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xiwen's Experiences // Journey Log</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,7 @@
         }
 
         /* ========================================================
-           DOT-MATRIX BACKGROUND
+            点阵背景：黄色星星 / 薄荷蓝绿音符 / 粉色爱心
            ======================================================== */
         #matrix-background {
             position: fixed;
@@ -40,53 +40,55 @@
             overflow: hidden;
         }
 
-        .matrix-motif {
+        .dot-motif {
             position: absolute;
             opacity: 0;
             transform: translate(-50%, -50%);
-            animation: floatMotif 18s ease-in-out infinite;
+            animation: dotFloat 22s ease-in-out infinite;
             will-change: transform, opacity;
         }
 
-        @keyframes floatMotif {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -46%) scale(var(--scale, 1)) rotate(var(--rot-start, -4deg));
-            }
-            12% {
-                opacity: 0.34;
-            }
-            50% {
-                opacity: 0.42;
-            }
-            88% {
-                opacity: 0.32;
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -54%) scale(calc(var(--scale, 1) * 1.03)) rotate(var(--rot-end, 4deg));
-            }
-        }
-
-        .matrix-motif svg {
+        .dot-motif svg {
             display: block;
             overflow: visible;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.18));
         }
 
-        .matrix-motif.blue svg {
-            filter: drop-shadow(0 0 10px rgba(116, 201, 237, 0.18));
+        .dot-motif.star {
+            filter: drop-shadow(0 0 10px rgba(245, 197, 66, 0.35));
         }
 
-        .matrix-motif.pink svg {
-            filter: drop-shadow(0 0 10px rgba(230, 124, 210, 0.18));
+        .dot-motif.note {
+            filter: drop-shadow(0 0 10px rgba(78, 209, 199, 0.32));
         }
 
-        .matrix-motif.yellow svg {
-            filter: drop-shadow(0 0 10px rgba(239, 204, 101, 0.16));
+        .dot-motif.heart {
+            filter: drop-shadow(0 0 10px rgba(244, 138, 191, 0.35));
         }
 
-        /* 返回按钮 */
+        @keyframes dotFloat {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -44%) scale(var(--scale)) rotate(var(--rot-start));
+            }
+
+            12% {
+                opacity: var(--opacity);
+            }
+
+            50% {
+                opacity: calc(var(--opacity) + 0.05);
+            }
+
+            88% {
+                opacity: var(--opacity);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -56%) scale(calc(var(--scale) * 1.04)) rotate(var(--rot-end));
+            }
+        }
+
         .back-to-box {
             position: fixed;
             top: 40px;
@@ -105,7 +107,6 @@
             transform: translateX(-4px);
         }
 
-        /* 顶部标题区 */
         .page-header {
             text-align: center;
             padding: 80px 20px 40px 20px;
@@ -128,7 +129,6 @@
             font-size: 1.1rem;
         }
 
-        /* timeline */
         .timeline-container {
             position: relative;
             max-width: 1000px;
@@ -163,7 +163,6 @@
             justify-content: flex-end;
         }
 
-        /* badges */
         .badge-wrapper {
             width: 46%;
             perspective: 1000px;
@@ -216,7 +215,7 @@
         .tag-leader { background: #ebf9eb; color: #2ecc71; }
 
         .badge-title {
-            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 1.25rem;
             font-weight: 700;
             color: #111;
@@ -310,11 +309,17 @@
         }
 
         @media (max-width: 992px) {
-            body { padding-bottom: 50px; }
+            body {
+                padding-bottom: 50px;
+            }
 
-            .back-to-box { display: none !important; }
+            .back-to-box {
+                display: none !important;
+            }
 
-            .page-header h1 { font-size: 2.2rem; }
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
 
             .timeline-line {
                 left: 25px;
@@ -336,6 +341,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div id="matrix-background"></div>
@@ -350,7 +356,6 @@
     <div class="timeline-container">
         <div class="timeline-line"></div>
 
-        <!-- Node 1 -->
         <div class="timeline-row" id="row-1">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-1')">
@@ -359,6 +364,7 @@
                     <div class="badge-sub">Independent Research Assistant (Remote)</div>
                     <div class="badge-date">June 2026 – Present</div>
                     <div class="award-banner">✨ Targeted for CVPR 2027 // Co-First Author (Main Contributor)</div>
+
                     <div class="badge-details">
                         <ul>
                             <li>Serving as Co-first Author to spearhead a computer vision research project targeting CVPR 2027, exploring robust spatial localization under extreme visual constraints.</li>
@@ -367,12 +373,12 @@
                             <li>Managing lab server computing nodes and cross-student experiment execution; designing data visualization pipelines to map Euclidean trajectory errors and camera tracking convergence.</li>
                         </ul>
                     </div>
+
                     <div class="expand-hint">▸ CLICK TO EXPAND DETAILS</div>
                 </div>
             </div>
         </div>
 
-        <!-- Node 2 -->
         <div class="timeline-row" id="row-2">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-2')">
@@ -380,6 +386,7 @@
                     <h2 class="badge-title">North Carolina State University</h2>
                     <div class="badge-sub">Summer Research Fellow (GEARS Program)</div>
                     <div class="badge-date">July 2026 – August 2026</div>
+
                     <div class="badge-details">
                         <ul>
                             <li>Project focus: Flexible Electrics Fabrication and Modeling. Investigating application boundaries of skin-like soft electronic sensors in next-generation human-computer interfaces and wearable tech.</li>
@@ -388,12 +395,12 @@
                             <li>Collaborated in state-of-the-art cleanroom environments to test novel conductive materials, contributing to the empirical dataset of flexible device reliability and cross-platform communication.</li>
                         </ul>
                     </div>
+
                     <div class="expand-hint">▸ CLICK TO EXPAND DETAILS</div>
                 </div>
             </div>
         </div>
 
-        <!-- Node 3 -->
         <div class="timeline-row" id="row-3">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-3')">
@@ -402,6 +409,7 @@
                     <div class="badge-sub">Undergraduate Research Fellow (URECA Program)</div>
                     <div class="badge-date">Oct 2025 – July 2026</div>
                     <div class="award-banner">🏆 1st Place Winner in the Annual URECA Poster Competition (2026)</div>
+
                     <div class="badge-details">
                         <ul>
                             <li>Conducted independent, award-winning spatial computing research on the digital twin visualization of cultural heritage sites, specifically prototyping an immersive virtual replica of an abandoned park.</li>
@@ -410,12 +418,12 @@
                             <li>Steered strategic collaborations within the NTU XR Lab; formulated comprehensive project documentation, led milestone reviews, and presented research methodologies that secured First Place out of wide-campus nominees.</li>
                         </ul>
                     </div>
+
                     <div class="expand-hint">▸ CLICK TO EXPAND DETAILS</div>
                 </div>
             </div>
         </div>
 
-        <!-- Node 4 -->
         <div class="timeline-row" id="row-4">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-4')">
@@ -423,6 +431,7 @@
                     <h2 class="badge-title">Quantum Arts</h2>
                     <div class="badge-sub">Software Development Intern (Client-side)</div>
                     <div class="badge-date">May 2025 – July 2025</div>
+
                     <div class="badge-details">
                         <ul>
                             <li>Designed and engineered a dynamic procedural exploration map in Unity, enabling seamless terrain traversal, physics-based object interactions, and a node-based event trigger system for branching narratives.</li>
@@ -431,12 +440,12 @@
                             <li>Collaborated with technical artists and backend engineering teams to execute profiling, refactor asset pipelines, and optimize frame-rate stability for high-concurrency player stress scenarios.</li>
                         </ul>
                     </div>
+
                     <div class="expand-hint">▸ CLICK TO EXPAND DETAILS</div>
                 </div>
             </div>
         </div>
 
-        <!-- Node 5 -->
         <div class="timeline-row" id="row-5">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-5')">
@@ -444,12 +453,14 @@
                     <h2 class="badge-title">NTU Student Union</h2>
                     <div class="badge-sub">Director of University-wide Music & Culture Festival (FEST)</div>
                     <div class="badge-date">Sep 2024 - Sep 2025</div>
+
                     <div class="badge-details">
                         <ul>
                             <li>Spearheaded cross-functional orchestrations between 50+ performers, student committees, and technical operations staff, successfully translating artistic concepts into structured runtime performance schedules.</li>
                             <li>Directed end-to-end event production, ground operations, and asset logistics for a large-scale live music festival and creative flea market, establishing scalable framework blueprints for campus crowd management.</li>
                         </ul>
                     </div>
+
                     <div class="expand-hint">▸ CLICK TO EXPAND DETAILS</div>
                 </div>
             </div>
@@ -457,9 +468,9 @@
     </div>
 
     <script>
-        // ========================================================
-        // CARD INTERACTION
-        // ========================================================
+        /* ========================================================
+            卡片交互
+           ======================================================== */
         const badges = document.querySelectorAll('.experience-badge');
 
         badges.forEach(badge => {
@@ -472,8 +483,10 @@
                 const rect = badge.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
+
                 const xc = rect.width / 2;
                 const yc = rect.height / 2;
+
                 const angleX = (yc - y) / 15;
                 const angleY = (x - xc) / 15;
 
@@ -500,236 +513,286 @@
             }
         }
 
-        // ========================================================
-        // CLEAN DOT MATRIX SVG BACKGROUND
-        // ========================================================
-        const container = document.getElementById("matrix-background");
+        /* ========================================================
+            干净点阵 SVG 生成器
+            只生成：黄色星星 / 薄荷蓝绿音符 / 粉色爱心
+           ======================================================== */
+        const matrixContainer = document.getElementById("matrix-background");
 
-        const COLORS = {
-            blue: "#79c8ea",
-            pink: "#d88adb",
-            yellow: "#ecd36d"
+        const DOT_COLORS = {
+            star: "#f4c542",
+            note: "#55d8ce",
+            heart: "#f48ac0"
         };
 
-        function makeSvg(width, height, inner, viewBox = null) {
+        function pointInPolygon(x, y, points) {
+            let inside = false;
+
+            for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+                const xi = points[i][0];
+                const yi = points[i][1];
+                const xj = points[j][0];
+                const yj = points[j][1];
+
+                const intersect =
+                    ((yi > y) !== (yj > y)) &&
+                    (x < (xj - xi) * (y - yi) / ((yj - yi) || 0.00001) + xi);
+
+                if (intersect) inside = !inside;
+            }
+
+            return inside;
+        }
+
+        function inRotatedEllipse(x, y, cx, cy, rx, ry, angleDeg) {
+            const angle = angleDeg * Math.PI / 180;
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+
+            const dx = x - cx;
+            const dy = y - cy;
+
+            const xr = dx * cos + dy * sin;
+            const yr = -dx * sin + dy * cos;
+
+            return (xr * xr) / (rx * rx) + (yr * yr) / (ry * ry) <= 1;
+        }
+
+        function makeSvgFromDots(width, height, dots, color, radius) {
+            const circles = dots.map(([x, y]) => {
+                return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${radius}" fill="${color}" />`;
+            }).join("");
+
             return `
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     width="${width}"
-                     height="${height}"
-                     viewBox="${viewBox || `0 0 ${width} ${height}`}"
-                     fill="none">
-                    ${inner}
+                <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+                    ${circles}
                 </svg>
             `;
         }
 
-        function dotStroke(styleColor, strokeWidth = 3.2, gap = 7.2, extra = "") {
-            return `
-                stroke="${styleColor}"
-                stroke-width="${strokeWidth}"
-                stroke-linecap="round"
-                stroke-dasharray="0.01 ${gap}"
-                ${extra}
-            `;
+        function generateStarSvg() {
+            const width = 280;
+            const height = 280;
+            const cx = width / 2;
+            const cy = height / 2 + 4;
+            const outer = 118;
+            const inner = 50;
+            const step = 8;
+            const radius = 2.6;
+            const points = [];
+
+            for (let i = 0; i < 10; i++) {
+                const angle = -Math.PI / 2 + i * Math.PI / 5;
+                const r = i % 2 === 0 ? outer : inner;
+                points.push([
+                    cx + Math.cos(angle) * r,
+                    cy + Math.sin(angle) * r
+                ]);
+            }
+
+            const dots = [];
+
+            for (let y = 14; y <= height - 14; y += step) {
+                for (let x = 14; x <= width - 14; x += step) {
+                    if (pointInPolygon(x, y, points)) {
+                        dots.push([x, y]);
+                    }
+                }
+            }
+
+            return makeSvgFromDots(width, height, dots, DOT_COLORS.star, radius);
         }
 
-        function motifRibbon(color) {
-            return makeSvg(
-                280, 170,
-                `
-                <path d="M34 83
-                         C62 48, 101 43, 120 64
-                         C136 83, 124 112, 92 114
-                         C58 116, 35 101, 34 83Z"
-                      ${dotStroke(color, 3.8, 6.3)} />
+        function generateHeartSvg() {
+            const width = 300;
+            const height = 280;
+            const cx = width / 2;
+            const cy = height / 2 - 2;
+            const scale = 108;
+            const step = 8;
+            const radius = 2.6;
+            const dots = [];
 
-                <path d="M109 65
-                         C112 49, 123 34, 143 21
-                         C165 7, 185 10, 194 28
-                         C202 43, 194 58, 179 66
-                         C160 75, 136 75, 118 68"
-                      ${dotStroke(color, 3.6, 6.0)} />
+            for (let y = 14; y <= height - 14; y += step) {
+                for (let x = 14; x <= width - 14; x += step) {
+                    const nx = (x - cx) / scale;
+                    const ny = (cy - y) / scale;
 
-                <path d="M118 71
-                         C141 79, 176 82, 213 82
-                         C235 82, 252 87, 258 100
-                         C262 109, 257 119, 246 123"
-                      ${dotStroke(color, 3.6, 6.0)} />
+                    const value = Math.pow(nx * nx + ny * ny - 1, 3) - nx * nx * Math.pow(ny, 3);
 
-                <path d="M120 72
-                         C129 93, 123 114, 105 123
-                         C84 133, 58 130, 42 118"
-                      ${dotStroke(color, 3.6, 6.0)} />
+                    if (value <= 0) {
+                        dots.push([x, y]);
+                    }
+                }
+            }
 
-                <path d="M49 118
-                         C40 129, 31 142, 26 154"
-                      ${dotStroke(color, 3.5, 6.0)} />
-
-                <path d="M242 121
-                         C250 130, 256 142, 258 156"
-                      ${dotStroke(color, 3.5, 6.0)} />
-                `
-            );
+            return makeSvgFromDots(width, height, dots, DOT_COLORS.heart, radius);
         }
 
-        function motifStar(color) {
-            return makeSvg(
-                190, 190,
-                `
-                <path d="M95 16
-                         L112 59
-                         L159 63
-                         L122 92
-                         L135 140
-                         L95 114
-                         L55 140
-                         L68 92
-                         L31 63
-                         L78 59
-                         Z"
-                      ${dotStroke(color, 3.7, 6.2)} />
+        function generateNoteSvg() {
+            const width = 280;
+            const height = 300;
+            const step = 8;
+            const radius = 2.55;
+            const dots = [];
 
-                <path d="M95 38 L102 58 L123 62 L107 75 L112 96 L95 85 L78 96 L83 75 L67 62 L88 58 Z"
-                      ${dotStroke(color, 2.8, 9)} />
-                `
-            );
-        }
+            const beam = [
+                [98, 70],
+                [224, 34],
+                [224, 70],
+                [98, 108]
+            ];
 
-        function motifTreble(color) {
-            return makeSvg(
-                360, 230,
-                `
-                <path d="M120 188
-                         C106 165, 106 137, 127 119
-                         C145 103, 170 103, 183 118
-                         C197 134, 193 158, 172 168
-                         C153 177, 131 171, 124 155
-                         C113 129, 125 101, 147 83
-                         C173 62, 175 33, 152 21
-                         C131 9, 102 19, 93 46
-                         C81 82, 100 119, 121 145
-                         C149 180, 201 186, 257 184"
-                      ${dotStroke(color, 3.8, 6.1)} />
+            for (let y = 16; y <= height - 16; y += step) {
+                for (let x = 16; x <= width - 16; x += step) {
+                    const leftHead = inRotatedEllipse(x, y, 78, 230, 48, 34, -24);
+                    const rightHead = inRotatedEllipse(x, y, 194, 202, 48, 34, -24);
 
-                <path d="M144 80
-                         C176 80, 211 79, 247 81
-                         C284 83, 309 93, 329 110"
-                      ${dotStroke(color, 3.3, 6.2)} />
+                    const leftStem = x >= 98 && x <= 120 && y >= 72 && y <= 230;
+                    const rightStem = x >= 206 && x <= 228 && y >= 42 && y <= 202;
 
-                <path d="M136 97
-                         C171 96, 208 96, 244 98
-                         C278 100, 305 109, 327 126"
-                      ${dotStroke(color, 3.1, 6.2)} />
+                    const topBeam = pointInPolygon(x, y, beam);
 
-                <path d="M129 115
-                         C166 114, 206 114, 243 117
-                         C275 119, 301 127, 321 141"
-                      ${dotStroke(color, 3.0, 6.2)} />
+                    if (leftHead || rightHead || leftStem || rightStem || topBeam) {
+                        dots.push([x, y]);
+                    }
+                }
+            }
 
-                <path d="M125 132
-                         C161 132, 202 132, 237 134
-                         C265 136, 292 143, 311 155"
-                      ${dotStroke(color, 2.9, 6.2)} />
-
-                <path d="M120 149
-                         C154 149, 189 149, 223 150
-                         C250 151, 275 157, 294 166"
-                      ${dotStroke(color, 2.8, 6.2)} />
-                `
-            );
-        }
-
-        function motifNotes(color) {
-            return makeSvg(
-                220, 220,
-                `
-                <path d="M56 58 L56 127" ${dotStroke(color, 3.7, 6.1)} />
-                <path d="M56 58 C69 57, 84 56, 100 50" ${dotStroke(color, 3.5, 6.1)} />
-                <path d="M45 131 C28 130, 20 119, 27 108 C35 96, 55 96, 66 108 C76 120, 66 132, 45 131 Z"
-                      ${dotStroke(color, 3.6, 5.8)} />
-
-                <path d="M148 78 L148 148" ${dotStroke(color, 3.7, 6.1)} />
-                <path d="M148 78 C161 77, 176 76, 191 70" ${dotStroke(color, 3.5, 6.1)} />
-                <path d="M137 152 C120 151, 112 140, 119 129 C127 117, 147 117, 158 129 C168 141, 158 153, 137 152 Z"
-                      ${dotStroke(color, 3.6, 5.8)} />
-
-                <path d="M99 24 L99 88" ${dotStroke(color, 3.5, 6.1)} />
-                <path d="M99 24 C109 24, 121 23, 133 18" ${dotStroke(color, 3.4, 6.1)} />
-                <path d="M89 92 C73 91, 65 82, 71 71 C78 60, 97 60, 108 71 C118 82, 109 93, 89 92 Z"
-                      ${dotStroke(color, 3.4, 5.8)} />
-                `
-            );
+            return makeSvgFromDots(width, height, dots, DOT_COLORS.note, radius);
         }
 
         const motifLibrary = [
-            { type: "ribbon", color: "blue",  svg: motifRibbon(COLORS.blue),  w: 280, h: 170 },
-            { type: "ribbon", color: "pink",  svg: motifRibbon(COLORS.pink),  w: 280, h: 170 },
-            { type: "star",   color: "pink",  svg: motifStar(COLORS.pink),    w: 190, h: 190 },
-            { type: "star",   color: "yellow",svg: motifStar(COLORS.yellow),  w: 190, h: 190 },
-            { type: "treble", color: "blue",  svg: motifTreble(COLORS.blue),  w: 360, h: 230 },
-            { type: "treble", color: "pink",  svg: motifTreble(COLORS.pink),  w: 360, h: 230 },
-            { type: "notes",  color: "blue",  svg: motifNotes(COLORS.blue),   w: 220, h: 220 },
-            { type: "notes",  color: "yellow",svg: motifNotes(COLORS.yellow), w: 220, h: 220 }
+            {
+                type: "star",
+                svg: generateStarSvg()
+            },
+            {
+                type: "note",
+                svg: generateNoteSvg()
+            },
+            {
+                type: "heart",
+                svg: generateHeartSvg()
+            }
         ];
 
-        function spawnMotif(customConfig = null) {
-            if (!container) return;
-            if (container.children.length > 16) return;
+        function spawnDotMotif(config = {}) {
+            if (!matrixContainer) return;
 
-            const motif = customConfig || motifLibrary[Math.floor(Math.random() * motifLibrary.length)];
+            if (matrixContainer.children.length > 10) {
+                return;
+            }
+
+            const motif = config.motif || motifLibrary[Math.floor(Math.random() * motifLibrary.length)];
 
             const wrap = document.createElement("div");
-            wrap.className = `matrix-motif ${motif.color}`;
+            wrap.className = `dot-motif ${motif.type}`;
             wrap.innerHTML = motif.svg;
 
-            const scale = 0.72 + Math.random() * 0.38;
+            const scale = config.scale ?? (0.45 + Math.random() * 0.28);
+            const opacity = config.opacity ?? (0.22 + Math.random() * 0.08);
+
             wrap.style.setProperty("--scale", scale);
+            wrap.style.setProperty("--opacity", opacity);
+            wrap.style.setProperty("--rot-start", config.rotStart ?? `${-8 + Math.random() * 6}deg`);
+            wrap.style.setProperty("--rot-end", config.rotEnd ?? `${3 + Math.random() * 7}deg`);
 
-            const rotA = (-8 + Math.random() * 6).toFixed(2) + "deg";
-            const rotB = (3 + Math.random() * 7).toFixed(2) + "deg";
-            wrap.style.setProperty("--rot-start", rotA);
-            wrap.style.setProperty("--rot-end", rotB);
-
-            // 更干净的布局：主要在左右和顶部/底部飘，不挡正文
             const zones = [
-                { xMin: 5,  xMax: 24, yMin: 8,  yMax: 32 },
-                { xMin: 76, xMax: 95, yMin: 8,  yMax: 32 },
-                { xMin: 6,  xMax: 28, yMin: 62, yMax: 90 },
-                { xMin: 72, xMax: 94, yMin: 62, yMax: 90 }
+                { xMin: 7,  xMax: 23, yMin: 10, yMax: 30 },
+                { xMin: 77, xMax: 93, yMin: 10, yMax: 30 },
+                { xMin: 7,  xMax: 24, yMin: 62, yMax: 88 },
+                { xMin: 76, xMax: 93, yMin: 62, yMax: 88 }
             ];
 
-            const zone = zones[Math.floor(Math.random() * zones.length)];
-            const x = zone.xMin + Math.random() * (zone.xMax - zone.xMin);
-            const y = zone.yMin + Math.random() * (zone.yMax - zone.yMin);
+            const zone = config.zone ?? zones[Math.floor(Math.random() * zones.length)];
+
+            const x = config.x ?? (zone.xMin + Math.random() * (zone.xMax - zone.xMin));
+            const y = config.y ?? (zone.yMin + Math.random() * (zone.yMax - zone.yMin));
 
             wrap.style.left = `${x}vw`;
             wrap.style.top = `${y}vh`;
-            wrap.style.animationDelay = `-${Math.random() * 18}s`;
-            wrap.style.animationDuration = `${16 + Math.random() * 5}s`;
+            wrap.style.animationDelay = config.delay ?? `-${Math.random() * 22}s`;
+            wrap.style.animationDuration = config.duration ?? `${20 + Math.random() * 6}s`;
 
-            container.appendChild(wrap);
+            matrixContainer.appendChild(wrap);
 
             setTimeout(() => {
                 wrap.remove();
-            }, 21000);
+            }, 27000);
         }
 
-        // 初始更精致一点：固定几张，不要一打开乱飞
-        const initialMotifs = [
-            { type: "ribbon", color: "blue",  svg: motifRibbon(COLORS.blue) },
-            { type: "star",   color: "pink",  svg: motifStar(COLORS.pink) },
-            { type: "treble", color: "blue",  svg: motifTreble(COLORS.blue) },
-            { type: "notes",  color: "yellow",svg: motifNotes(COLORS.yellow) },
-            { type: "ribbon", color: "pink",  svg: motifRibbon(COLORS.pink) }
-        ];
+        // 初始固定排布：页面一打开就能看到，但不会挡住中间内容
+        spawnDotMotif({
+            motif: motifLibrary[0],
+            x: 12,
+            y: 17,
+            scale: 0.48,
+            opacity: 0.26,
+            rotStart: "-6deg",
+            rotEnd: "4deg",
+            delay: "-8s"
+        });
 
-        initialMotifs.forEach((motif, i) => {
-            spawnMotif(motif);
+        spawnDotMotif({
+            motif: motifLibrary[1],
+            x: 86,
+            y: 18,
+            scale: 0.46,
+            opacity: 0.27,
+            rotStart: "5deg",
+            rotEnd: "-4deg",
+            delay: "-12s"
+        });
+
+        spawnDotMotif({
+            motif: motifLibrary[2],
+            x: 14,
+            y: 76,
+            scale: 0.46,
+            opacity: 0.25,
+            rotStart: "-4deg",
+            rotEnd: "5deg",
+            delay: "-15s"
+        });
+
+        spawnDotMotif({
+            motif: motifLibrary[0],
+            x: 87,
+            y: 76,
+            scale: 0.42,
+            opacity: 0.23,
+            rotStart: "6deg",
+            rotEnd: "-3deg",
+            delay: "-4s"
+        });
+
+        spawnDotMotif({
+            motif: motifLibrary[1],
+            x: 8,
+            y: 48,
+            scale: 0.38,
+            opacity: 0.21,
+            rotStart: "-7deg",
+            rotEnd: "5deg",
+            delay: "-18s"
+        });
+
+        spawnDotMotif({
+            motif: motifLibrary[2],
+            x: 93,
+            y: 47,
+            scale: 0.36,
+            opacity: 0.21,
+            rotStart: "7deg",
+            rotEnd: "-5deg",
+            delay: "-10s"
         });
 
         setInterval(() => {
-            spawnMotif();
-        }, 2600);
+            spawnDotMotif();
+        }, 3600);
     </script>
+
 </body>
 </html>
