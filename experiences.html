@@ -16,25 +16,33 @@
             padding: 0;
         }
 
+        html {
+            background-color: #f7f6f3;
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: #f7f6f3;
             min-height: 100vh;
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             color: #333;
             overflow-x: hidden;
+            overflow-y: auto;
             perspective: 1000px;
             padding-bottom: 120px;
             position: relative;
         }
 
         /* ========================================================
-            点阵背景：黄色星星 / 薄荷蓝绿音符 / 粉色爱心
+            全页面点阵背景：黄色星星 / 薄荷蓝绿音符 / 粉色爱心
+            重点：position absolute + JS 动态设置页面总高度
            ======================================================== */
         #matrix-background {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
@@ -44,7 +52,7 @@
             position: absolute;
             opacity: 0;
             transform: translate(-50%, -50%);
-            animation: dotFloat 22s ease-in-out infinite;
+            animation: dotFloat 24s ease-in-out infinite;
             will-change: transform, opacity;
         }
 
@@ -54,15 +62,15 @@
         }
 
         .dot-motif.star {
-            filter: drop-shadow(0 0 10px rgba(245, 197, 66, 0.35));
+            filter: drop-shadow(0 0 10px rgba(245, 197, 66, 0.32));
         }
 
         .dot-motif.note {
-            filter: drop-shadow(0 0 10px rgba(78, 209, 199, 0.32));
+            filter: drop-shadow(0 0 10px rgba(78, 209, 199, 0.30));
         }
 
         .dot-motif.heart {
-            filter: drop-shadow(0 0 10px rgba(244, 138, 191, 0.35));
+            filter: drop-shadow(0 0 10px rgba(244, 138, 191, 0.32));
         }
 
         @keyframes dotFloat {
@@ -89,6 +97,7 @@
             }
         }
 
+        /* 返回按钮 */
         .back-to-box {
             position: fixed;
             top: 40px;
@@ -107,6 +116,7 @@
             transform: translateX(-4px);
         }
 
+        /* 顶部标题区 */
         .page-header {
             text-align: center;
             padding: 80px 20px 40px 20px;
@@ -129,6 +139,9 @@
             font-size: 1.1rem;
         }
 
+        /* ========================================================
+            蜿蜒牛皮纸色虚线时间轴
+           ======================================================== */
         .timeline-container {
             position: relative;
             max-width: 1000px;
@@ -163,6 +176,9 @@
             justify-content: flex-end;
         }
 
+        /* ========================================================
+            3D 工作证卡片
+           ======================================================== */
         .badge-wrapper {
             width: 46%;
             perspective: 1000px;
@@ -178,7 +194,10 @@
             cursor: pointer;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, max-width 0.5s ease;
+            transition:
+                transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 0.3s ease,
+                max-width 0.5s ease;
         }
 
         .experience-badge::before {
@@ -210,9 +229,20 @@
             margin-top: 5px;
         }
 
-        .tag-industry { background: #e8f4fd; color: #1d8cf8; }
-        .tag-academia { background: #fdf3e7; color: #e67e22; }
-        .tag-leader { background: #ebf9eb; color: #2ecc71; }
+        .tag-industry {
+            background: #e8f4fd;
+            color: #1d8cf8;
+        }
+
+        .tag-academia {
+            background: #fdf3e7;
+            color: #e67e22;
+        }
+
+        .tag-leader {
+            background: #ebf9eb;
+            color: #2ecc71;
+        }
 
         .badge-title {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -308,35 +338,148 @@
             display: none;
         }
 
+        /* ========================================================
+            平板 / 手机端适配
+           ======================================================== */
         @media (max-width: 992px) {
             body {
-                padding-bottom: 50px;
+                padding-bottom: 70px;
             }
 
             .back-to-box {
                 display: none !important;
             }
 
+            .page-header {
+                padding: 70px 20px 30px 20px;
+            }
+
             .page-header h1 {
-                font-size: 2.2rem;
+                font-size: 2.35rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .timeline-container {
+                max-width: 100%;
+                padding: 20px 18px 50px 18px;
             }
 
             .timeline-line {
-                left: 25px;
+                left: 30px;
                 transform: none;
+                width: 32px;
             }
 
             .timeline-row {
                 justify-content: flex-end !important;
-                margin-bottom: 20px;
+                margin-bottom: 22px;
             }
 
             .badge-wrapper {
-                width: calc(100% - 50px);
+                width: calc(100% - 58px);
             }
 
             .experience-badge {
-                padding: 20px;
+                padding: 22px 20px;
+            }
+
+            .badge-title {
+                font-size: 1.15rem;
+            }
+
+            .badge-sub {
+                font-size: 0.88rem;
+            }
+
+            .award-banner {
+                font-size: 0.8rem;
+                line-height: 1.45;
+            }
+
+            .badge-details li {
+                font-size: 0.88rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding-bottom: 55px;
+            }
+
+            .page-header {
+                padding: 56px 18px 24px 18px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+                line-height: 1.1;
+            }
+
+            .page-header p {
+                font-size: 0.92rem;
+            }
+
+            .timeline-container {
+                padding: 14px 14px 45px 14px;
+            }
+
+            .timeline-line {
+                left: 20px;
+                width: 26px;
+                opacity: 0.65;
+            }
+
+            .timeline-row {
+                margin-bottom: 18px;
+            }
+
+            .badge-wrapper {
+                width: calc(100% - 42px);
+            }
+
+            .experience-badge {
+                padding: 20px 17px;
+                border-radius: 10px;
+            }
+
+            .experience-badge::before {
+                width: 30px;
+                height: 7px;
+            }
+
+            .badge-tag {
+                font-size: 0.58rem;
+                letter-spacing: 1.1px;
+                padding: 4px 8px;
+            }
+
+            .badge-title {
+                font-size: 1.05rem;
+            }
+
+            .badge-sub {
+                font-size: 0.82rem;
+            }
+
+            .badge-date {
+                font-size: 0.82rem;
+            }
+
+            .award-banner {
+                padding: 9px 11px;
+                font-size: 0.76rem;
+            }
+
+            .badge-details li {
+                font-size: 0.84rem;
+                line-height: 1.55;
+            }
+
+            .expand-hint {
+                font-size: 0.66rem;
             }
         }
     </style>
@@ -356,6 +499,7 @@
     <div class="timeline-container">
         <div class="timeline-line"></div>
 
+        <!-- Node 1: Northwestern University -->
         <div class="timeline-row" id="row-1">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-1')">
@@ -379,6 +523,7 @@
             </div>
         </div>
 
+        <!-- Node 2: NCSU -->
         <div class="timeline-row" id="row-2">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-2')">
@@ -401,6 +546,7 @@
             </div>
         </div>
 
+        <!-- Node 3: Nanyang Technological University -->
         <div class="timeline-row" id="row-3">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-3')">
@@ -424,6 +570,7 @@
             </div>
         </div>
 
+        <!-- Node 4: Quantum Arts -->
         <div class="timeline-row" id="row-4">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-4')">
@@ -446,6 +593,7 @@
             </div>
         </div>
 
+        <!-- Node 5: NTU Student Union -->
         <div class="timeline-row" id="row-5">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-5')">
@@ -511,6 +659,11 @@
                 currentRow.style.marginBottom = "60px";
                 card.style.transform = 'none';
             }
+
+            setTimeout(() => {
+                updateMatrixHeight();
+                spawnMotifsNearViewport(2);
+            }, 650);
         }
 
         /* ========================================================
@@ -524,6 +677,19 @@
             note: "#55d8ce",
             heart: "#f48ac0"
         };
+
+        function getPageHeight() {
+            return Math.max(
+                document.body.scrollHeight,
+                document.documentElement.scrollHeight,
+                window.innerHeight
+            );
+        }
+
+        function updateMatrixHeight() {
+            if (!matrixContainer) return;
+            matrixContainer.style.height = `${getPageHeight()}px`;
+        }
 
         function pointInPolygon(x, y, points) {
             let inside = false;
@@ -677,171 +843,185 @@
             }
         ];
 
+        function getRandomMotif() {
+            return motifLibrary[Math.floor(Math.random() * motifLibrary.length)];
+        }
+
+        function getRandomX() {
+            const zones = [
+                { min: 6, max: 24 },
+                { min: 76, max: 94 },
+                { min: 34, max: 66 },
+                { min: 24, max: 40 },
+                { min: 60, max: 76 }
+            ];
+
+            const zone = zones[Math.floor(Math.random() * zones.length)];
+            return zone.min + Math.random() * (zone.max - zone.min);
+        }
+
         function spawnDotMotif(config = {}) {
             if (!matrixContainer) return;
 
-            if (matrixContainer.children.length > 10) {
+            updateMatrixHeight();
+
+            const isMobile = window.innerWidth <= 600;
+            const maxMotifs = isMobile ? 26 : 42;
+
+            if (matrixContainer.children.length > maxMotifs) {
                 return;
             }
 
-            const motif = config.motif || motifLibrary[Math.floor(Math.random() * motifLibrary.length)];
+            const motif = config.motif || getRandomMotif();
 
             const wrap = document.createElement("div");
             wrap.className = `dot-motif ${motif.type}`;
             wrap.innerHTML = motif.svg;
 
-            const scale = config.scale ?? (0.45 + Math.random() * 0.28);
-            const opacity = config.opacity ?? (0.22 + Math.random() * 0.08);
+            const scale = config.scale ?? (
+                isMobile
+                    ? 0.24 + Math.random() * 0.14
+                    : 0.34 + Math.random() * 0.24
+            );
+
+            const opacity = config.opacity ?? (
+                isMobile
+                    ? 0.13 + Math.random() * 0.06
+                    : 0.17 + Math.random() * 0.09
+            );
 
             wrap.style.setProperty("--scale", scale);
             wrap.style.setProperty("--opacity", opacity);
             wrap.style.setProperty("--rot-start", config.rotStart ?? `${-8 + Math.random() * 6}deg`);
             wrap.style.setProperty("--rot-end", config.rotEnd ?? `${3 + Math.random() * 7}deg`);
 
-            const zones = [
-    // 左上 / 右上
-    { xMin: 7,  xMax: 25, yMin: 8,  yMax: 30 },
-    { xMin: 75, xMax: 93, yMin: 8,  yMax: 30 },
+            const x = config.x ?? getRandomX();
 
-    // 左下 / 右下
-    { xMin: 7,  xMax: 25, yMin: 62, yMax: 88 },
-    { xMin: 75, xMax: 93, yMin: 62, yMax: 88 },
+            let yPx;
+            if (typeof config.yPx === "number") {
+                yPx = config.yPx;
+            } else if (config.nearViewport) {
+                const top = window.scrollY;
+                const bottom = window.scrollY + window.innerHeight;
+                yPx = top + Math.random() * Math.max(300, bottom - top);
+            } else {
+                const pageHeight = getPageHeight();
+                yPx = Math.random() * pageHeight;
+            }
 
-    // 中间偏上，不挡标题太多
-    { xMin: 35, xMax: 65, yMin: 12, yMax: 28 },
-
-    // 中间正文缝隙区域
-    { xMin: 38, xMax: 62, yMin: 35, yMax: 58 },
-
-    // 中间偏下
-    { xMin: 34, xMax: 66, yMin: 66, yMax: 86 }
-];
-
-            const zone = config.zone ?? zones[Math.floor(Math.random() * zones.length)];
-
-            const x = config.x ?? (zone.xMin + Math.random() * (zone.xMax - zone.xMin));
-            const y = config.y ?? (zone.yMin + Math.random() * (zone.yMax - zone.yMin));
+            yPx = Math.max(80, Math.min(yPx, getPageHeight() - 80));
 
             wrap.style.left = `${x}vw`;
-            wrap.style.top = `${y}vh`;
-            wrap.style.animationDelay = config.delay ?? `-${Math.random() * 22}s`;
-            wrap.style.animationDuration = config.duration ?? `${20 + Math.random() * 6}s`;
+            wrap.style.top = `${yPx}px`;
+            wrap.style.animationDelay = config.delay ?? `-${Math.random() * 24}s`;
+            wrap.style.animationDuration = config.duration ?? `${22 + Math.random() * 7}s`;
 
             matrixContainer.appendChild(wrap);
 
             setTimeout(() => {
                 wrap.remove();
-            }, 27000);
+            }, config.life ?? 42000);
         }
 
-        // 初始固定排布：页面一打开就能看到，但不会挡住中间内容
-        // 初始固定排布：左右 + 中间都出现一些，但透明度较低，不抢正文
-spawnDotMotif({
-    motif: motifLibrary[0],
-    x: 12,
-    y: 17,
-    scale: 0.46,
-    opacity: 0.24,
-    rotStart: "-6deg",
-    rotEnd: "4deg",
-    delay: "-8s"
-});
+        function spawnMotifsNearViewport(count = 2) {
+            for (let i = 0; i < count; i++) {
+                spawnDotMotif({
+                    nearViewport: true
+                });
+            }
+        }
 
-spawnDotMotif({
-    motif: motifLibrary[1],
-    x: 86,
-    y: 18,
-    scale: 0.44,
-    opacity: 0.25,
-    rotStart: "5deg",
-    rotEnd: "-4deg",
-    delay: "-12s"
-});
+        function seedWholePageMotifs() {
+            if (!matrixContainer) return;
 
-spawnDotMotif({
-    motif: motifLibrary[2],
-    x: 14,
-    y: 76,
-    scale: 0.44,
-    opacity: 0.23,
-    rotStart: "-4deg",
-    rotEnd: "5deg",
-    delay: "-15s"
-});
+            updateMatrixHeight();
 
-spawnDotMotif({
-    motif: motifLibrary[0],
-    x: 87,
-    y: 76,
-    scale: 0.40,
-    opacity: 0.22,
-    rotStart: "6deg",
-    rotEnd: "-3deg",
-    delay: "-4s"
-});
+            const pageHeight = getPageHeight();
+            const viewportHeight = window.innerHeight;
+            const pageSections = Math.max(1, Math.ceil(pageHeight / viewportHeight));
+            const isMobile = window.innerWidth <= 600;
 
-// 中间偏上：小一点、淡一点
-spawnDotMotif({
-    motif: motifLibrary[2],
-    x: 50,
-    y: 22,
-    scale: 0.34,
-    opacity: 0.16,
-    rotStart: "-3deg",
-    rotEnd: "4deg",
-    delay: "-11s"
-});
+            const motifPlan = [
+                { motif: motifLibrary[0], x: 12, yRatio: 0.14, scale: isMobile ? 0.28 : 0.43, opacity: isMobile ? 0.15 : 0.23 },
+                { motif: motifLibrary[1], x: 86, yRatio: 0.18, scale: isMobile ? 0.27 : 0.42, opacity: isMobile ? 0.15 : 0.24 },
+                { motif: motifLibrary[2], x: 50, yRatio: 0.30, scale: isMobile ? 0.23 : 0.32, opacity: isMobile ? 0.12 : 0.16 },
+                { motif: motifLibrary[0], x: 24, yRatio: 0.48, scale: isMobile ? 0.24 : 0.34, opacity: isMobile ? 0.12 : 0.17 },
+                { motif: motifLibrary[1], x: 74, yRatio: 0.56, scale: isMobile ? 0.24 : 0.35, opacity: isMobile ? 0.13 : 0.18 },
+                { motif: motifLibrary[2], x: 15, yRatio: 0.74, scale: isMobile ? 0.27 : 0.40, opacity: isMobile ? 0.14 : 0.21 },
+                { motif: motifLibrary[0], x: 87, yRatio: 0.78, scale: isMobile ? 0.25 : 0.38, opacity: isMobile ? 0.13 : 0.20 },
+                { motif: motifLibrary[1], x: 51, yRatio: 0.90, scale: isMobile ? 0.22 : 0.31, opacity: isMobile ? 0.12 : 0.16 }
+            ];
 
-// 中间正文之间：不要太大
-spawnDotMotif({
-    motif: motifLibrary[1],
-    x: 49,
-    y: 45,
-    scale: 0.32,
-    opacity: 0.15,
-    rotStart: "4deg",
-    rotEnd: "-4deg",
-    delay: "-18s"
-});
+            motifPlan.forEach((item, index) => {
+                spawnDotMotif({
+                    motif: item.motif,
+                    x: item.x,
+                    yPx: pageHeight * item.yRatio,
+                    scale: item.scale,
+                    opacity: item.opacity,
+                    rotStart: `${-6 + index}deg`,
+                    rotEnd: `${4 - index / 2}deg`,
+                    delay: `-${6 + index * 2}s`,
+                    duration: `${24 + index}s`,
+                    life: 70000
+                });
+            });
 
-// 中间偏下
-spawnDotMotif({
-    motif: motifLibrary[0],
-    x: 52,
-    y: 72,
-    scale: 0.30,
-    opacity: 0.15,
-    rotStart: "-5deg",
-    rotEnd: "3deg",
-    delay: "-6s"
-});
+            for (let section = 0; section < pageSections; section++) {
+                const baseY = section * viewportHeight;
 
-// 两侧补一点小图案
-spawnDotMotif({
-    motif: motifLibrary[1],
-    x: 8,
-    y: 48,
-    scale: 0.36,
-    opacity: 0.20,
-    rotStart: "-7deg",
-    rotEnd: "5deg",
-    delay: "-18s"
-});
+                spawnDotMotif({
+                    motif: getRandomMotif(),
+                    x: getRandomX(),
+                    yPx: baseY + viewportHeight * (0.25 + Math.random() * 0.5),
+                    scale: isMobile ? 0.22 + Math.random() * 0.12 : 0.30 + Math.random() * 0.18,
+                    opacity: isMobile ? 0.11 + Math.random() * 0.04 : 0.14 + Math.random() * 0.07,
+                    delay: `-${Math.random() * 24}s`,
+                    life: 70000
+                });
+            }
+        }
 
-spawnDotMotif({
-    motif: motifLibrary[2],
-    x: 93,
-    y: 47,
-    scale: 0.34,
-    opacity: 0.20,
-    rotStart: "7deg",
-    rotEnd: "-5deg",
-    delay: "-10s"
-});
+        let lastScrollSpawnTime = 0;
+
+        window.addEventListener("scroll", () => {
+            updateMatrixHeight();
+
+            const now = Date.now();
+
+            if (now - lastScrollSpawnTime > 700) {
+                lastScrollSpawnTime = now;
+                spawnMotifsNearViewport(window.innerWidth <= 600 ? 1 : 2);
+            }
+        }, { passive: true });
+
+        window.addEventListener("resize", () => {
+            updateMatrixHeight();
+            spawnMotifsNearViewport(2);
+        });
+
+        window.addEventListener("DOMContentLoaded", () => {
+            updateMatrixHeight();
+            seedWholePageMotifs();
+
+            setTimeout(() => {
+                updateMatrixHeight();
+                seedWholePageMotifs();
+            }, 700);
+        });
 
         setInterval(() => {
-            spawnDotMotif();
-        }, 3600);
+            updateMatrixHeight();
+            spawnMotifsNearViewport(window.innerWidth <= 600 ? 1 : 2);
+        }, 3200);
+
+        if ("ResizeObserver" in window) {
+            const observer = new ResizeObserver(() => {
+                updateMatrixHeight();
+            });
+
+            observer.observe(document.body);
+        }
     </script>
 
 </body>
