@@ -699,11 +699,23 @@
             wrap.style.setProperty("--rot-end", config.rotEnd ?? `${3 + Math.random() * 7}deg`);
 
             const zones = [
-                { xMin: 7,  xMax: 23, yMin: 10, yMax: 30 },
-                { xMin: 77, xMax: 93, yMin: 10, yMax: 30 },
-                { xMin: 7,  xMax: 24, yMin: 62, yMax: 88 },
-                { xMin: 76, xMax: 93, yMin: 62, yMax: 88 }
-            ];
+    // 左上 / 右上
+    { xMin: 7,  xMax: 25, yMin: 8,  yMax: 30 },
+    { xMin: 75, xMax: 93, yMin: 8,  yMax: 30 },
+
+    // 左下 / 右下
+    { xMin: 7,  xMax: 25, yMin: 62, yMax: 88 },
+    { xMin: 75, xMax: 93, yMin: 62, yMax: 88 },
+
+    // 中间偏上，不挡标题太多
+    { xMin: 35, xMax: 65, yMin: 12, yMax: 28 },
+
+    // 中间正文缝隙区域
+    { xMin: 38, xMax: 62, yMin: 35, yMax: 58 },
+
+    // 中间偏下
+    { xMin: 34, xMax: 66, yMin: 66, yMax: 86 }
+];
 
             const zone = config.zone ?? zones[Math.floor(Math.random() * zones.length)];
 
@@ -723,71 +735,109 @@
         }
 
         // 初始固定排布：页面一打开就能看到，但不会挡住中间内容
-        spawnDotMotif({
-            motif: motifLibrary[0],
-            x: 12,
-            y: 17,
-            scale: 0.48,
-            opacity: 0.26,
-            rotStart: "-6deg",
-            rotEnd: "4deg",
-            delay: "-8s"
-        });
+        // 初始固定排布：左右 + 中间都出现一些，但透明度较低，不抢正文
+spawnDotMotif({
+    motif: motifLibrary[0],
+    x: 12,
+    y: 17,
+    scale: 0.46,
+    opacity: 0.24,
+    rotStart: "-6deg",
+    rotEnd: "4deg",
+    delay: "-8s"
+});
 
-        spawnDotMotif({
-            motif: motifLibrary[1],
-            x: 86,
-            y: 18,
-            scale: 0.46,
-            opacity: 0.27,
-            rotStart: "5deg",
-            rotEnd: "-4deg",
-            delay: "-12s"
-        });
+spawnDotMotif({
+    motif: motifLibrary[1],
+    x: 86,
+    y: 18,
+    scale: 0.44,
+    opacity: 0.25,
+    rotStart: "5deg",
+    rotEnd: "-4deg",
+    delay: "-12s"
+});
 
-        spawnDotMotif({
-            motif: motifLibrary[2],
-            x: 14,
-            y: 76,
-            scale: 0.46,
-            opacity: 0.25,
-            rotStart: "-4deg",
-            rotEnd: "5deg",
-            delay: "-15s"
-        });
+spawnDotMotif({
+    motif: motifLibrary[2],
+    x: 14,
+    y: 76,
+    scale: 0.44,
+    opacity: 0.23,
+    rotStart: "-4deg",
+    rotEnd: "5deg",
+    delay: "-15s"
+});
 
-        spawnDotMotif({
-            motif: motifLibrary[0],
-            x: 87,
-            y: 76,
-            scale: 0.42,
-            opacity: 0.23,
-            rotStart: "6deg",
-            rotEnd: "-3deg",
-            delay: "-4s"
-        });
+spawnDotMotif({
+    motif: motifLibrary[0],
+    x: 87,
+    y: 76,
+    scale: 0.40,
+    opacity: 0.22,
+    rotStart: "6deg",
+    rotEnd: "-3deg",
+    delay: "-4s"
+});
 
-        spawnDotMotif({
-            motif: motifLibrary[1],
-            x: 8,
-            y: 48,
-            scale: 0.38,
-            opacity: 0.21,
-            rotStart: "-7deg",
-            rotEnd: "5deg",
-            delay: "-18s"
-        });
+// 中间偏上：小一点、淡一点
+spawnDotMotif({
+    motif: motifLibrary[2],
+    x: 50,
+    y: 22,
+    scale: 0.34,
+    opacity: 0.16,
+    rotStart: "-3deg",
+    rotEnd: "4deg",
+    delay: "-11s"
+});
 
-        spawnDotMotif({
-            motif: motifLibrary[2],
-            x: 93,
-            y: 47,
-            scale: 0.36,
-            opacity: 0.21,
-            rotStart: "7deg",
-            rotEnd: "-5deg",
-            delay: "-10s"
-        });
+// 中间正文之间：不要太大
+spawnDotMotif({
+    motif: motifLibrary[1],
+    x: 49,
+    y: 45,
+    scale: 0.32,
+    opacity: 0.15,
+    rotStart: "4deg",
+    rotEnd: "-4deg",
+    delay: "-18s"
+});
+
+// 中间偏下
+spawnDotMotif({
+    motif: motifLibrary[0],
+    x: 52,
+    y: 72,
+    scale: 0.30,
+    opacity: 0.15,
+    rotStart: "-5deg",
+    rotEnd: "3deg",
+    delay: "-6s"
+});
+
+// 两侧补一点小图案
+spawnDotMotif({
+    motif: motifLibrary[1],
+    x: 8,
+    y: 48,
+    scale: 0.36,
+    opacity: 0.20,
+    rotStart: "-7deg",
+    rotEnd: "5deg",
+    delay: "-18s"
+});
+
+spawnDotMotif({
+    motif: motifLibrary[2],
+    x: 93,
+    y: 47,
+    scale: 0.34,
+    opacity: 0.20,
+    rotStart: "7deg",
+    rotEnd: "-5deg",
+    delay: "-10s"
+});
 
         setInterval(() => {
             spawnDotMotif();
