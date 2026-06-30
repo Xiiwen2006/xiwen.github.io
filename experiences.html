@@ -79,7 +79,6 @@
             width: 40px;
             transform: translateX(-50%);
             pointer-events: none;
-            /* 使用 SVG 绘制优雅平滑的波浪蜿蜒虚线 */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 100' preserveAspectRatio='none'%3E%3Cpath d='M20,0 Q30,25 20,50 Q10,75 20,100' fill='none' stroke='%23c2b29a' stroke-width='2' stroke-dasharray='4,6'/%3E%3C/svg%3E");
             background-size: 100% 120px;
             opacity: 0.8;
@@ -89,7 +88,7 @@
         .timeline-row {
             position: relative;
             width: 100%;
-            margin-bottom: 25px; /* 🔥 极其紧密，卡片之间几乎首尾相接 */
+            margin-bottom: 25px; 
             display: flex;
             justify-content: flex-start;
             transition: margin 0.5s cubic-bezier(0.25, 1, 0.5, 1);
@@ -116,7 +115,6 @@
             cursor: pointer;
             position: relative;
             transform-style: preserve-3d;
-            /* 丝滑的点击向下推开排布的动效过渡 */
             transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
                         box-shadow 0.3s ease, 
                         max-width 0.5s ease;
@@ -156,7 +154,7 @@
         .tag-academia { background: #fdf3e7; color: #e67e22; }
         .tag-leader { background: #ebf9eb; color: #2ecc71; }
 
-        /* 履历标题排版优化 */
+        /* 履历标题排版：统一视觉层级 */
         .badge-title {
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
             font-size: 1.25rem;
@@ -191,7 +189,7 @@
             font-weight: 700;
         }
 
-        /* 🔓 详情叙述区：设为自动以防内容显示不全，通过 padding 动画实现隐藏与展开 */
+        /* 详情叙述区 */
         .badge-details {
             max-height: 0;
             opacity: 0;
@@ -221,18 +219,15 @@
             font-weight: bold;
         }
 
-        /* ========================================================
-            ⚡ 点击激活展开时：卡片撑大并垂直推开空隙的逻辑
-           ======================================================== */
+        /* ⚡ 点击激活展开状态 */
         .experience-badge.is-expanded {
             max-width: 650px;
             cursor: default;
             box-shadow: 0 25px 55px rgba(0,0,0,0.12);
         }
         
-        /* 关键：当卡片展开时，释放max-height，使长文本内容绝不被截断 */
         .experience-badge.is-expanded .badge-details {
-            max-height: 1500px; /* 给予绝对足够的空间绽放 */
+            max-height: 1500px; 
             opacity: 1;
             border-top: 1px dashed #e5dfd5;
             padding-top: 18px;
@@ -253,7 +248,7 @@
         }
 
         /* ========================================================
-            📱 响应式移动端体验补丁
+            📱 响应式移动端体验
            ======================================================== */
         @media (max-width: 992px) {
             body { padding-bottom: 50px; }
@@ -287,8 +282,12 @@
     </div>
 
     <div class="timeline-container">
+        <!-- 🪱 纵向牛皮纸色手绘虚线 -->
         <div class="timeline-line"></div>
 
+        <!-- ==========================================
+            Node 1: Northwestern University
+           ========================================== -->
         <div class="timeline-row" id="row-1">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-1')">
@@ -314,6 +313,9 @@
             </div>
         </div>
 
+        <!-- ==========================================
+            Node 2: NCSU
+           ========================================== -->
         <div class="timeline-row" id="row-2">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-2')">
@@ -335,12 +337,15 @@
             </div>
         </div>
 
+        <!-- ==========================================
+            Node 3: Nanyang Technological University (URECA)
+           ========================================== -->
         <div class="timeline-row" id="row-3">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-3')">
                     <span class="badge-tag tag-academia">RESEARCH // CAMPUS UNDERGRADUATE</span>
-                    <h2 class="badge-title">Undergraduate Research Experience on Campus (URECA)</h2>
-                    <div class="badge-sub">Nanyang Technological University // Research Fellow</div>
+                    <h2 class="badge-title">Nanyang Technological University</h2>
+                    <div class="badge-sub">Undergraduate Research Fellow (URECA Program)</div>
                     <div class="badge-date">Oct 2025 – July 2026</div>
                     
                     <div class="award-banner">
@@ -360,12 +365,16 @@
             </div>
         </div>
 
+        <!-- ==========================================
+            Node 4: Quantum Arts
+           ========================================== -->
         <div class="timeline-row" id="row-4">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-4')">
                     <span class="badge-tag tag-industry">INDUSTRY // GAME ENGINE INTERN</span>
-                    <h2 class="badge-title">Software Development Intern (Client-side)</h2>
-                    <div class="badge-sub">Quantum Arts (西岐网络)</div>
+                    <!-- 🛠️ 结构归位：大标题为公司，副标题为具体岗位 -->
+                    <h2 class="badge-title">Quantum Arts </h2>
+                    <div class="badge-sub">Software Development Intern (Client-side)</div>
                     <div class="badge-date">May 2025 – July 2025</div>
 
                     <div class="badge-details">
@@ -381,12 +390,16 @@
             </div>
         </div>
 
+        <!-- ==========================================
+            Node 5: NTU Student Union
+           ========================================== -->
         <div class="timeline-row" id="row-5">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-5')">
                     <span class="badge-tag tag-leader">LEADERSHIP // CAMPUS LIFE</span>
-                    <h2 class="badge-title">Director of University-wide Music & Culture Festival (FEST)</h2>
-                    <div class="badge-sub">NTU Student Union</div>
+                    <!-- 🛠️ 结构归位：大标题为组织，副标题为具体的角色和活动 -->
+                    <h2 class="badge-title">NTU Student Union</h2>
+                    <div class="badge-sub">Director of University-wide Music & Culture Festival (FEST)</div>
                     <div class="badge-date">Sep 2024 - Sep 2025</div>
 
                     <div class="badge-details">
@@ -406,7 +419,7 @@
     <script>
         const badges = document.querySelectorAll('.experience-badge');
 
-        // 1. ⚡ 3D 悬停视差倾斜效果
+        // 1. 3D 悬停视差倾斜效果
         badges.forEach(badge => {
             badge.addEventListener('mousemove', (e) => {
                 if (badge.classList.contains('is-expanded')) {
@@ -431,19 +444,16 @@
             });
         });
 
-        // 2. ⚡ 点击展开：动态把下方的卡片推开，消除大空白的同时保持完美呼吸感
+        // 2. 点击展开与垂直紧密推开
         function toggleBadge(card, rowId) {
             const currentRow = document.getElementById(rowId);
             
             if (card.classList.contains('is-expanded')) {
-                // 收拢卡片
                 card.classList.remove('is-expanded');
-                currentRow.style.marginBottom = "25px"; // 恢复紧密排布
+                currentRow.style.marginBottom = "25px"; 
                 card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
             } else {
-                // 展开卡片
                 card.classList.add('is-expanded');
-                // 🔥 动态增大当前行的下边距，优雅地把底下的卡片往下推，留出完美的空间
                 currentRow.style.marginBottom = "60px"; 
                 card.style.transform = 'none';
             }
