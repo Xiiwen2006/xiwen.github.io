@@ -24,6 +24,39 @@
             overflow-x: hidden;
             perspective: 1000px;
             padding-bottom: 120px;
+            position: relative;
+        }
+
+        /* ========================================================
+            🎀 动态明亮 Y2K ASCII 背景画布样式
+           ======================================================== */
+        #ascii-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* 让鼠标穿透，不影响卡片点击 */
+            z-index: -1;          /* 铺在最底层 */
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace; /* 纯正ASCII等宽字体 */
+            font-weight: bold;
+        }
+
+        .ascii-element {
+            position: absolute;
+            white-space: pre;
+            line-height: 1;
+            transform-origin: center;
+            opacity: 0;
+            animation: asciiFade 8s ease-in-out infinite;
+        }
+
+        @keyframes asciiFade {
+            0% { transform: translate(-50%, -50%) scale(0.6) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.25; } /* 淡淡的，维持柔和质感 */
+            85% { opacity: 0.25; }
+            100% { transform: translate(-50%, -50%) scale(1.1) rotate(15deg); opacity: 0; }
         }
 
         /* 优雅的返回按钮 */
@@ -45,6 +78,8 @@
         .page-header {
             text-align: center;
             padding: 80px 20px 40px 20px;
+            position: relative;
+            z-index: 10;
         }
         .page-header h1 {
             font-family: 'Playfair Display', serif;
@@ -68,6 +103,7 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
+            z-index: 10;
         }
 
         /* 🪱 完美的牛皮纸色手绘感蜿蜒虚线轴 */
@@ -107,7 +143,7 @@
         }
 
         .experience-badge {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95); /* 轻微透明，能隐约透出后面的ASCII微光 */
             border: 1px solid #e3ded4;
             border-radius: 12px;
             padding: 24px 28px;
@@ -154,7 +190,7 @@
         .tag-academia { background: #fdf3e7; color: #e67e22; }
         .tag-leader { background: #ebf9eb; color: #2ecc71; }
 
-        /* 履历标题排版：统一视觉层级 */
+        /* 履历标题排版：统一公司在上，角色在下的层级 */
         .badge-title {
             font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
             font-size: 1.25rem;
@@ -274,6 +310,8 @@
 </head>
 <body>
 
+    <div id="ascii-background"></div>
+
     <a href="index.html" class="back-to-box">← Back to Tin Case</a>
 
     <div class="page-header">
@@ -282,12 +320,8 @@
     </div>
 
     <div class="timeline-container">
-        <!-- 🪱 纵向牛皮纸色手绘虚线 -->
         <div class="timeline-line"></div>
 
-        <!-- ==========================================
-            Node 1: Northwestern University
-           ========================================== -->
         <div class="timeline-row" id="row-1">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-1')">
@@ -313,9 +347,6 @@
             </div>
         </div>
 
-        <!-- ==========================================
-            Node 2: NCSU
-           ========================================== -->
         <div class="timeline-row" id="row-2">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-2')">
@@ -337,9 +368,6 @@
             </div>
         </div>
 
-        <!-- ==========================================
-            Node 3: Nanyang Technological University (URECA)
-           ========================================== -->
         <div class="timeline-row" id="row-3">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-3')">
@@ -365,15 +393,11 @@
             </div>
         </div>
 
-        <!-- ==========================================
-            Node 4: Quantum Arts
-           ========================================== -->
         <div class="timeline-row" id="row-4">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-4')">
                     <span class="badge-tag tag-industry">INDUSTRY // GAME ENGINE INTERN</span>
-                    <!-- 🛠️ 结构归位：大标题为公司，副标题为具体岗位 -->
-                    <h2 class="badge-title">Quantum Arts </h2>
+                    <h2 class="badge-title">Quantum Arts (西岐网络)</h2>
                     <div class="badge-sub">Software Development Intern (Client-side)</div>
                     <div class="badge-date">May 2025 – July 2025</div>
 
@@ -390,14 +414,10 @@
             </div>
         </div>
 
-        <!-- ==========================================
-            Node 5: NTU Student Union
-           ========================================== -->
         <div class="timeline-row" id="row-5">
             <div class="badge-wrapper">
                 <div class="experience-badge" onclick="toggleBadge(this, 'row-5')">
                     <span class="badge-tag tag-leader">LEADERSHIP // CAMPUS LIFE</span>
-                    <!-- 🛠️ 结构归位：大标题为组织，副标题为具体的角色和活动 -->
                     <h2 class="badge-title">NTU Student Union</h2>
                     <div class="badge-sub">Director of University-wide Music & Culture Festival (FEST)</div>
                     <div class="badge-date">Sep 2024 - Sep 2025</div>
@@ -417,9 +437,73 @@
     </div>
 
     <script>
+        // ========================================================
+        // ✨ 纯前端动态 ASCII 粒子背景渲染引擎
+        // ========================================================
+        const asciiContainer = document.getElementById('ascii-background');
+        
+        // 1. 预设三种可爱的高级 Y2K 字符图案
+        const asciiArtworks = [
+            // 🎀 经典等宽小蝴蝶结
+            {
+                text: " 🎀 \n /\\ \n(  )\n ~~ ",
+                color: "#9ae2d1" // 薄荷蓝绿 Mint
+            },
+            // 💛 闪烁十字小星星
+            {
+                text: "  * \n* + *\n  * ",
+                color: "#f6e49c" // 柔和淡黄 Yellow
+            },
+            // 💗 Y2K 像素感空心小爱心
+            {
+                text: " .-. .-. \n(   `   )\n `.._..' \n   `.'   ",
+                color: "#f5b7cc" // 浅淡蜜桃粉 Pink
+            }
+        ];
+
+        // 2. 动态生成漂浮粒子
+        function createAsciiParticle() {
+            // 控制同屏最大数量，保持精简不纷乱
+            if (asciiContainer.children.length > 15) return;
+
+            const element = document.createElement('div');
+            element.classList.add('ascii-element');
+            
+            // 随机抽取一个图案样式
+            const art = asciiArtworks[Math.floor(Math.random() * asciiArtworks.length)];
+            element.innerText = art.text;
+            element.style.color = art.color;
+            
+            // 随机抛洒位置（避开最两侧，聚拢在可视区）
+            const randomX = Math.random() * 100;
+            const randomY = Math.random() * 100;
+            element.style.left = `${randomX}vw`;
+            element.style.top = `${randomY}vh`;
+            
+            // 随机给予微小的初始字体大小（保证远近层次感）
+            const size = 11 + Math.random() * 6;
+            element.style.fontSize = `${size}px`;
+            
+            // 随机延迟动画，防止同时亮起
+            element.style.animationDelay = `${Math.random() * 4}s`;
+
+            asciiContainer.appendChild(element);
+
+            // 动画结束后自动回收内存，防止浏览器变卡
+            setTimeout(() => {
+                element.remove();
+            }, 8000);
+        }
+
+        // 循环生产常驻星空
+        setInterval(createAsciiParticle, 600);
+        for(let i=0; i<8; i++) { createAsciiParticle(); } // 页面刚打开时先初始化几个
+
+        // ========================================================
+        // 📇 原有的 3D 悬停与紧密推开交互保持原封不动
+        // ========================================================
         const badges = document.querySelectorAll('.experience-badge');
 
-        // 1. 3D 悬停视差倾斜效果
         badges.forEach(badge => {
             badge.addEventListener('mousemove', (e) => {
                 if (badge.classList.contains('is-expanded')) {
@@ -444,7 +528,6 @@
             });
         });
 
-        // 2. 点击展开与垂直紧密推开
         function toggleBadge(card, rowId) {
             const currentRow = document.getElementById(rowId);
             
